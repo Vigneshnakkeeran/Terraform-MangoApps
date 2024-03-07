@@ -17,6 +17,10 @@ single_nat_gateway                 = true
 one_nat_gateway_per_az             = false
 create_igw                         = true
 
+############################ Bastion Host ##################################
+
+bastion_instance_type = "t2.micro"
+
 ################################ ASG ####################################
 
 asg_min_size                    = 1
@@ -153,5 +157,29 @@ rds_egress_with_cidr_blocks = [
     cidr_blocks = "0.0.0.0/0"
   }
 ]
+
+############################# RDS Security Group ##############################
+
+create_bastion_sg      = true
+bastion_sg_description = "Security group for Bastion Host"
+bastion_ingress_with_cidr_blocks = [
+  {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    description = "SSH Access from anywhere"
+    cidr_blocks = "0.0.0.0/0"
+  }
+]
+
+bastion_egress_with_cidr_blocks = [
+  {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = "0.0.0.0/0"
+  }
+]
+
 
 ############################################################################

@@ -3,14 +3,15 @@ module "ec2_instance" {
 
   name = "${var.client_name}-${var.environment}-bastion-host"
 
-  instance_type          = "t2.micro"
+  instance_type          = var.bastion_instance_type
   key_name               = var.asg_key_name
   monitoring             = true
-  vpc_security_group_ids = ["sg-12345678"]
+  vpc_security_group_ids = [module.bastion_security_group.security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
 
   tags = {
-    Terraform   = "true"
-    Environment = "dev"
+    Created_by  = "Terraform"
+    Client      = var.client_name
+    Environment = var.environment
   }
 }

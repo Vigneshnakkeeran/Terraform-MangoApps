@@ -69,6 +69,13 @@ variable "create_igw" {
   type        = bool
 }
 
+################## Bastion Host variables ##########################
+
+variable "bastion_instance_type" {
+  description = "Instance Type used by the Bastion Host"
+  type = string
+}
+
 ################## ASG variables ##########################
 
 variable "asg_min_size" {
@@ -317,12 +324,39 @@ variable "rds_ingress_with_cidr_blocks" {
   type        = list(map(string))
 }
 
-# variable "asg_ingress_with_source_security_group_id" {
+# variable "rds_ingress_with_source_security_group_id" {
 #   description = "List of ingress rules to create where 'security group' is used"
 #   type        = list(map(string))
 # }
 
 variable "rds_egress_with_cidr_blocks" {
+  description = "List of egress rules to create by name"
+  type        = list(map(string))
+}
+
+################## Bastion Host Security Group variables ##########################
+
+variable "create_bastion_sg" {
+  description = "Whether to create security group for Bastion Host"
+  type        = bool
+}
+
+variable "bastion_sg_description" {
+  description = "Security Group for instances created by the Bastion Host"
+  type        = string
+}
+
+variable "bastion_ingress_with_cidr_blocks" {
+  description = "List of ingress rules to create where 'cidr_blocks' is used"
+  type        = list(map(string))
+}
+
+# variable "bastion_ingress_with_source_security_group_id" {
+#   description = "List of ingress rules to create where 'security group' is used"
+#   type        = list(map(string))
+# }
+
+variable "bastion_egress_with_cidr_blocks" {
   description = "List of egress rules to create by name"
   type        = list(map(string))
 }

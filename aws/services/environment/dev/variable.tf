@@ -242,7 +242,20 @@ variable "rds_aurora_publicly_accessible" {
   type        = bool
 }
 
+################## SNS Variables ##########################
+
+variable "sns_additional_subscriptions" {
+  description = "A map of subscription definitions to create"
+  type        = any
+  default     = null
+}
+
 ################## SQS Variables ##########################
+
+variable "create_sqs" {
+  description = "Wheter to create SQS or not."
+  type = bool
+}
 
 variable "sqs_create_fifo_queue" {
   description = "Should be true if you want to create fifo queue"

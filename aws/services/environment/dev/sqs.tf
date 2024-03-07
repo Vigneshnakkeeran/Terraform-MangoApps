@@ -1,8 +1,6 @@
-
-data "aws_caller_identity" "current" {}
-
 module "sqs" {
   source = "../../../modules/sqs"
+        count = var.create_sqs ? 1 : 0
 
   name                    = "${var.client_name}-${var.environment}-sqs"
   fifo_queue              = var.sqs_create_fifo_queue

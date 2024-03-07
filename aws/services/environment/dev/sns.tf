@@ -28,11 +28,11 @@ module "sns" {
     }
   })
 
-  subscriptions = {
+  create_subscription = var.create_sqs
+        subscriptions = {
     sqs = {
       protocol = "sqs"
-      endpoint = "${module.sqs.queue_arn}"
-
+      endpoint = module.sqs[0].queue_arn
     }
   }
 
@@ -41,4 +41,12 @@ module "sns" {
     Client      = var.client_name
     Environment = var.environment
   }
+}
+
+# SNS Email Subscription
+module "sns_additional_subscription" {
+	source = "../../../modules/sns/sns-subscription"
+	count = var.sns_additional_subscriptions == null ? 0 : 1
+	subscriptions = var.sns_additional_subscriptions
+	sns_topic_arn = module.sns.topic_arn
 }

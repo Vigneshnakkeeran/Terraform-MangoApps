@@ -91,8 +91,18 @@ server_side_encryption_configuration = {
   }
 }
 
+################################ SNS ####################################
+
+sns_additional_subscriptions = {
+  email = {
+    protocol = "email"
+    endpoint = "adarshashok.k@cloudifyops.com"
+  }
+}
+
 ################################ SQS ####################################
 
+create_sqs            = true
 sqs_create_fifo_queue = false
 sqs_sse_enabled       = true
 sqs_create_dlq        = true

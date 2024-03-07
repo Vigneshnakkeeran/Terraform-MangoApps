@@ -9,4 +9,4 @@ data "aws_ssm_parameter" "rds_aurora_parameter_password" {
   name = "mangoapps-dev-aurora-pass"
 }
 
-
+data "aws_caller_identity" "current" {}

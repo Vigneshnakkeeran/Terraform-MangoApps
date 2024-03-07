@@ -1,6 +1,6 @@
 # ASG with block device mapping
 module "asg" {
-  source  = "../../../modules/asg"
+  source = "../../../modules/asg"
 
   name = "${var.client_name}-${var.environment}-asg"
 
@@ -12,11 +12,11 @@ module "asg" {
   vpc_zone_identifier       = module.vpc.private_subnets
 
   # Launch template
-  launch_template_name        = "${var.client_name}-${var.environment}-asg-Launch-template" 
+  launch_template_name        = "${var.client_name}-${var.environment}-asg-Launch-template"
   launch_template_description = "Launch template for ${var.client_name} ${var.environment} environment"
-  
-  key_name          = var.asg_key_name 
-  security_groups   = [module.asg_security_group.security_group_id] 
+
+  key_name        = var.asg_key_name
+  security_groups = [module.asg_security_group.security_group_id]
 
   image_id          = var.asg_ami_id
   instance_type     = var.asg_instance_type
@@ -32,7 +32,7 @@ module "asg" {
     AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
   }
 
-  block_device_mappings = var.asg_volume_mapping 
+  block_device_mappings = var.asg_volume_mapping
 
   metadata_options = {
     http_endpoint               = "enabled"
@@ -41,8 +41,8 @@ module "asg" {
   }
 
   tags = {
-    Created_by = "Terraform"
-    Client     = var.client_name
+    Created_by  = "Terraform"
+    Client      = var.client_name
     Environment = var.environment
   }
 }

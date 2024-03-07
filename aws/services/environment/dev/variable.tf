@@ -2,36 +2,36 @@
 
 variable "client_name" {
   description = "Client Name"
-  type = string
+  type        = string
 }
 
 variable "environment" {
   description = "Environment Name"
-  type = string
+  type        = string
 }
 
 ################## Network variables ##########################
 
 variable "vpc_cidr" {
-    description = "mention the cidr_block range for the vpc"
-    type        = string
-    default = ""
+  description = "mention the cidr_block range for the vpc"
+  type        = string
+  default     = ""
 }
 
 variable "public_subnets" {
-    description = "A list of public subnets inside the VPC"
-    type        = list(string)
+  description = "A list of public subnets inside the VPC"
+  type        = list(string)
 }
 
 variable "private_subnets" {
-    description = "A list of private subnets inside the VPC"
-    type        = list(string)
+  description = "A list of private subnets inside the VPC"
+  type        = list(string)
 }
 
 variable "database_subnets" {
-    description = "A list of database subnets inside the VPC"
-    type        = list(string)
-    default = []
+  description = "A list of database subnets inside the VPC"
+  type        = list(string)
+  default     = []
 }
 
 variable "create_database_subnet_group" {
@@ -40,85 +40,85 @@ variable "create_database_subnet_group" {
 }
 
 variable "create_database_subnet_route_table" {
-   description   = "Shoud be true if you want to create separate route table for database" 
-   type            = bool
+  description = "Shoud be true if you want to create separate route table for database"
+  type        = bool
 }
 
 variable "enable_nat_gateway" {
-    description = "Should be true if you want to provision NAT Gateways for each of your private networks"
-    type        = bool
+  description = "Should be true if you want to provision NAT Gateways for each of your private networks"
+  type        = bool
 }
 
 variable "create_database_nat_gateway_route" {
-    description = "Should be true if nat gateway route should be created to give internet access to the database subnets"  
-    type        = bool
+  description = "Should be true if nat gateway route should be created to give internet access to the database subnets"
+  type        = bool
 }
 
 variable "single_nat_gateway" {
-    description = "Should be true if you want to provision a single shared NAT Gateway across all of your private networks"
-    type        = bool
+  description = "Should be true if you want to provision a single shared NAT Gateway across all of your private networks"
+  type        = bool
 }
 
 variable "one_nat_gateway_per_az" {
-    description = "Should be true if you want only one NAT Gateway per availability zone and the number of `public_subnets` created to be greater than or equal to the number of availability zones specified in `azs`" 
-    type = bool
+  description = "Should be true if you want only one NAT Gateway per availability zone and the number of `public_subnets` created to be greater than or equal to the number of availability zones specified in `azs`"
+  type        = bool
 }
 
 variable "create_igw" {
-    description = "Should be true if you want to create IGW" 
-    type = bool
+  description = "Should be true if you want to create IGW"
+  type        = bool
 }
 
 ################## ASG variables ##########################
 
 variable "asg_min_size" {
-    description = "Minimum Size for the ASG"
-	type = number
+  description = "Minimum Size for the ASG"
+  type        = number
 }
 
 variable "asg_max_size" {
-    description = "Maximum Size for the ASG"
-	type = number
-} 
+  description = "Maximum Size for the ASG"
+  type        = number
+}
 
-variable "asg_desired_size"{
-    description = "Desired Size for the ASG"
-	type = number
+variable "asg_desired_size" {
+  description = "Desired Size for the ASG"
+  type        = number
 }
 
 variable "asg_ami_id" {
-    description = "AMI ID for the ASG Launch Template"
-	type = string
+  description = "AMI ID for the ASG Launch Template"
+  type        = string
 }
 
 variable "asg_instance_type" {
-    description = "Instance type for the ASG Launch Template"
-	type = string
+  description = "Instance type for the ASG Launch Template"
+  type        = string
 }
 
 variable "create_asg_iam_instance_profile" {
-    description = "If enabled, creates instance profiles for the instances launched by the ASG"
-	type = bool
+  description = "If enabled, creates instance profiles for the instances launched by the ASG"
+  type        = bool
 }
 
-variable "asg_instance_ebs_optimized"{
-    description = "If enabled, the instances launched by the ASG will be EBS optimized"
-	type = bool
+variable "asg_instance_ebs_optimized" {
+  description = "If enabled, the instances launched by the ASG will be EBS optimized"
+  type        = bool
 }
 
 variable "enable_asg_monitoring" {
-    description = "Enables monitoring for the ASG"
-	type = bool
+  description = "Enables monitoring for the ASG"
+  type        = bool
 }
 
 variable "asg_volume_mapping" {
-    description = "EBS Volume mappings for ASG"
-    type = list(any)
+  description = "EBS Volume mappings for ASG"
+  type        = list(any)
 }
 
 variable "asg_key_name" {
   description = "Key Pair used for SSH to ASG instances"
-  type = string
+  type        = string
 }
 
 ################## S3 variables ##########################
@@ -241,6 +241,24 @@ variable "rds_aurora_publicly_accessible" {
   description = "Determines whether instances are publicly accessible. Default `false`"
   type        = bool
 }
+
+################## SQS Variables ##########################
+
+variable "sqs_create_fifo_queue" {
+  description = "Should be true if you want to create fifo queue"
+  type        = bool
+}
+
+variable "sqs_sse_enabled" {
+  description = "Should  be true if you want to enable server side encription"
+  type        = bool
+}
+
+variable "sqs_create_dlq" {
+  description = "Should be true if you want to create SQS dead letter queue"
+  type        = bool
+}
+
 
 ################## ASG Security Group variables ##########################
 

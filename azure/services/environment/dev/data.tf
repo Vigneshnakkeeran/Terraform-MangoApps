@@ -1,3 +1,4 @@
+# For Fetching the Resource Group Data From the Statefile.
 data "terraform_remote_state" "dev_resource_group" {
   backend = "azurerm"
   config = {

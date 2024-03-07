@@ -128,3 +128,85 @@ variable "vnet_name" {
   default     = "acctvnet"
   description = "Name of the vnet to create."
 }
+################### Security Group Variables #######################
+variable "securitygroup_name" {
+  type        = string
+  default     = ""
+  description = "Name of the vnet to create."
+}
+variable "custom_rules" {
+  description = "List of ingress rules to create where 'cidr_blocks' is used"
+  type        = list(map(string))
+}
+########################## VMSS ###################################################
+variable "vmscaleset_name" {
+  description = "Specifies the name of the virtual machine scale set resource"
+  default     = ""
+}
+
+variable "linux_distribution_name" {
+  type        = string
+  default     = "ubuntu1804"
+  description = "Variable to pick an OS flavour for Linux based VMSS possible values include: centos8, ubuntu1804"
+}
+
+variable "os_flavor" {
+  description = "Specify the flavour of the operating system image to deploy VMSS. Valid values are `windows` and `linux`" 
+}
+
+variable "virtual_machine_size" {
+  description = "The Virtual Machine SKU for the Scale Set, Default is Standard_A2_V2" 
+}
+
+variable "instances_count" {
+  description = "The number of Virtual Machines in the Scale Set."
+}
+
+variable "enable_autoscale_for_vmss" {
+  description = "Manages a AutoScale Setting which can be applied to Virtual Machine Scale Sets"
+  default     = false
+}
+
+variable "minimum_instances_count" {
+  description = "The minimum number of instances for this resource. Valid values are between 0 and 1000"
+  default     = null
+}
+
+variable "maximum_instances_count" {
+  description = "The maximum number of instances for this resource. Valid values are between 0 and 1000"
+  default     = ""
+}
+
+variable "scale_out_cpu_percentage_threshold" {
+  description = "Specifies the threshold % of the metric that triggers the scale out action."
+}
+
+variable "scale_in_cpu_percentage_threshold" {
+  description = "Specifies the threshold of the metric that triggers the scale in action."
+}
+
+variable "scaling_action_instances_number" {
+  description = "The number of instances involved in the scaling action"
+}
+
+variable "generate_admin_ssh_key" {
+  description = "Generates a secure private key and encodes it as PEM."
+  default     = true
+}
+
+variable "admin_username" {
+  description = "The username of the local administrator used for the Virtual Machine."
+}
+
+variable "admin_password" {
+  description = "The Password which should be used for the local-administrator on this Virtual Machine"
+  default     = null
+}
+
+variable "os_disk_storage_account_type" {
+  description = "The Type of Storage Account which should back this the Internal OS Disk. Possible values include Standard_LRS, StandardSSD_LRS and Premium_LRS."
+}
+
+variable "assign_public_ip_to_each_vm_in_vmss" {
+  description = "Create a virtual machine scale set that assigns a public IP address to each VM"
+}

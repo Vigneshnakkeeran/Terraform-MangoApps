@@ -1,4 +1,4 @@
-module "complete_sns" {
+module "sns" {
   source = "../../../modules/sns"
 
   name            = "${var.client_name}-${var.environment}-sns"

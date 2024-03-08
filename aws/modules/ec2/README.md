@@ -56,10 +56,6 @@ module "ec2_instance" {
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.66 |
 
-## Modules
-
-No modules.
-
 ## Resources
 
 | Name | Type |

@@ -21,7 +21,7 @@ This Terraform template is designed for creating and managing AWS SQS on Amazon 
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_sqs"></a> [sqs](#module\_sqs) | mangoapps/aws/modules/sqs | n/a |
+| <a name="module_sqs"></a> [sqs](#module\_sqs) | mango-terraform/aws/modules/sqs | n/a |
 
 ## Resources
 

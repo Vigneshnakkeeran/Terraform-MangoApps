@@ -20,8 +20,8 @@ This Terraform template is designed for creating and managing AWS SNS (Simple No
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_sns"></a> [sns](#module\_sns) | mangoapps/aws/modules/sns | n/a |
-| <a name="module_sns_email_subscription"></a> [sns\_email\_subscription](#module\_sns\_email\_subscription) | mangoapps/aws/modules/sns/sns-subscription | n/a |
+| <a name="module_sns"></a> [sns](#module\_sns) | mango-terraform/aws/modules/sns | n/a |
+| <a name="module_sns_email_subscription"></a> [sns\_email\_subscription](#module\_sns\_email\_subscription) | mango-terraform/aws/modules/sns/sns-subscription | n/a |
 
 ## Resources
 

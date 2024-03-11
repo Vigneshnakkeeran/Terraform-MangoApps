@@ -1,23 +1,22 @@
 ################### Common Variables #######################
+
 variable "location" {
   description = "The location/region to keep all your resources. To get the list of all locations with table format from azure cli, run 'az account list-locations -o table'"
   type        = string
   default     = ""
 }
-variable "resource_group_name" {
-  description = "A container that holds related resources for an Azure solution"
-  type        = string
-  default     = ""
-}
+
 variable "default_tags" {
   type    = map(string)
   default = {}
 }
+
 variable "environment" {
   type = string
   default = ""
   description = "environment name 'int, prod, dev'" 
 }
+
 variable "client_name" {
   type = string
   default = ""
@@ -25,11 +24,6 @@ variable "client_name" {
 }
 
 ################### Network Variables #######################
-
-variable "resource_group_name" {
-  type        = string
-  description = "The name of an existing resource group to be imported."
-}
 
 variable "use_for_each" {
   type        = bool
@@ -128,17 +122,22 @@ variable "vnet_name" {
   default     = "acctvnet"
   description = "Name of the vnet to create."
 }
+
 ################### Security Group Variables #######################
+
 variable "securitygroup_name" {
   type        = string
   default     = ""
   description = "Name of the vnet to create."
 }
+
 variable "custom_rules" {
   description = "List of ingress rules to create where 'cidr_blocks' is used"
   type        = list(map(string))
 }
-########################## VMSS ###################################################
+
+########################## VMSS Variables ######################################
+
 variable "vmscaleset_name" {
   description = "Specifies the name of the virtual machine scale set resource"
   default     = ""
@@ -209,4 +208,46 @@ variable "os_disk_storage_account_type" {
 
 variable "assign_public_ip_to_each_vm_in_vmss" {
   description = "Create a virtual machine scale set that assigns a public IP address to each VM"
+}
+
+########################## Storage Account Variables ###################################
+
+variable "storage_account_replication_type" {
+  description = "Valid options are LRS, GRS, RAGRS, ZRS, GZRS and RAGZRS."
+  type = string
+}
+
+variable "storage_account_kind" {
+  description = "The type of storage account. Valid options are BlobStorage, BlockBlobStorage, FileStorage, Storage and StorageV2."
+  type = string
+}
+
+variable "storage_account_tier" {
+  description = "Storage Account Tier"
+  type = string
+}
+
+variable "enable_storage_account_advanced_threat_protection" {
+  description = "If enabled, advanced threat protection is added for the storage account"
+  type = bool
+}
+
+variable "enable_storage_account_containers" {
+  description = "If enabled, creates containers for the storage account"
+  type = bool
+}
+
+variable "enable_storage_account_fileshares" {
+  description = "If enabled, creates file share for the storage account"
+  type = bool
+}
+
+variable "storage_account_containers" {
+  description = "List of containers for the storage account"
+  type = list(object({ name = string, access_type = string }))
+}
+
+variable "storage_account_fileshares" {
+  description = "List of file shares for the storage account"
+  type = list(object({ name = string, quota = number }))
 }

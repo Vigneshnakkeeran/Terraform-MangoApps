@@ -44,9 +44,9 @@ module "sns" {
 }
 
 # SNS Email Subscription
-module "sns_additional_subscription" {
+module "sns_email_subscription" {
 	source = "../../../modules/sns/sns-subscription"
-	count = var.sns_additional_subscriptions == null ? 0 : 1
-	subscriptions = var.sns_additional_subscriptions
+	count = var.sns_email_subscriptions == null ? 0 : 1
+	subscriptions = var.sns_email_subscriptions
 	sns_topic_arn = module.sns.topic_arn
 }

@@ -97,7 +97,7 @@ server_side_encryption_configuration = {
 
 ################################ SNS ####################################
 
-sns_additional_subscriptions = {
+sns_email_subscriptions = {
   email = {
     protocol = "email"
     endpoint = "adarshashok.k@cloudifyops.com"
@@ -110,6 +110,9 @@ create_sqs            = true
 sqs_create_fifo_queue = false
 sqs_sse_enabled       = true
 sqs_create_dlq        = true
+max_message_size      = null #262144
+message_retention_seconds = null  #provide value in second 345600
+enable_content_based_deduplication = true #to enable this fifo queue should also true
 
 
 ############################# ASG Security Group ##############################

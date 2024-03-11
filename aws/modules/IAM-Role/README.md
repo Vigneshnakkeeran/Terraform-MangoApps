@@ -37,8 +37,9 @@ module "iam_role_with_policies" {
 }
 EOF
 }
+```
 
-## Input
+# Input
 
 | Header 1 | Header 2 | Header 3 |
 |----------|----------|----------|

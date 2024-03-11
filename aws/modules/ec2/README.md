@@ -4,7 +4,7 @@
 
 ```hcl
 module "ec2_instance" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
+  source  = "path-of-module"
 
   name = "single-instance"
 
@@ -24,7 +24,7 @@ module "ec2_instance" {
 
 ```hcl
 module "ec2_instance" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
+  source  = "path-of-module"
 
   for_each = toset(["one", "two", "three"])
 

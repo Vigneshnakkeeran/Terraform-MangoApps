@@ -22,7 +22,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | mangoapps/aws/modules/network | n/a |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | mango-terraform/aws/modules/network | n/a |
 
 ## Resources
 

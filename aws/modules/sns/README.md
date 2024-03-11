@@ -35,7 +35,7 @@ This Terraform template is designed for creating and managing AWS SNS (Simple No
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_sns_email_subscriptions"></a> [sns\_additional\_subscriptions](#input\_sns\_additional\_subscriptions) | A map of subscription definitions to create email subscription | `any` | `null` | no |
+| <a name="input_sns_email_subscriptions"></a> [sns\_email\_subscriptions](#input\_sns\_email\_subscriptions) | A map of subscription definitions to create email subscription | `any` | `null` | no |
 
 ## Outputs
 

@@ -10,7 +10,6 @@ To use this module in your configuration, follow this example:
 module "iam_role_with_policies" {
   source                       = "path/to/iam-role-with-policies"
   role_name                    = "example-role-name"
-  assume_role_principal_service = "ec2.amazonaws.com"
   custom_policy_name           = "example-custom-policy-name"
   custom_policy                = <<EOF
 {

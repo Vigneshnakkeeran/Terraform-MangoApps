@@ -12,7 +12,9 @@ This Terraform template is designed for creating and managing AWS SNS (Simple No
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.20 |
 
 ## Modules
 

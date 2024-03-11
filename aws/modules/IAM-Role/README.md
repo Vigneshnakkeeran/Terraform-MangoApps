@@ -41,8 +41,17 @@ EOF
 
 # Input
 
-| Header 1 | Header 2 | Header 3 |
+| Name | Description | Type |
 |----------|----------|----------|
-| Row 1 Col 1 | Row 1 Col 2 | Row 1 Col 3 |
-| Row 2 Col 1 | Row 2 Col 2 | Row 2 Col 3 |
-| Row 3 Col 1 | Row 3 Col 2 | Row 3 Col 3 |
+| role_name | The name of the IAM role. | string |
+| custom_policy_name | The name of the custom policy. | string |
+| custom_policy | The JSON policy document. | string |
+| managed_policy_arn | The ARN of the aws managed policy to attach | string | 
+
+# Outputs
+
+| Name | Description |
+|----------|----------|
+| iam_role_arn | The ARN of the IAM role. |
+| custom_policy_name | The name of the custom policy attached to the IAM role. |
+

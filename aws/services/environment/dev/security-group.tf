@@ -6,7 +6,6 @@ module "bastion_security_group" {
   vpc_id                   = module.vpc.vpc_id
   name                     = "${var.client_name}-${var.environment}-bastion-sg"
   ingress_with_cidr_blocks = var.bastion_ingress_with_cidr_blocks
-  # ingress_with_source_security_group_id = var.bastion_ingress_with_source_security_group_id
   egress_with_cidr_blocks = var.bastion_egress_with_cidr_blocks
   tags = {
     Created_by = "Terraform"

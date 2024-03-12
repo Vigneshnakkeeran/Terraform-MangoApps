@@ -28,29 +28,8 @@ variable "private_subnets" {
   type        = list(string)
 }
 
-variable "database_subnets" {
-  description = "A list of database subnets inside the VPC"
-  type        = list(string)
-  default     = []
-}
-
-variable "create_database_subnet_group" {
-  description = "Should be true if you want to create database subnet group"
-  type        = bool
-}
-
-variable "create_database_subnet_route_table" {
-  description = "Shoud be true if you want to create separate route table for database"
-  type        = bool
-}
-
 variable "enable_nat_gateway" {
   description = "Should be true if you want to provision NAT Gateways for each of your private networks"
-  type        = bool
-}
-
-variable "create_database_nat_gateway_route" {
-  description = "Should be true if nat gateway route should be created to give internet access to the database subnets"
   type        = bool
 }
 

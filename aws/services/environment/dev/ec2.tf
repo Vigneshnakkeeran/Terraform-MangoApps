@@ -1,5 +1,7 @@
 # data "aws_availability_zones" "available" {}
-
+locals {
+ instance_name = "${var.client_name}-${var.environment}-bastion-host"
+}
 ################################################################################
 # EC2 Module
 ################################################################################
@@ -7,7 +9,7 @@
 module "ec2_bastion" {
   source = "../../../modules/ec2"
 
-  name =  "${var.client_name}-${var.environment}-bastion-host"
+  name =  local.instance_name
   ami                         = data.aws_ami.amazon_linux.id
   instance_type               = "t3a.medium" # used to set core count below
   subnet_id                   = module.vpc.public_subnets
@@ -24,10 +26,9 @@ module "ec2_bastion" {
   hibernation = false
   # enclave_options_enabled = true
 
-  user_data            = <<-EOF
+  user_data_base64            = <<-EOF
                                   #!/bin/bash
-                                  hostname "${module.ec2_bastion.name}"
-                                  echo "${module.ec2_bastion.name}" > /etc/hosts
+                                  echo "${local.instance_name}" > /etc/hostname
                                   # Add any additional commands here
                                   EOF
   user_data_replace_on_change = true

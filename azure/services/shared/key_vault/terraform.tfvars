@@ -54,6 +54,21 @@ asg_volume_mapping = [
   }
 ]
 
+################################ RDS ####################################
+
+rds_aurora_allow_major_version_upgrade = false
+rds_aurora_apply_immediately           = false
+rds_aurora_instance_class              = "db.r6g.large"
+rds_aurora_engine                      = "aurora-mysql"
+rds_aurora_engine_mode                 = "provisioned"
+rds_aurora_engine_version              = "8.0"
+rds_aurora_manage_master_user_password = true
+# rds_aurora_master_password                 = "testing@123"
+rds_aurora_master_username                 = "testing"
+rds_aurora_storage_encrypted               = true
+rds_aurora_enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
+rds_aurora_publicly_accessible             = false
+
 ################################ S3 ####################################
 
 create_s3_bucket = true
@@ -76,6 +91,26 @@ server_side_encryption_configuration = {
   }
 }
 
+################################ SNS ####################################
+
+sns_email_subscriptions = {
+  email = {
+    protocol = "email"
+    endpoint = "adarshashok.k@cloudifyops.com"
+  }
+}
+
+################################ SQS ####################################
+
+create_sqs            = true
+sqs_create_fifo_queue = false
+sqs_sse_enabled       = true
+sqs_create_dlq        = true
+max_message_size      = null #262144
+message_retention_seconds = null  #provide value in second 345600
+enable_content_based_deduplication = true #to enable this fifo queue should also true
+
+
 ############################# ASG Security Group ##############################
 
 create_asg_sg      = true
@@ -86,7 +121,7 @@ asg_ingress_with_cidr_blocks = [
     to_port     = 22
     protocol    = "tcp"
     description = "SSH Access to instances"
-    cidr_blocks = "0.0.0.0/0"
+    cidr_blocks = "172.16.0.0/16"
   }
 ]
 
@@ -99,14 +134,37 @@ asg_egress_with_cidr_blocks = [
   }
 ]
 
-############################# Bastion Host Security Group ##############################
+############################# RDS Security Group ##############################
+
+create_rds_sg      = true
+rds_sg_description = "Security group for ASG instances"
+rds_ingress_with_cidr_blocks = [
+  {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    description = "MySQL Access within VPC"
+    cidr_blocks = "172.16.0.0/16"
+  }
+]
+
+rds_egress_with_cidr_blocks = [
+  {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = "0.0.0.0/0"
+  }
+]
+
+############################# RDS Security Group ##############################
 
 create_bastion_sg      = true
 bastion_sg_description = "Security group for Bastion Host"
 bastion_ingress_with_cidr_blocks = [
   {
-    from_port   = 22
-    to_port     = 22
+    from_port   = 3306
+    to_port     = 3306
     protocol    = "tcp"
     description = "SSH Access from anywhere"
     cidr_blocks = "0.0.0.0/0"

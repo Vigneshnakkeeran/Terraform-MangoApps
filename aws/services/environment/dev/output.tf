@@ -34,62 +34,62 @@ output "autoscaling_group_arn" {
 }
 
 
-####################### SNS ###########################
+# ####################### SNS ###########################
 
-output "topic_arn" {
-  description = "The ARN of the SNS topic, as a more obvious property (clone of id)"
-  value       = try(aws_sns_topic.this[0].arn, null)
-}
+# output "topic_arn" {
+#   description = "The ARN of the SNS topic, as a more obvious property (clone of id)"
+#   value       = try(aws_sns_topic.this[0].arn, null)
+# }
 
-output "topic_name" {
-  description = "The name of the topic"
-  value       = try(aws_sns_topic.this[0].name, null)
-}
+# output "topic_name" {
+#   description = "The name of the topic"
+#   value       = try(aws_sns_topic.this[0].name, null)
+# }
 
-output "subscriptions" {
-  description = "Map of subscriptions created and their attributes"
-  value       = aws_sns_topic_subscription.this
-}
+# output "subscriptions" {
+#   description = "Map of subscriptions created and their attributes"
+#   value       = aws_sns_topic_subscription.this
+# }
 
-######################## SQS ##############################
-output "queue_id" {
-  description = "The URL for the created Amazon SQS queue"
-  value       = try(aws_sqs_queue.this[0].id, null)
-}
+# ######################## SQS ##############################
+# output "queue_id" {
+#   description = "The URL for the created Amazon SQS queue"
+#   value       = try(aws_sqs_queue.this[0].id, null)
+# }
 
-output "queue_arn" {
-  description = "The ARN of the SQS queue"
-  value       = try(aws_sqs_queue.this[0].arn, null)
-}
+# output "queue_arn" {
+#   description = "The ARN of the SQS queue"
+#   value       = try(aws_sqs_queue.this[0].arn, null)
+# }
 
-output "queue_url" {
-  description = "Same as `queue_id`: The URL for the created Amazon SQS queue"
-  value       = try(aws_sqs_queue.this[0].url, null)
-}
+# output "queue_url" {
+#   description = "Same as `queue_id`: The URL for the created Amazon SQS queue"
+#   value       = try(aws_sqs_queue.this[0].url, null)
+# }
 
-output "queue_name" {
-  description = "The name of the SQS queue"
-  value       = try(aws_sqs_queue.this[0].name, null)
-}
+# output "queue_name" {
+#   description = "The name of the SQS queue"
+#   value       = try(aws_sqs_queue.this[0].name, null)
+# }
 
-###################### Dead Letter Queue ###########################
+# ###################### Dead Letter Queue ###########################
 
-output "dead_letter_queue_id" {
-  description = "The URL for the created Amazon SQS queue"
-  value       = try(aws_sqs_queue.dlq[0].id, null)
-}
+# output "dead_letter_queue_id" {
+#   description = "The URL for the created Amazon SQS queue"
+#   value       = try(aws_sqs_queue.dlq[0].id, null)
+# }
 
-output "dead_letter_queue_arn" {
-  description = "The ARN of the SQS queue"
-  value       = try(aws_sqs_queue.dlq[0].arn, null)
-}
+# output "dead_letter_queue_arn" {
+#   description = "The ARN of the SQS queue"
+#   value       = try(aws_sqs_queue.dlq[0].arn, null)
+# }
 
-output "dead_letter_queue_url" {
-  description = "Same as `dead_letter_queue_id`: The URL for the created Amazon SQS queue"
-  value       = try(aws_sqs_queue.dlq[0].url, null)
-}
+# output "dead_letter_queue_url" {
+#   description = "Same as `dead_letter_queue_id`: The URL for the created Amazon SQS queue"
+#   value       = try(aws_sqs_queue.dlq[0].url, null)
+# }
 
-output "dead_letter_queue_name" {
-  description = "The name of the SQS queue"
-  value       = try(aws_sqs_queue.dlq[0].name, null)
-}
+# output "dead_letter_queue_name" {
+#   description = "The name of the SQS queue"
+#   value       = try(aws_sqs_queue.dlq[0].name, null)
+# }

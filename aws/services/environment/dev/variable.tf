@@ -159,119 +159,119 @@ variable "server_side_encryption_configuration" {
   type        = map(any)
 }
 
-####################### RDS Aurora variables #############################
+# ####################### RDS Aurora variables #############################
 
-variable "rds_aurora_allow_major_version_upgrade" {
-  description = "Enable to allow major engine version upgrades when changing engine versions. Defaults to `false`"
-  type        = bool
-}
+# variable "rds_aurora_allow_major_version_upgrade" {
+#   description = "Enable to allow major engine version upgrades when changing engine versions. Defaults to `false`"
+#   type        = bool
+# }
 
-variable "rds_aurora_apply_immediately" {
-  description = "Specifies whether any cluster modifications are applied immediately, or during the next maintenance window. Default is `false`"
-  type        = bool
-}
+# variable "rds_aurora_apply_immediately" {
+#   description = "Specifies whether any cluster modifications are applied immediately, or during the next maintenance window. Default is `false`"
+#   type        = bool
+# }
 
-variable "rds_aurora_instance_class" {
-  description = "Instance type to use at master instance. Note: if `autoscaling_enabled` is `true`, this will be the same instance class used on instances created by autoscaling"
-  type        = string
-  default     = ""
-}
+# variable "rds_aurora_instance_class" {
+#   description = "Instance type to use at master instance. Note: if `autoscaling_enabled` is `true`, this will be the same instance class used on instances created by autoscaling"
+#   type        = string
+#   default     = ""
+# }
 
-variable "rds_aurora_engine" {
-  description = "The name of the database engine to be used for this DB cluster. Defaults to `aurora`. Valid Values: `aurora`, `aurora-mysql`, `aurora-postgresql`"
-  type        = string
-  default     = null
-}
-
-variable "rds_aurora_engine_mode" {
-  description = "The database engine mode. Valid values: `global`, `multimaster`, `parallelquery`, `provisioned`, `serverless`. Defaults to: `provisioned`"
-  type        = string
-  default     = "provisioned"
-}
-
-variable "rds_aurora_engine_version" {
-  description = "The database engine version. Updating this argument results in an outage"
-  type        = string
-  default     = null
-}
-
-variable "rds_aurora_manage_master_user_password" {
-  description = "Set to true to allow RDS to manage the master user password in Secrets Manager. Cannot be set if `master_password` is provided"
-  type        = bool
-  default     = true
-}
-
-# variable "master_password" {
-#   description = "Password for the master DB user. Note that this may show up in logs, and it will be stored in the state file. Required unless `manage_master_user_password` is set to `true` or unless `snapshot_identifier` or `replication_source_identifier` is provided or unless a `global_cluster_identifier` is provided when the cluster is the secondary cluster of a global database"
+# variable "rds_aurora_engine" {
+#   description = "The name of the database engine to be used for this DB cluster. Defaults to `aurora`. Valid Values: `aurora`, `aurora-mysql`, `aurora-postgresql`"
 #   type        = string
 #   default     = null
 # }
 
-variable "rds_aurora_master_username" {
-  description = "Username for the master DB user. Required unless `snapshot_identifier` or `replication_source_identifier` is provided or unless a `global_cluster_identifier` is provided when the cluster is the secondary cluster of a global database"
-  type        = string
-  default     = null
-}
+# variable "rds_aurora_engine_mode" {
+#   description = "The database engine mode. Valid values: `global`, `multimaster`, `parallelquery`, `provisioned`, `serverless`. Defaults to: `provisioned`"
+#   type        = string
+#   default     = "provisioned"
+# }
 
-variable "rds_aurora_storage_encrypted" {
-  description = "Specifies whether the DB cluster is encrypted. The default is `true`"
-  type        = bool
-}
+# variable "rds_aurora_engine_version" {
+#   description = "The database engine version. Updating this argument results in an outage"
+#   type        = string
+#   default     = null
+# }
 
-variable "rds_aurora_enabled_cloudwatch_logs_exports" {
-  description = "Set of log types to export to cloudwatch. If omitted, no logs will be exported. The following log types are supported: `audit`, `error`, `general`, `slowquery`, `postgresql`"
-  type        = list(string)
-}
+# variable "rds_aurora_manage_master_user_password" {
+#   description = "Set to true to allow RDS to manage the master user password in Secrets Manager. Cannot be set if `master_password` is provided"
+#   type        = bool
+#   default     = true
+# }
 
-variable "rds_aurora_publicly_accessible" {
-  description = "Determines whether instances are publicly accessible. Default `false`"
-  type        = bool
-}
+# # variable "master_password" {
+# #   description = "Password for the master DB user. Note that this may show up in logs, and it will be stored in the state file. Required unless `manage_master_user_password` is set to `true` or unless `snapshot_identifier` or `replication_source_identifier` is provided or unless a `global_cluster_identifier` is provided when the cluster is the secondary cluster of a global database"
+# #   type        = string
+# #   default     = null
+# # }
 
-################## SNS Variables ##########################
+# variable "rds_aurora_master_username" {
+#   description = "Username for the master DB user. Required unless `snapshot_identifier` or `replication_source_identifier` is provided or unless a `global_cluster_identifier` is provided when the cluster is the secondary cluster of a global database"
+#   type        = string
+#   default     = null
+# }
 
-variable "sns_email_subscriptions" {
-  description = "A map of subscription definitions to create"
-  type        = any
-  default     = null
-}
+# variable "rds_aurora_storage_encrypted" {
+#   description = "Specifies whether the DB cluster is encrypted. The default is `true`"
+#   type        = bool
+# }
 
-################## SQS Variables ##########################
+# variable "rds_aurora_enabled_cloudwatch_logs_exports" {
+#   description = "Set of log types to export to cloudwatch. If omitted, no logs will be exported. The following log types are supported: `audit`, `error`, `general`, `slowquery`, `postgresql`"
+#   type        = list(string)
+# }
 
-variable "create_sqs" {
-  description = "Whether to create SQS or not."
-  type = bool
-}
+# variable "rds_aurora_publicly_accessible" {
+#   description = "Determines whether instances are publicly accessible. Default `false`"
+#   type        = bool
+# }
 
-variable "sqs_create_fifo_queue" {
-  description = "Should be true if you want to create fifo queue"
-  type        = bool
-}
+# ################## SNS Variables ##########################
 
-variable "sqs_sse_enabled" {
-  description = "Should  be true if you want to enable server side encription"
-  type        = bool
-}
+# variable "sns_email_subscriptions" {
+#   description = "A map of subscription definitions to create"
+#   type        = any
+#   default     = null
+# }
 
-variable "sqs_create_dlq" {
-  description = "Should be true if you want to create SQS dead letter queue"
-  type        = bool
-}
+# ################## SQS Variables ##########################
 
-variable "max_message_size" {
-  description =  "The limit of how many bytes a message can contain before Amazon SQS rejects it. An integer from 1024 bytes (1 KiB) up to 262144 bytes (256 KiB)"
-  type        = number
-}
+# variable "create_sqs" {
+#   description = "Whether to create SQS or not."
+#   type = bool
+# }
 
-variable "message_retention_seconds" {
-  description = "The number of seconds Amazon SQS retains a message. Integer representing seconds, from 60 (1 minute) to 1209600 (14 days) default valu is 4days"
-  type        = number
-}  
+# variable "sqs_create_fifo_queue" {
+#   description = "Should be true if you want to create fifo queue"
+#   type        = bool
+# }
 
-variable "enable_content_based_deduplication" {
-  description = "Should be true to enables content-based deduplication for FIFO queues."
-  type = bool
-}
+# variable "sqs_sse_enabled" {
+#   description = "Should  be true if you want to enable server side encription"
+#   type        = bool
+# }
+
+# variable "sqs_create_dlq" {
+#   description = "Should be true if you want to create SQS dead letter queue"
+#   type        = bool
+# }
+
+# variable "max_message_size" {
+#   description =  "The limit of how many bytes a message can contain before Amazon SQS rejects it. An integer from 1024 bytes (1 KiB) up to 262144 bytes (256 KiB)"
+#   type        = number
+# }
+
+# variable "message_retention_seconds" {
+#   description = "The number of seconds Amazon SQS retains a message. Integer representing seconds, from 60 (1 minute) to 1209600 (14 days) default valu is 4days"
+#   type        = number
+# }  
+
+# variable "enable_content_based_deduplication" {
+#   description = "Should be true to enables content-based deduplication for FIFO queues."
+#   type = bool
+# }
 
 
 ################## ASG Security Group variables ##########################
@@ -301,32 +301,32 @@ variable "asg_egress_with_cidr_blocks" {
   type        = list(map(string))
 }
 
-################## RDS Security Group variables ##########################
+# ################## RDS Security Group variables ##########################
 
-variable "create_rds_sg" {
-  description = "Whether to create security group for ASG"
-  type        = bool
-}
+# variable "create_rds_sg" {
+#   description = "Whether to create security group for ASG"
+#   type        = bool
+# }
 
-variable "rds_sg_description" {
-  description = "Security Group for instances created by the ASG"
-  type        = string
-}
+# variable "rds_sg_description" {
+#   description = "Security Group for instances created by the ASG"
+#   type        = string
+# }
 
-variable "rds_ingress_with_cidr_blocks" {
-  description = "List of ingress rules to create where 'cidr_blocks' is used"
-  type        = list(map(string))
-}
-
-# variable "rds_ingress_with_source_security_group_id" {
-#   description = "List of ingress rules to create where 'security group' is used"
+# variable "rds_ingress_with_cidr_blocks" {
+#   description = "List of ingress rules to create where 'cidr_blocks' is used"
 #   type        = list(map(string))
 # }
 
-variable "rds_egress_with_cidr_blocks" {
-  description = "List of egress rules to create by name"
-  type        = list(map(string))
-}
+# # variable "rds_ingress_with_source_security_group_id" {
+# #   description = "List of ingress rules to create where 'security group' is used"
+# #   type        = list(map(string))
+# # }
+
+# variable "rds_egress_with_cidr_blocks" {
+#   description = "List of egress rules to create by name"
+#   type        = list(map(string))
+# }
 
 ################## Bastion Host Security Group variables ##########################
 

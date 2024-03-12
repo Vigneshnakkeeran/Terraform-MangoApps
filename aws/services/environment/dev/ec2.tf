@@ -1,13 +1,5 @@
 data "aws_availability_zones" "available" {}
 
-locals {
-  user_data = <<-EOT
-    #!/bin/bash
-    hostname "${instance_name}"
-    echo "${instance_name}" > /etc/hostname
-  EOT
-}
-
 ################################################################################
 # EC2 Module
 ################################################################################
@@ -22,10 +14,9 @@ module "ec2_bastion" {
   availability_zone           = 
   subnet_id                   = 
   vpc_security_group_ids      = 
-  placement_group             = aws_placement_group.web.id
   associate_public_ip_address = true
 
-  create_iam_instance_profile = true
+  create_iam_instance_profile = false
   iam_role_description        = "IAM role for EC2 instance"
   iam_role_policies = {
     AdministratorAccess = "arn:aws:iam::aws:policy/AdministratorAccess"
@@ -42,11 +33,6 @@ module "ec2_bastion" {
                                   # Add any additional commands here
                                   EOF
   user_data_replace_on_change = true
-
-  cpu_options = {
-    core_count       = 2
-    threads_per_core = 1
-  }
   enable_volume_tags = false
   root_block_device = [
     {
@@ -74,7 +60,7 @@ module "ec2_bastion" {
     }
   ]
 
-  tags = local.tags
+  tags = tags
 }
 
 data "aws_ami" "amazon_linux" {

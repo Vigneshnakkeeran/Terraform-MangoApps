@@ -28,10 +28,11 @@ module "asg_security_group" {
     to_port     = 22
     protocol    = "tcp"
     description = "SSH Access to instances"
-    ingress_with_source_security_group_id = "${module.bastion_security_group.security_group_id[0]}"
+    source_security_group_id = "${module.bastion_security_group.security_group_id}"
   }
-]
+  ]
   egress_with_cidr_blocks = var.asg_egress_with_cidr_blocks
+  
   tags = {
     Created_by = "Terraform"
     Client     = var.client_name

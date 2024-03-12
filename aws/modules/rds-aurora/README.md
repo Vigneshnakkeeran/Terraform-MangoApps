@@ -2,7 +2,7 @@
 
 ```hcl
 module "cluster" {
-  source  = "terraform-aws-modules/rds-aurora/aws"
+  source  = "path/of/module"
 
   name           = "test-aurora-db-postgres96"
   engine         = "aurora-postgresql"

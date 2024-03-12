@@ -55,6 +55,7 @@ assign_public_ip_to_each_vm_in_vmss = true
 
 storage_account_replication_type = "LRS"
 storage_account_kind = "StorageV2"
+storage_account_tier = "Standard"
 enable_storage_account_advanced_threat_protection = true
 enable_storage_account_containers = true
 enable_storage_account_fileshares = true

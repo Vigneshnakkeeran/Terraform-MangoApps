@@ -1,9 +1,9 @@
 ## Azure Storage Account
 module "storage" {
-  source  = "../../../../aws/modules/storage_account"
+  source  = "../../../../azure/modules/storage_account"
   resource_group_name      = data.terraform_remote_state.dev_resource_group.outputs.dev_rg
   location                 = var.location
-  storage_account_name     = "${var.client_name}${var.environment}-stacc"
+  storage_account_name     = "${var.client_name}${var.environment}stacc"
   account_replication_type = var.storage_account_replication_type
   account_kind             = var.storage_account_kind
   account_tier             = var.storage_account_tier

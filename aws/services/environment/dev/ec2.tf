@@ -10,10 +10,10 @@ module "ec2_bastion" {
   source = "../../../modules/ec2"
 
   name =  local.instance_name
-  ami                         = data.aws_ami.amazon_linux.id
+  ami                         = "ami-07d9b9ddc6cd8dd30"
   instance_type               = "t3a.medium" # used to set core count below
-  subnet_id                   = module.vpc.public_subnets
-  vpc_security_group_ids      = module.bastion_security_group.security_group_id
+  subnet_id                   = module.vpc.public_subnets[0]
+  vpc_security_group_ids      = [module.bastion_security_group.security_group_id]
   associate_public_ip_address = true
   key_name        = var.asg_key_name
   create_iam_instance_profile = false
@@ -26,7 +26,7 @@ module "ec2_bastion" {
   hibernation = false
   # enclave_options_enabled = true
 
-  user_data_base64            = <<-EOF
+  user_data            = <<-EOF
                                   #!/bin/bash
                                   echo "${local.instance_name}" > /etc/hostname
                                   # Add any additional commands here
@@ -60,12 +60,3 @@ module "ec2_bastion" {
   }
 }
 
-data "aws_ami" "amazon_linux" {
-  most_recent = true
-  owners      = ["amazon"]
-
-  filter {
-    name   = "name"
-    values = ["amzn-ami-hvm-*-x86_64-gp2"]
-  }
-}

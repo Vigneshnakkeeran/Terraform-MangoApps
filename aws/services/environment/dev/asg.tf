@@ -19,7 +19,7 @@ module "asg" {
   security_groups = [module.asg_security_group.security_group_id]
 
   image_id          = var.asg_ami_id
-  user_data         = "${file("user_data.sh")}"
+  user_data         = "${base64encode(file("user_data.sh"))}"
   instance_type     = var.asg_instance_type
   ebs_optimized     = var.asg_instance_ebs_optimized
   enable_monitoring = var.enable_asg_monitoring

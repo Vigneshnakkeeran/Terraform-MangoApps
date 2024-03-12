@@ -1,4 +1,4 @@
-# ASG Security group
+# Bastion Security group
 module "bastion_security_group" {
   source                   = "../../../modules/security-group"
   create_sg                = var.create_bastion_sg
@@ -22,8 +22,15 @@ module "asg_security_group" {
   description              = var.asg_sg_description
   vpc_id                   = module.vpc.vpc_id
   name                     = "${var.client_name}-${var.environment}-asg-sg"
-  ingress_with_cidr_blocks = var.asg_ingress_with_cidr_blocks
-  # ingress_with_source_security_group_id = var.asg_ingress_with_source_security_group_id
+  ingress_with_source_security_group_id = [
+  {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    description = "SSH Access to instances"
+    ingress_with_source_security_group_id = "${module.bastion_security_group.security_group_id[0]}"
+  }
+]
   egress_with_cidr_blocks = var.asg_egress_with_cidr_blocks
   tags = {
     Created_by = "Terraform"

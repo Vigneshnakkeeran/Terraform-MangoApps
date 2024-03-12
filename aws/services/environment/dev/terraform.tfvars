@@ -76,29 +76,6 @@ server_side_encryption_configuration = {
   }
 }
 
-############################# ASG Security Group ##############################
-
-create_asg_sg      = true
-asg_sg_description = "Security group for ASG instances"
-asg_ingress_with_cidr_blocks = [
-  {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    description = "SSH Access to instances"
-    cidr_blocks = "0.0.0.0/0"
-  }
-]
-
-asg_egress_with_cidr_blocks = [
-  {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = "0.0.0.0/0"
-  }
-]
-
 ############################# Bastion Host Security Group ##############################
 
 create_bastion_sg      = true
@@ -113,6 +90,19 @@ bastion_ingress_with_cidr_blocks = [
   }
 ]
 bastion_egress_with_cidr_blocks = [
+  {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = "0.0.0.0/0"
+  }
+]
+
+############################# ASG Security Group ##############################
+
+create_asg_sg      = true
+asg_sg_description = "Security group for ASG instances"
+asg_egress_with_cidr_blocks = [
   {
     from_port   = 0
     to_port     = 0

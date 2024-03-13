@@ -72,3 +72,55 @@ enable_storage_account_containers = true
 enable_storage_account_fileshares = true
 storage_account_containers = [{ name = "mangoapps-dev-container", access_type = "private" }]
 storage_account_fileshares = [{ name = "mangoapps-dev-fileshare", quota = 1000 }]
+
+############################# WAF #################################
+
+waf_custom_rules = [ 
+  {
+    name      = "Rule2"
+    priority  = 2
+    rule_type = "MatchRule"
+
+    match_conditions = {
+      match_variables =  {
+        variable_name = "RemoteAddr"
+      }
+
+      operator           = "IPMatch"
+      negation_condition = false
+      match_values       = ["192.168.1.0/24"]
+    }
+
+    match_conditions = {
+      match_variables = {
+        variable_name = "RequestHeaders"
+        selector      = "UserAgent"
+      }
+
+      operator           = "Contains"
+      negation_condition = false
+      match_values       = ["Windows"]
+    }
+
+    action = "Block"
+  }
+]
+
+waf_managed_rules_exclusion = [{
+  match_variable = "RequestCookieNames"
+  selector = "too-tasty"
+  selector_match_operator = "EndsWith"
+}]
+
+waf_managed_rule_set = [{
+  managed_rule_set_version = "3.2"
+  rule_group_override = [ {
+    rule = [{
+      action = "Log"
+      enabled = true
+      id = "920300"
+    } ]
+    rule_group_name = "REQUEST-920-PROTOCOL-ENFORCEMENT"
+  } ]
+  type = "OWASP"
+}]

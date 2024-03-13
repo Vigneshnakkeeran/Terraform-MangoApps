@@ -98,10 +98,10 @@ output "autoscaling_group_arn" {
 
 output "lambda_execution_role" {
   description = "The ARN of the IAM role created for Lambda execution"
-  value       = aws_iam_role.lambda_execution_role.arn
+  value       = module.lambda_execution_role.arn
 }
 
-output "lambda_arn" {
-  description = "The ARN of the Lambda function"
-  value       = aws_lambda_function.my_lambda.arn
-}
+# output "lambda_arn" {
+#  description = "The ARN of the Lambda function"
+#  value       = module.my_lambda.arn
+# }

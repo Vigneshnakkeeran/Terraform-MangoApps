@@ -93,3 +93,15 @@ output "autoscaling_group_arn" {
 #   description = "The name of the SQS queue"
 #   value       = try(aws_sqs_queue.dlq[0].name, null)
 # }
+
+############## lambda role arn #################
+
+output "lambda_execution_role" {
+  description = "The ARN of the IAM role created for Lambda execution"
+  value       = aws_iam_role.lambda_execution_role.arn
+}
+
+output "lambda_arn" {
+  description = "The ARN of the Lambda function"
+  value       = aws_lambda_function.my_lambda.arn
+}

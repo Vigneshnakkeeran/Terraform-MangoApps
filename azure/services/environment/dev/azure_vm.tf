@@ -1,73 +1,52 @@
-# Azure key-vault for passing the password for VM ##
-data "azurerm_key_vault" "keyvault" {
-   name                = "kv-trfm-intranet-weu-01" 
-   resource_group_name = ""
-}
-data "azurerm_key_vault_secret" "linux" {
-   name = "Standardpassword"
-   key_vault_id = data.azurerm_key_vault.keyvault.id
-}
+module "linux" {
+  source = "../../../modules/azure_vm"
 
-## Module file for creating the linux virtual machine ##
-module "azure_vm" {
-source                       = "../../../../modules/vm_linux"
-network_interface_name       = var.network_interface_name
-location                     = var.location
-azurerm_resource_group_name  = var.azurerm_resource_group_name
-vm_size                      = var.linux_vm_size
-subnet_id                    = var.subnet_id
-virtual_machine_name         = var.virtual_machine_name 
-adminUsername                = var.vm_username
-adminPassword                = data.azurerm_key_vault_secret.linux.value
-shared_image_id              = var.vm_image_id
-#key_data                     = data.azurerm_key_vault_key.example.public_key_openssh
-#datadisk_name                = var.data_disk_name
-#storage_type                 = var.storge_type  // Standard_LRS
-#disk_size                    = var.data_disk_size
-os_profile_name              = var.os_profile_name
-os_disk_name                 = var.os_disk_name
-vm-security-group            = module.vm-security-group.network_security_group_id
-tags                         = var.default_tags
+  location                   = local.resource_group.location
+  image_os                   = "linux"
+  resource_group_name        = local.resource_group.name
+  allow_extension_operations = false
+  data_disks = [
+    for i in range(2) : {
+      name                 = "linuxdisk${random_id.id.hex}${i}"
+      storage_account_type = "Standard_LRS"
+      create_option        = "Empty"
+      disk_size_gb         = 1
+      attach_setting = {
+        lun     = i
+        caching = "ReadWrite"
+      }
+      disk_encryption_set_id = azurerm_disk_encryption_set.example.id
+    }
+  ]
+  new_boot_diagnostics_storage_account = {
+    customer_managed_key = {
+      key_vault_key_id          = azurerm_key_vault_key.storage_account_key.id
+      user_assigned_identity_id = azurerm_user_assigned_identity.storage_account_key_vault.id
+    }
+  }
+  new_network_interface = {
+    ip_forwarding_enabled = false
+    ip_configurations = [
+      {
+        public_ip_address_id = try(azurerm_public_ip.pip[0].id, null)
+        primary              = true
+      }
+    ]
+  }
+  admin_username = "azureuser"
+  admin_ssh_keys = [
+    {
+      public_key = tls_private_key.ssh.public_key_openssh
+    }
+  ]
+  name = "ubuntu-${random_id.id.hex}"
+  os_disk = {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+  os_simple = "UbuntuServer"
+  size      = var.size
+  subnet_id = module.vnet.vnet_subnets[0]
+
+  # depends_on = [azurerm_key_vault_access_policy.des]
 }
-# ## Security group for linux vm ##
-# module "vm-security-group" {
-#   source                     = "Azure/network-security-group/azurerm"
-#   resource_group_name        = var.azurerm_resource_group_name
-#   location                   = var.location // location for creating the sg
-#   security_group_name        = var.linux_security_group_name
-#   custom_rules = [
-#     {
-#       name                   = "ssh"
-#       priority               = 203
-#       direction              = "Inbound"
-#       access                 = "Allow"
-#       protocol               = "*"
-#       source_port_range      = "*"
-#       destination_port_range = "22"
-#       source_address_prefixes= ["10.131.8.0/21"]
-#       description            = "Allow-the-ssh-connection"
-#     },
-#     {
-#       name                   = "myhttp"
-#       priority               = 201
-#       direction              = "Inbound"
-#       access                 = "Allow"
-#       protocol               = "Tcp"
-#       source_port_range      = "*"
-#       destination_port_range = "80"
-#       source_address_prefixes= ["10.131.8.0/21"]
-#       description            = "Allow-http"
-#     },
-#     {
-#       name                   = "myhttps"
-#       priority               = 202
-#       direction              = "Inbound"
-#       access                 = "Allow"
-#       protocol               = "Tcp"
-#       source_port_range      = "*"
-#       destination_port_range = "443"
-#       source_address_prefixes= ["10.131.8.0/21"]
-#       description            = "Allow-https"
-#     }
-#   ]
-# }

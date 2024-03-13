@@ -251,3 +251,10 @@ variable "storage_account_fileshares" {
   description = "List of file shares for the storage account"
   type = list(object({ name = string, quota = number }))
 }
+
+########################## Azure VM Variables ###################################
+variable "size" {
+description = "the size of the machine"
+default = ""
+type = string  
+}

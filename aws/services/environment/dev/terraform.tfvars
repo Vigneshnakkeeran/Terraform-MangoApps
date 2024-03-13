@@ -111,5 +111,203 @@ asg_egress_with_cidr_blocks = [
   }
 ]
 
+##################################### WAF ########################################
+
+# # Regional WAF
+# regional_create_wafv2        = true
+# regional_waf_visibility_config = {
+#   cloudwatch_metrics_enabled = true
+#   metric_name                = "mangoapps-rules-metric"
+#   sampled_requests_enabled   = true
+# }
+
+# # regional_waf_association_resource_arns (to be removed)
+# regional_waf_association_resource_arns = [ "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188" ]
+
+# regional_waf_managed_rule_group_statement_rules = [
+#   {
+#     name     = "AWS-AWSManagedRulesAmazonIpReputationList"
+#     priority = 2
+
+#     statement = {
+#       name        = "AWSManagedRulesAmazonIpReputationList"
+#       vendor_name = "AWS"
+#     }
+
+#     visibility_config = {
+#       cloudwatch_metrics_enabled = true
+#       sampled_requests_enabled   = true
+#       metric_name                = "AWS-AWSManagedRulesAmazonIpReputationList"
+#     }
+#   },
+#   {
+#     name     = "AWSManagedRulesKnownBadInputsRuleSet"
+#     priority = 3
+
+#     statement = {
+#       name        = "AWSManagedRulesKnownBadInputsRuleSet"
+#       vendor_name = "AWS"
+#     }
+
+#     visibility_config = {
+#       cloudwatch_metrics_enabled = true
+#       sampled_requests_enabled   = true
+#       metric_name                = "AWSManagedRulesKnownBadInputsRuleSet-metric"
+#     }
+#   },
+#   {
+#     name     = "AWSManagedRulesLinuxRuleSet"
+#     priority = 4
+#     statement = {
+#       name        = "AWSManagedRulesLinuxRuleSet"
+#       vendor_name = "AWS"
+#     }
+#     visibility_config = {
+#       cloudwatch_metrics_enabled = true
+#       metric_name                = "AWSManagedRulesLinuxRuleSet-metric"
+#       sampled_requests_enabled   = true
+#     }
+#   },
+#   {
+#     name     = "AWS-AWSManagedRulesAdminProtectionRuleSet"
+#     priority = 5
+
+#     statement = {
+#       name        = "AWSManagedRulesAdminProtectionRuleSet"
+#       vendor_name = "AWS"
+#     }
+
+#     visibility_config = {
+#       cloudwatch_metrics_enabled = true
+#       sampled_requests_enabled   = true
+#       metric_name                = "AWSManagedRulesAdminProtectionRuleSet-metric"
+#     }
+#   },
+#   {
+#     name     = "AWSManagedRulesSQLiRuleSet"
+#     priority = 6
+#     statement = {
+#       name        = "AWSManagedRulesSQLiRuleSet"
+#       vendor_name = "AWS"
+#     }
+#     visibility_config = {
+#       cloudwatch_metrics_enabled = true
+#       metric_name                = "AWSManagedRulesSQLiRuleSet-metric"
+#       sampled_requests_enabled   = true
+#     }
+#   },
+#   {
+#     name            = "AWS-AWSManagedRulesCommonRuleSet"
+#     priority        = 7
+#     override_action = "count"
+#     statement = {
+#       name        = "AWSManagedRulesCommonRuleSet"
+#       vendor_name = "AWS"
+#     }
+
+#     visibility_config = {
+#       cloudwatch_metrics_enabled = true
+#       sampled_requests_enabled   = true
+#       metric_name                = "AWSManagedRulesCommonRuleSet-metric"
+#     }
+#   }
+# ]
+
+# # Cloudfront WAF
+# cloudfront_create_wafv2        = true
+# cloudfront_waf_visibility_config = {
+#   cloudwatch_metrics_enabled = true
+#   metric_name                = "mangoapps-rules-metric"
+#   sampled_requests_enabled   = true
+# }
+# cloudfront_waf_managed_rule_group_statement_rules = [
+#   {
+#     name     = "AWS-AWSManagedRulesAmazonIpReputationList"
+#     priority = 2
+
+#     statement = {
+#       name        = "AWSManagedRulesAmazonIpReputationList"
+#       vendor_name = "AWS"
+#     }
+
+#     visibility_config = {
+#       cloudwatch_metrics_enabled = true
+#       sampled_requests_enabled   = true
+#       metric_name                = "AWS-AWSManagedRulesAmazonIpReputationList"
+#     }
+#   },
+#   {
+#     name     = "AWSManagedRulesKnownBadInputsRuleSet"
+#     priority = 3
+
+#     statement = {
+#       name        = "AWSManagedRulesKnownBadInputsRuleSet"
+#       vendor_name = "AWS"
+#     }
+
+#     visibility_config = {
+#       cloudwatch_metrics_enabled = true
+#       sampled_requests_enabled   = true
+#       metric_name                = "AWSManagedRulesKnownBadInputsRuleSet-metric"
+#     }
+#   },
+#   {
+#     name     = "AWSManagedRulesLinuxRuleSet"
+#     priority = 4
+#     statement = {
+#       name        = "AWSManagedRulesLinuxRuleSet"
+#       vendor_name = "AWS"
+#     }
+#     visibility_config = {
+#       cloudwatch_metrics_enabled = true
+#       metric_name                = "AWSManagedRulesLinuxRuleSet-metric"
+#       sampled_requests_enabled   = true
+#     }
+#   },
+#   {
+#     name     = "AWS-AWSManagedRulesAdminProtectionRuleSet"
+#     priority = 5
+
+#     statement = {
+#       name        = "AWSManagedRulesAdminProtectionRuleSet"
+#       vendor_name = "AWS"
+#     }
+
+#     visibility_config = {
+#       cloudwatch_metrics_enabled = true
+#       sampled_requests_enabled   = true
+#       metric_name                = "AWSManagedRulesAdminProtectionRuleSet-metric"
+#     }
+#   },
+#   {
+#     name     = "AWSManagedRulesSQLiRuleSet"
+#     priority = 6
+#     statement = {
+#       name        = "AWSManagedRulesSQLiRuleSet"
+#       vendor_name = "AWS"
+#     }
+#     visibility_config = {
+#       cloudwatch_metrics_enabled = true
+#       metric_name                = "AWSManagedRulesSQLiRuleSet-metric"
+#       sampled_requests_enabled   = true
+#     }
+#   },
+#   {
+#     name            = "AWS-AWSManagedRulesCommonRuleSet"
+#     priority        = 7
+#     override_action = "count"
+#     statement = {
+#       name        = "AWSManagedRulesCommonRuleSet"
+#       vendor_name = "AWS"
+#     }
+
+#     visibility_config = {
+#       cloudwatch_metrics_enabled = true
+#       sampled_requests_enabled   = true
+#       metric_name                = "AWSManagedRulesCommonRuleSet-metric"
+#     }
+#   }
+# ]
+
 
 ############################################################################

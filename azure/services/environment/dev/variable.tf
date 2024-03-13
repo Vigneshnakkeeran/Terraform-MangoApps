@@ -131,9 +131,23 @@ variable "securitygroup_name" {
   description = "Name of the vnet to create."
 }
 
+# variable "custom_rules" {
+#   description = "List of ingress rules to create where 'cidr_blocks' is used"
+#   type        = list(map(string)) 
+# }
 variable "custom_rules" {
-  description = "List of ingress rules to create where 'cidr_blocks' is used"
-  type        = list(map(string))
+  type = list(object({
+    name                   = string
+    priority               = number
+    direction              = string
+    access                 = string
+    protocol               = string
+    source_port_range      = string
+    destination_port_range = string
+    source_address_prefix  = string
+    description            = string
+  }))
+  description = "List of custom rules for network security"
 }
 
 ########################## VMSS Variables ######################################

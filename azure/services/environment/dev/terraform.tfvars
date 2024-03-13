@@ -29,6 +29,17 @@ custom_rules = [
       destination_port_range = "22"
       source_address_prefix  = "172.16.0.0/16"
       description            = "description-myssh"
+    },
+    {
+      name                   = "app"
+      priority               = 201
+      direction              = "Inbound"
+      access                 = "Allow"
+      protocol               = "Tcp"
+      source_port_range      = "*"
+      destination_port_range = "80"
+      source_address_prefix  = "172.16.0.0/16"
+      description            = "app-port"
     }
   ]
 

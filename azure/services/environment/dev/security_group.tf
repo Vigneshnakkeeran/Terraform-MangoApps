@@ -7,5 +7,29 @@ module "network-security-group" {
   security_group_name        = "${var.client_name}-${var.environment}-${var.securitygroup_name}"
   tags                       = var.default_tags
   depends_on                 = [ module.network ]
-  custom_rules               = var.custom_rules
+  custom_rules = [
+    {
+      name                   = "ssh"
+      priority               = 200
+      direction              = "Inbound"
+      access                 = "Allow"
+      protocol               = "Tcp"
+      source_port_range      = "*"
+      destination_port_range = "22"
+      source_address_prefix  = "172.16.0.0/16"
+      description            = "description-myssh"
+    },
+    {
+      name                   = "app"
+      priority               = 201
+      direction              = "Inbound"
+      access                 = "Allow"
+      protocol               = "Tcp"
+      source_port_range      = "*"
+      destination_port_range = "80"
+      source_address_prefix  = "172.16.0.0/16"
+      description            = "app-port"
+    }
+  ]
 }
+

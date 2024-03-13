@@ -26,7 +26,7 @@ module "network" {
 ## Resource block for attaching the subnet with security group ##
 resource "azurerm_subnet_network_security_group_association" "nsg-assoc" {
   count                      = length(module.network.vnet_subnets) > 3 ? 3 : 0
-  subnet_id                  = module.network.vnet_subnets[count.index] 
+  subnet_id                  = module.network.vnet_subnets[count.index]
   network_security_group_id  = module.network-security-group.network_security_group_id
   depends_on = [ module.network ]
 }

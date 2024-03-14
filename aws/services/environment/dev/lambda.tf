@@ -5,4 +5,5 @@ module "my_lambda_module" {
   runtime              = "python3.8"
   handler              = "index.handler"
   memory_size =          ""
+  ephemeral_storage_size = ""
 }

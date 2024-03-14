@@ -55,6 +55,41 @@ variable "bastion_instance_type" {
   type = string
 }
 
+
+
+################################# ALB Variables #######################################
+
+variable "alb_certificate_domain_name" {
+  description = "Provide The alb Certificate Domain name present in ACM with Issued status."
+  type = string
+}
+
+variable "enable_deletion_protection" {
+  description = "If `true`, deletion of the load balancer will be disabled via the AWS API. This will prevent Terraform from deleting the load balancer."
+  type        = bool
+}
+
+variable "internal" {
+  description = "If true, the LB will be internal."
+  type        = bool
+}
+
+variable "ip_address_type" {
+  description = "The type of IP addresses used by the subnets for your load balancer. The possible values are `ipv4` and `dualstack`"
+  type        = string
+}
+
+variable "load_balancer_type" {
+  description = "The type of load balancer to create. Possible values are `application`, `gateway`, or `network`. The default value is `application`"
+  type        = string
+}
+
+variable "listner_rule_https443_sync" {
+  description = "value"
+  type = any
+}
+
+
 ################## ASG variables ##########################
 
 variable "asg_min_size" {
@@ -297,6 +332,35 @@ variable "asg_sg_description" {
 # }
 
 variable "asg_egress_with_cidr_blocks" {
+  description = "List of egress rules to create by name"
+  type        = list(map(string))
+}
+
+
+
+########################### ALB Security Group #############################################
+
+variable "create_alb_sg" {
+  description = "Whether to create security group for Application Load Balancer"
+  type        = bool
+}
+
+variable "alb_sg_description" {
+  description = "Security Group for ALB"
+  type        = string
+}
+
+variable "alb_ingress_with_cidr_blocks" {
+  description = "List of ingress rules to create where 'cidr_blocks' is used"
+  type        = list(map(string))
+}
+
+# variable "alb_ingress_with_source_security_group_id" {
+#   description = "List of ingress rules to create where 'security group' is used"
+#   type        = list(map(string))
+# }
+
+variable "alb_egress_with_cidr_blocks" {
   description = "List of egress rules to create by name"
   type        = list(map(string))
 }

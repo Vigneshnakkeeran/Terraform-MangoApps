@@ -55,3 +55,20 @@ module "asg_security_group" {
 #     Env        = var.environment
 #   }
 # }
+
+# Application LoadBalancer Security group
+module "alb_security_group" {
+  source                   = "../../../modules/security-group"
+  create_sg                = var.create_alb_sg
+  description              = var.alb_sg_description
+  vpc_id                   = module.vpc.vpc_id
+  name                     = "${var.client_name}-${var.environment}-alb-sg"
+  ingress_with_cidr_blocks = var.alb_ingress_with_cidr_blocks
+  # ingress_with_source_security_group_id = var.rds_ingress_with_source_security_group_id
+  egress_with_cidr_blocks = var.alb_egress_with_cidr_blocks
+  tags = {
+    Created_by = "Terraform"
+    Client     = var.client_name
+    Env        = var.environment
+  }
+}

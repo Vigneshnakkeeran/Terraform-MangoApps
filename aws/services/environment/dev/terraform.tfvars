@@ -17,6 +17,69 @@ create_igw                         = true
 
 bastion_instance_type = "t2.micro"
 
+
+####################### Application Load Balancer #######################
+
+alb_certificate_domain_name = "vipinktxing.in"
+enable_deletion_protection = false
+internal                   = true
+ip_address_type            = "ipv4"
+load_balancer_type         = "application"
+
+listner_rule_https443_sync  = {
+      forward-sync = {
+          priority = 1
+          actions = [
+            {
+              type             = "forward"
+              target_group_key = "server5223"
+            }
+          ]
+          conditions = [{
+            path_pattern = {
+              values = ["/mangoappssync*", "/folderSyncList*", "/fpu*", "/fileAccess*"]
+            }
+          }]
+        }
+      }
+
+
+########################## ALB Security Group ####################################
+
+create_alb_sg      = true
+alb_sg_description = "Security group for ALB"
+alb_ingress_with_cidr_blocks = [
+  {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = "0.0.0.0/16"
+  },
+  {
+    from_port   = 5223
+    to_port     = 5223
+    protocol    = "tcp"
+    cidr_blocks = "0.0.0.0/16"
+  },
+  {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = "0.0.0.0/16"
+  }
+]
+
+alb_egress_with_cidr_blocks = [
+  {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = "0.0.0.0/0"
+  }
+]
+
+
+
 ################################ ASG ####################################
 
 asg_min_size                    = 1

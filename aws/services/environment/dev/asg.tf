@@ -23,6 +23,7 @@ module "asg" {
   instance_type     = var.asg_instance_type
   ebs_optimized     = var.asg_instance_ebs_optimized
   enable_monitoring = var.enable_asg_monitoring
+  target_group_arns         = [module.alb.target_groups.server443.arn]  ##Pass arn of target group created by alb
 
   # IAM role & instance profile
   create_iam_instance_profile = var.create_asg_iam_instance_profile

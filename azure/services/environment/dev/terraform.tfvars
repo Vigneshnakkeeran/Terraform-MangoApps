@@ -75,52 +75,60 @@ storage_account_fileshares = [{ name = "mangoapps-dev-fileshare", quota = 1000 }
 
 ############################# WAF #################################
 
-waf_custom_rules = [ 
+waf_custom_rules_configuration = [
   {
-    name      = "Rule2"
-    priority  = 2
+    name      = "LogAll"
+    priority  = 1
     rule_type = "MatchRule"
+    action    = "Log"
 
-    match_conditions = {
-      match_variables =  {
-        variable_name = "RemoteAddr"
+    match_conditions_configuration = [
+      {
+        match_variable_configuration = [
+          {
+            variable_name = "RemoteAddr"
+            selector      = null
+          }
+        ]
+
+        match_values = [
+          "192.168.1.0/24"
+        ]
+
+        operator           = "IPMatch"
+        negation_condition = true
+        transforms         = null
+      },
+      {
+        match_variable_configuration = [
+          {
+            variable_name = "RequestUri"
+            selector      = null
+          }
+        ]
+
+        match_values = [
+          "Azure",
+          "Cloud"
+        ]
+
+        operator           = "Contains"
+        negation_condition = true
+        transforms         = null
       }
-
-      operator           = "IPMatch"
-      negation_condition = false
-      match_values       = ["192.168.1.0/24"]
-    }
-
-    match_conditions = {
-      match_variables = {
-        variable_name = "RequestHeaders"
-        selector      = "UserAgent"
-      }
-
-      operator           = "Contains"
-      negation_condition = false
-      match_values       = ["Windows"]
-    }
-
-    action = "Block"
+    ]
   }
 ]
 
-waf_managed_rules_exclusion = [{
-  match_variable = "RequestCookieNames"
-  selector = "too-tasty"
-  selector_match_operator = "EndsWith"
-}]
+waf_managed_rule_set_configuration = [
+  {
+    type    = "OWASP"
+    version = "3.2"
+  },
+  {
+    type = "Microsoft_BotManagerRuleSet"
+    version = "1.0"
+  }
+]
 
-waf_managed_rule_set = [{
-  managed_rule_set_version = "3.2"
-  rule_group_override = [ {
-    rule = [{
-      action = "Log"
-      enabled = true
-      id = "920300"
-    } ]
-    rule_group_name = "REQUEST-920-PROTOCOL-ENFORCEMENT"
-  } ]
-  type = "OWASP"
-}]
+policy_mode = "Detection"

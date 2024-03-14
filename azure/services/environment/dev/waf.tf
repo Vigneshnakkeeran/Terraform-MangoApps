@@ -1,18 +1,14 @@
 module "waf_policy" {
-  source = "../../../modules/waf"
+  source  = "../../../modules/waf"
 
-  name = "${var.client_name}-${var.environment}-waf-policy"
-  resource_group_name      = data.terraform_remote_state.dev_resource_group.outputs.dev_rg
-  location            = var.location
+  policy_name = "${var.client_name}-${var.environment}-waf-policy"
+  location       = var.location
 
-  custom_rules = var.waf_custom_rules
+  resource_group_name = data.terraform_remote_state.dev_resource_group.outputs.dev_rg
 
-  policy_settings_enabled = var.waf_policy_settings_enabled
-  policy_settings_mode = var.waf_policy_settings_mode
-  policy_settings_file_upload_limit_in_mb = var.waf_policy_settings_file_upload_limit_in_mb
-  policy_settings_request_body_check = var.waf_policy_settings_request_body_check
-  policy_settings_max_request_body_size_in_kb = var.waf_policy_settings_max_request_body_size_in_kb
+  policy_mode = var.policy_mode
 
-  exclusion = var.waf_managed_rules_exclusion
-  managed_rule_set = var.waf_managed_rule_set
+  managed_rule_set_configuration = var.waf_managed_rule_set_configuration
+
+  custom_rules_configuration = var.waf_custom_rules_configuration
 }

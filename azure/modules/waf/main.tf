@@ -1,103 +1,63 @@
-resource "azurerm_web_application_firewall_policy" "waf" {
-  name                = var.name
-  resource_group_name = var.resource_group_name
+resource "azurerm_web_application_firewall_policy" "waf_policy" {
   location            = var.location
-
-  dynamic "custom_rules" {
-    for_each = var.custom_rules
-
-    content {
-        enabled = custom_rules.enabled
-        name = custom_rules.name
-        priority = custom_rules.priority
-        rule_type = custom_rules.rule_type
-
-        dynamic "match_conditions" {
-          for_each = custom_rules.match_conditions
-          
-          content {
-            dynamic "match_variables" {
-              for_each = match_conditions.match_variables
-
-              content {
-                variable_name = match_variables.variable_name
-                selector = match_variables.selector
-              }
-            }
-
-          match_values = match_conditions.match_values
-          operator = match_conditions.operator
-          negation_condition = match_conditions.negation_condition
-          transforms = match_conditions.transforms
-          }
-        }
-
-        action = custom_rules.action
-        rate_limit_duration = custom_rules.rate_limit_duration
-        rate_limit_threshold = custom_rules.rate_limit_threshold
-        group_rate_limit_by = custom_rules.group_rate_limit_by
-      }
-    }
+  name                = var.policy_name
+  resource_group_name = var.resource_group_name
 
   policy_settings {
-      enabled = var.policy_settings_enabled
-      mode = var.policy_settings_mode
-      file_upload_limit_in_mb = var.policy_settings_file_upload_limit_in_mb
-      request_body_check = var.policy_settings_request_body_check
-      max_request_body_size_in_kb = var.policy_settings_max_request_body_size_in_kb
-      request_body_inspect_limit_in_kb = var.policy_settings_request_body_inspect_limit_in_kb
+    enabled                     = var.policy_enabled
+    mode                        = var.policy_mode
+    file_upload_limit_in_mb     = var.policy_file_limit
+    request_body_check          = var.policy_request_body_check_enabled
+    max_request_body_size_in_kb = var.policy_max_body_size
   }
 
   managed_rules {
-
-    dynamic "exclusion" {
-      for_each = var.exclusion
+    dynamic "managed_rule_set" {
+      for_each = var.managed_rule_set_configuration
 
       content {
-        match_variable = exclusion.match_variable
-        selector = exclusion.selector
-        selector_match_operator = exclusion.selector_match_operator
-        
-        dynamic "excluded_rule_set" {
-          for_each = exclusion.excluded_rule_set
+        type    = managed_rule_set.value.type
+        version = managed_rule_set.value.version
+        dynamic "rule_group_override" {
+          for_each = managed_rule_set.value.rule_group_override_configuration != null ? managed_rule_set.value.rule_group_override_configuration : []
 
           content {
-            type = excluded_rule_set.type
-            version = excluded_rule_set.version
-
-            dynamic "rule_group" {
-              for_each = excluded_rule_set.rule_group
+            rule_group_name = rule_group_override.value.rule_group_name
+            dynamic "rule" {
+              for_each = try(rule_group_override.value.rule, [])
 
               content {
-                rule_group_name = rule_group.rule_group_name
-                excluded_rules = rule_group.excluded_rules
+                id      = rule.value.id
+                enabled = rule.value.enabled
+                action  = rule.value.action
               }
             }
           }
+
         }
       }
     }
 
-    dynamic "managed_rule_set" {
-      for_each = var.managed_rule_set
+    dynamic "exclusion" {
+      for_each = var.exclusion_configuration
 
       content {
-        type = managed_rule_set.type
-        version = managed_rule_set.managed_rule_set_version
-
-        dynamic "rule_group_override" {
-          for_each = managed_rule_set.rule_group_override
+        match_variable          = exclusion.value.match_variable
+        selector                = exclusion.value.selector
+        selector_match_operator = exclusion.value.selector_match_operator
+        dynamic "excluded_rule_set" {
+          for_each = exclusion.value.excluded_rule_set_configuration
+          iterator = rule_set
 
           content {
-            rule_group_name = rule_group_override.rule_group_name
-
-            dynamic "rule" {
-              for_each = rule_group_override.rule
+            type    = rule_set.value.type
+            version = rule_set.value.version
+            dynamic "rule_group" {
+              for_each = rule_set.value.rule_group_configuration
 
               content {
-                id = rule.id
-                enabled = rule.enabled
-                action = rule.action
+                rule_group_name = rule_group.value.rule_group_name
+                excluded_rules  = rule_group.value.excluded_rules
               }
             }
           }
@@ -105,4 +65,35 @@ resource "azurerm_web_application_firewall_policy" "waf" {
       }
     }
   }
+
+  dynamic "custom_rules" {
+    for_each = var.custom_rules_configuration
+
+    content {
+      name      = custom_rules.value.name
+      priority  = custom_rules.value.priority
+      rule_type = custom_rules.value.rule_type
+      action    = custom_rules.value.action
+      dynamic "match_conditions" {
+        for_each = custom_rules.value.match_conditions_configuration
+
+        content {
+          dynamic "match_variables" {
+            for_each = match_conditions.value.match_variable_configuration
+
+            content {
+              variable_name = match_variables.value.variable_name
+              selector      = match_variables.value.selector
+            }
+          }
+          match_values       = match_conditions.value.match_values
+          operator           = match_conditions.value.operator
+          negation_condition = match_conditions.value.negation_condition
+          transforms         = match_conditions.value.transforms
+        }
+      }
+    }
+  }
+  tags = var.tags
 }
+

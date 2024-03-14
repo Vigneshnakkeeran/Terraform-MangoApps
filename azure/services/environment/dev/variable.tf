@@ -275,89 +275,62 @@ type = string
 
 ########################## WAF Variables ###################################
 
-variable "waf_custom_rules" {
-  description = "One or more custom_rules blocks"
+variable "waf_managed_rule_set_configuration" {
+  description = "Managed rule set configuration."
   type = list(object({
-    enabled             = bool
-    name                = string
-    priority            = number
-    rule_type           = string
-    match_conditions    = list(object({
-      match_values        = list(string)
-      operator            = string
-      negation_condition  = string
-      transforms          = list(string)
-      match_variables     = list(object({
-        variable_name       = string
-        selector            = string
-      }))
-    }))
-    action              = string
-    rate_limit_duration = string
-    rate_limit_threshold = number
-    group_rate_limit_by = string
-  }))
-}
-
-variable "waf_policy_settings_enabled" {
-  description = "Describes if the policy is in enabled state or disabled state."
-  type = bool
-}
-
-variable "waf_policy_settings_mode" {
-  description = "Describes if it is in detection mode or prevention mode at the policy level. Valid values are Detection and Prevention"
-  type = string
-}
-
-variable "waf_policy_settings_file_upload_limit_in_mb" {
-  description = "The File Upload Limit in MB. Accepted values are in the range 1 to 4000"
-  type = number
-}
-
-variable "waf_policy_settings_request_body_check" {
-  description = " Is Request Body Inspection enabled"
-  type = bool
-}
-
-variable "waf_policy_settings_max_request_body_size_in_kb" {
-  description = "The Maximum Request Body Size in KB. Accepted values are in the range 8 to 2000"
-  type = number
-}
-
-variable "waf_policy_settings_request_body_inspect_limit_in_kb" {
-  description = "Specifies the maximum request body inspection limit in KB for the Web Application Firewall."
-  type = number
-}
-
-variable "waf_managed_rules_exclusion" {
-  description = "One or more exclusion block"
-  type = list(object({
-    match_variable            = string
-    selector                  = string
-    selector_match_operator   = string
-    excluded_rule_set         = list(object({
-      type                     = string
-      version                  = string
-      rule_group               = list(object({
-        rule_group_name         = string
-        excluded_rules          = list(string)
-      }))
-    }))
-  }))
-}
-
-variable "waf_managed_rule_set" {
-  description = "One or more managed_rule_set block"
-  type = list(object({
-    type                = string
-    managed_rule_set_version = string
-    rule_group_override = list(object({
-      rule_group_name = string
-      rule            = list(object({
+    type    = optional(string, "OWASP")
+    version = optional(string, "3.2")
+    rule_group_override_configuration = optional(list(object({
+      rule_group_name = optional(string, null)
+      rule = optional(list(object({
         id      = string
-        enabled = bool
-        action  = string
-      }))
-    }))
+        enabled = optional(bool)
+        action  = optional(string)
+      })), [])
+    })))
+
   }))
+  default = []
+}
+
+variable "waf_custom_rules_configuration" {
+ description = <<EOD
+Custom rules configuration object with following attributes:
+```
+- name:                           Gets name of the resource that is unique within a policy. This name can be used to access the resource.
+- priority:                       Describes priority of the rule. Rules with a lower value will be evaluated before rules with a higher value.
+- rule_type:                      Describes the type of rule. Possible values are `MatchRule` and `Invalid`.
+- action:                         Type of action. Possible values are `Allow`, `Block` and `Log`.
+- match_conditions_configuration: One or more `match_conditions` blocks as defined below.
+- match_variable_configuration:   One or more match_variables blocks as defined below.
+- variable_name:                  The name of the Match Variable. Possible values are RemoteAddr, RequestMethod, QueryString, PostArgs, RequestUri, RequestHeaders, RequestBody and RequestCookies.
+- selector:                       Describes field of the matchVariable collection
+- match_values:                   A list of match values.
+- operator:                       Describes operator to be matched. Possible values are IPMatch, GeoMatch, Equal, Contains, LessThan, GreaterThan, LessThanOrEqual, GreaterThanOrEqual, BeginsWith, EndsWith and Regex.
+- negation_condition:             Describes if this is negate condition or not
+- transforms:                     A list of transformations to do before the match is attempted. Possible values are HtmlEntityDecode, Lowercase, RemoveNulls, Trim, UrlDecode and UrlEncode.
+```
+EOD
+  type = list(object({
+    name      = optional(string)
+    priority  = optional(number)
+    rule_type = optional(string)
+    action    = optional(string)
+    match_conditions_configuration = optional(list(object({
+      match_variable_configuration = optional(list(object({
+        variable_name = optional(string)
+        selector      = optional(string, null)
+      })))
+      match_values       = optional(list(string))
+      operator           = optional(string)
+      negation_condition = optional(string, null)
+      transforms         = optional(list(string), null)
+    })))
+  }))
+  default = []
+}
+
+variable "policy_mode" {
+  description = "Policy Mode"
+  type = string
 }

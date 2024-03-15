@@ -26,7 +26,7 @@ To use this module in your Terraform configuration, follow these steps:
 output "lambda_function_arn" {
   value = module.lambda_with_layer.lambda_arn
 }
-
+```
 # Input
 
 | Name | Description | Type |

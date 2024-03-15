@@ -105,3 +105,25 @@ output "autoscaling_group_arn" {
 #  description = "The ARN of the Lambda function"
 #  value       = module.my_lambda.arn
 # }
+
+####################### WAF #######################
+
+output "regional_waf_id" {
+  description = "ID of Reginal WAF"
+  value = module.regional_wafv2_web_acl.id
+}
+
+output "regional_waf_arn" {
+  description = "ARN of Regional WAF"
+  value = module.regional_wafv2_web_acl.arn
+}
+
+output "cloudfront_waf_id" {
+  description = "ID of Reginal WAF"
+  value = module.cloudfront_wafv2_web_acl.id
+}
+
+output "cloudfront_waf_arn" {
+  description = "ARN of Regional WAF"
+  value = module.cloudfront_wafv2_web_acl.arn
+}

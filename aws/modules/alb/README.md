@@ -41,6 +41,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_alb_certificate_domain_name"></a> [alb\_certificate\_domain\_name](#input\_alb\_certificate\_domain\_name) | Provide The alb Certificate Domain name present in ACM with Issued status. | `string` | n/a | yes |
 | <a name="input_create"></a> [create](#input\_create) | Controls if resources should be created (affects nearly all resources) | `bool` | `true` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | Identifier of the VPC where the security group will be created | `string` | `null` | no |
 | <a name="input_subnets"></a> [subnets](#input\_subnets) | A list of subnet IDs to attach to the LB. Subnets cannot be updated for Load Balancers of type `network`. Changing this value for load balancers of type `network` will force a recreation of the resource | `list(string)` | `null` | no |
@@ -50,12 +51,9 @@
 | <a name="input_load_balancer_type"></a> [load\_balancer\_type](#input\_load\_balancer\_type) | The type of load balancer to create. Possible values are `application`, `gateway`, or `network`. The default value is `application` | `string` | `"application"` | no |
 | <a name="input_enable_deletion_protection"></a> [enable\_deletion\_protection](#input\_enable\_deletion\_protection) | If `true`, deletion of the load balancer will be disabled via the AWS API. This will prevent Terraform from deleting the load balancer. | `bool` | `true` | no |
 | <a name="input_enable_cross_zone_load_balancing"></a> [enable\_cross\_zone\_load\_balancing](#input\_enable\_cross\_zone\_load\_balancing) | If `true`, cross-zone load balancing of the load balancer will be enabled. For application load balancer this feature is always enabled (`true`) and cannot be disabled. Defaults to `true` | `bool` | `true` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
 | <a name="input_target_groups"></a> [target\_groups](#input\_target\_groups) | Map of target group configurations to create | `any` | `{}` | no |
 | <a name="input_timeouts"></a> [timeouts](#input\_timeouts) | Create, update, and delete timeout configurations for the load balancer | `map(string)` | `{}` | no |
-| <a name="input_alb_certificate_domain_name"></a> [alb\_certificate\_domain\_name](#input\_alb\_certificate\_domain\_name) | Provide The alb Certificate Domain name present in ACM with Issued status. | `string` | n/a | yes |
-| <a name="input_alb_egress_with_cidr_blocks"></a> [alb\_egress\_with\_cidr\_blocks](#input\_alb\_egress\_with\_cidr\_blocks) | List of egress rules to create by name | `list(map(string))` | n/a | yes |
-| <a name="input_alb_ingress_with_cidr_blocks"></a> [alb\_ingress\_with\_cidr\_blocks](#input\_alb\_ingress\_with\_cidr\_blocks) | List of ingress rules to create where 'cidr\_blocks' is used | `list(map(string))` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
 
 ## Outputs
 

@@ -19,9 +19,9 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_alb"></a> [lb](#module\_alb) | ../../../modules/alb | n/a |
+| <a name="module_alb"></a> [lb](#module\_alb) | mango-terraform/aws/modules/alb | n/a |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | mango-terraform/aws/modules/network | n/a |
-| <a name="module_alb_security_group"></a> [alb\_security\_group](#module\_alb\_security\_group) | ../../../modules/security-group | n/a |
+| <a name="module_alb_security_group"></a> [alb\_security\_group](#module\_alb\_security\_group) | mango-terraform/aws/modules/security-group | n/a |
 
 
 

@@ -271,51 +271,50 @@ variable "rds_aurora_publicly_accessible" {
 }
 
 
-# ################## SNS Variables ##########################
+################## SNS Variables ##########################
 
-# variable "sns_email_subscriptions" {
-#   description = "A map of subscription definitions to create"
-#   type        = any
-#   default     = null
-# }
+variable "sns_email_subscriptions" {
+  description = "A map of subscription definitions to create"
+  type        = any
+  default     = null
+}
 
-# ################## SQS Variables ##########################
+################## SQS Variables ##########################
 
-# variable "create_sqs" {
-#   description = "Whether to create SQS or not."
-#   type = bool
-# }
+variable "create_sqs" {
+  description = "Whether to create SQS or not."
+  type = bool
+}
 
-# variable "sqs_create_fifo_queue" {
-#   description = "Should be true if you want to create fifo queue"
-#   type        = bool
-# }
+variable "sqs_create_fifo_queue" {
+  description = "Should be true if you want to create fifo queue"
+  type        = bool
+}
 
-# variable "sqs_sse_enabled" {
-#   description = "Should  be true if you want to enable server side encription"
-#   type        = bool
-# }
+variable "sqs_sse_enabled" {
+  description = "Should  be true if you want to enable server side encription"
+  type        = bool
+}
 
-# variable "sqs_create_dlq" {
-#   description = "Should be true if you want to create SQS dead letter queue"
-#   type        = bool
-# }
+variable "sqs_create_dlq" {
+  description = "Should be true if you want to create SQS dead letter queue"
+  type        = bool
+}
 
-# variable "max_message_size" {
-#   description =  "The limit of how many bytes a message can contain before Amazon SQS rejects it. An integer from 1024 bytes (1 KiB) up to 262144 bytes (256 KiB)"
-#   type        = number
-# }
+variable "max_message_size" {
+  description =  "The limit of how many bytes a message can contain before Amazon SQS rejects it. An integer from 1024 bytes (1 KiB) up to 262144 bytes (256 KiB)"
+  type        = number
+}
 
-# variable "message_retention_seconds" {
-#   description = "The number of seconds Amazon SQS retains a message. Integer representing seconds, from 60 (1 minute) to 1209600 (14 days) default valu is 4days"
-#   type        = number
-# }  
+variable "message_retention_seconds" {
+  description = "The number of seconds Amazon SQS retains a message. Integer representing seconds, from 60 (1 minute) to 1209600 (14 days) default valu is 4days"
+  type        = number
+}  
 
-# variable "enable_content_based_deduplication" {
-#   description = "Should be true to enables content-based deduplication for FIFO queues."
-#   type = bool
-# }
-
+variable "enable_content_based_deduplication" {
+  description = "Should be true to enables content-based deduplication for FIFO queues."
+  type = bool
+}
 
 ################## ASG Security Group variables ##########################
 

@@ -148,6 +148,27 @@ server_side_encryption_configuration = {
   }
 }
 
+################################ Cloudtrail S3 ####################################
+
+cloudtrail_bucket_acl              = "private"
+cloudtrail_bucket_versioning = {
+  "status" = "enabled"
+}
+cloudtrail_bucket_block_public_acls        = true
+cloudtrail_bucket_block_public_policy      = true
+cloudtrail_bucket_ignore_public_acls       = true
+cloudtrail_bucket_restrict_public_buckets  = true
+cloudtrail_bucket_control_object_ownership = true
+cloudtrail_bucket_object_ownership         = "ObjectWriter"
+cloudtrail_bucket_server_side_encryption_configuration = {
+  rule = {
+    apply_server_side_encryption_by_default = {
+      sse_algorithm = "AES256"
+    }
+    bucket_key_enabled = true
+  }
+}
+
 ############################# Bastion Host Security Group ##############################
 
 create_bastion_sg      = true
@@ -182,6 +203,15 @@ asg_egress_with_cidr_blocks = [
     cidr_blocks = "0.0.0.0/0"
   }
 ]
+
+##################################### Cloudtrail #####################################
+
+enable_cloudtrail = true
+enable_logging = true
+enable_log_file_validation = true
+include_global_service_events = true
+is_multi_region_trail = false
+is_organization_trail = false
 
 ##################################### WAF ########################################
 

@@ -223,6 +223,54 @@ variable "server_side_encryption_configuration" {
   type        = map(any)
 }
 
+# Cloudtrail Bucket
+
+variable "cloudtrail_bucket_acl" {
+  description = "(Optional) The canned ACL to apply. Conflicts with `grant`"
+  type        = string
+}
+
+variable "cloudtrail_bucket_versioning" {
+  description = "Map containing versioning configuration."
+  type        = map(string)
+}
+
+variable "cloudtrail_bucket_block_public_acls" {
+  description = "Whether Amazon S3 should block public ACLs for this bucket."
+  type        = bool
+}
+
+variable "cloudtrail_bucket_block_public_policy" {
+  description = "Whether Amazon S3 should block public bucket policies for this bucket."
+  type        = bool
+}
+
+variable "cloudtrail_bucket_ignore_public_acls" {
+  description = "Whether Amazon S3 should ignore public ACLs for this bucket."
+  type        = bool
+}
+
+variable "cloudtrail_bucket_restrict_public_buckets" {
+  description = "Whether Amazon S3 should restrict public bucket policies for this bucket."
+  type        = bool
+}
+
+variable "cloudtrail_bucket_control_object_ownership" {
+  description = "Whether to manage S3 Bucket Ownership Controls on this bucket."
+  type        = bool
+}
+
+variable "cloudtrail_bucket_object_ownership" {
+  description = "Object ownership. Valid values: BucketOwnerEnforced, BucketOwnerPreferred or ObjectWriter. 'BucketOwnerEnforced': ACLs are disabled, and the bucket owner automatically owns and has full control over every object in the bucket. 'BucketOwnerPreferred': Objects uploaded to the bucket change ownership to the bucket owner if the objects are uploaded with the bucket-owner-full-control canned ACL. 'ObjectWriter': The uploading account will own the object if the object is uploaded with the bucket-owner-full-control canned ACL."
+  type        = string
+}
+
+variable "cloudtrail_bucket_server_side_encryption_configuration" {
+  description = "server side encryption configuration"
+  type        = map(any)
+}
+
+
 
 # ####################### RDS Aurora variables #############################
 
@@ -403,30 +451,30 @@ variable "alb_egress_with_cidr_blocks" {
 
 # ################## RDS Security Group variables ##########################
 
-# variable "create_rds_sg" {
-#   description = "Whether to create security group for ASG"
-#   type        = bool
-# }
+variable "create_rds_sg" {
+  description = "Whether to create security group for ASG"
+  type        = bool
+}
 
-# variable "rds_sg_description" {
-#   description = "Security Group for instances created by the ASG"
-#   type        = string
-# }
+variable "rds_sg_description" {
+  description = "Security Group for instances created by the ASG"
+  type        = string
+}
 
-# variable "rds_ingress_with_cidr_blocks" {
-#   description = "List of ingress rules to create where 'cidr_blocks' is used"
+variable "rds_ingress_with_cidr_blocks" {
+  description = "List of ingress rules to create where 'cidr_blocks' is used"
+  type        = list(map(string))
+}
+
+# variable "rds_ingress_with_source_security_group_id" {
+#   description = "List of ingress rules to create where 'security group' is used"
 #   type        = list(map(string))
 # }
 
-# # variable "rds_ingress_with_source_security_group_id" {
-# #   description = "List of ingress rules to create where 'security group' is used"
-# #   type        = list(map(string))
-# # }
-
-# variable "rds_egress_with_cidr_blocks" {
-#   description = "List of egress rules to create by name"
-#   type        = list(map(string))
-# }
+variable "rds_egress_with_cidr_blocks" {
+  description = "List of egress rules to create by name"
+  type        = list(map(string))
+}
 
 ################## Bastion Host Security Group variables ##########################
 
@@ -453,6 +501,38 @@ variable "bastion_ingress_with_cidr_blocks" {
 variable "bastion_egress_with_cidr_blocks" {
   description = "List of egress rules to create by name"
   type        = list(map(string))
+}
+
+################################ Cloudtrail ################################
+
+variable "enable_cloudtrail" {
+  description = "Enables Cloudtrail."
+  type = bool
+}
+
+variable "enable_logging" {
+  description = "Enable logging for the cloudtrail"
+  type = bool
+}
+
+variable "enable_log_file_validation" {
+  description = "Specifies whether log file integrity validation is enabled. Creates signed digest for validated contents of logs"
+  type = bool
+}
+
+variable "include_global_service_events" {
+  description = "Specifies whether the trail is publishing events from global services such as IAM to the log files"
+  type = bool
+}
+
+variable "is_multi_region_trail" {
+  description = "Specifies whether the trail is created in the current region or in all regions"
+  type = bool
+}
+
+variable "is_organization_trail" {
+  description = "The trail is an AWS Organizations trail"
+  type = bool
 }
 
 ################################ WAF ####################################

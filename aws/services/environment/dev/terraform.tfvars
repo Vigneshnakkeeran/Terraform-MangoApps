@@ -44,6 +44,15 @@ listner_rule_https443_sync  = {
       }
 
 
+####################### Network Load Balancer #######################
+
+nlb_enable_deletion_protection         = false
+nlb_internal                           = false
+nlb_ip_address_type                    = "ipv4"
+nlb_load_balancer_type                 = "network"
+nlb_enable_cross_zone_load_balancing   = false
+
+
 ########################## ALB Security Group ####################################
 
 create_alb_sg      = true

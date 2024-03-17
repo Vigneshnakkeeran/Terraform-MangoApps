@@ -5,7 +5,7 @@
  }
 
  module "alb" {
-   source  = "../../../modules/alb"
+   source  = "../../../modules/elb"
 
    name               = "${var.client_name}-${var.environment}-alb"
    vpc_id             = module.vpc.vpc_id

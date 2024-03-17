@@ -90,6 +90,35 @@ variable "listner_rule_https443_sync" {
 }
 
 
+################################# NLB Variables #######################################
+
+variable "nlb_enable_deletion_protection" {
+  description = "If `true`, deletion of the load balancer will be disabled via the AWS API. This will prevent Terraform from deleting the load balancer."
+  type        = bool
+}
+
+variable "nlb_internal" {
+  description = "If true, the LB will be internal."
+  type        = bool
+}
+
+variable "nlb_ip_address_type" {
+  description = "The type of IP addresses used by the subnets for your load balancer. The possible values are `ipv4` and `dualstack`"
+  type        = string
+}
+
+variable "nlb_load_balancer_type" {
+  description = "The type of load balancer to create. Possible values are `application`, `gateway`, or `network`. The default value is `application`"
+  type        = string
+}
+
+variable "nlb_enable_cross_zone_load_balancing" {
+  description = "If `true`, cross-zone load balancing of the load balancer will be enabled. For application load balancer this feature is always enabled (`true`) and cannot be disabled. Defaults to `true`"
+  type        = bool
+  default     = true
+}
+
+
 ################## ASG variables ##########################
 
 variable "asg_min_size" {

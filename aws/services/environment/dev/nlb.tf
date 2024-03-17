@@ -1,15 +1,15 @@
 module "nlb" {
-  source  = "../../../modules/alb"
+  source  = "../../../modules/ELB"
 
   name               = "${var.client_name}-${var.environment}-nlb"
   vpc_id             = module.vpc.vpc_id
   subnets            = [module.vpc.public_subnets[0]]
-# security_groups    = [module.alb_security_group.security_group_id]
-  internal           = false #var.nlb_internal 
+# security_groups    = [module.nlb_security_group.security_group_id]
+  internal           = var.nlb_internal
   ip_address_type    = var.ip_address_type 
-  load_balancer_type = "network" #var.nlb_load_balancer_type
-  enable_deletion_protection = var.enable_deletion_protection
-  enable_cross_zone_load_balancing = false
+  load_balancer_type = var.nlb_load_balancer_type
+  enable_deletion_protection       = var.nlb_enable_deletion_protection
+  enable_cross_zone_load_balancing = var.nlb_enable_cross_zone_load_balancing
 
   listeners = {
 

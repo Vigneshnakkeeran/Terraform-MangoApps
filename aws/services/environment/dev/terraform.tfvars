@@ -370,4 +370,17 @@ cloudfront_waf_managed_rule_group_statement_rules = [
 ]
 
 
-###########################################################################
+################################ RDS ####################################
+
+rds_aurora_allow_major_version_upgrade = false
+rds_aurora_apply_immediately           = false
+rds_aurora_instance_class              = "db.r6g.large"
+rds_aurora_engine                      = "aurora-mysql"
+rds_aurora_engine_mode                 = "provisioned"
+rds_aurora_engine_version              = "8.0"
+rds_aurora_manage_master_user_password = true
+# rds_aurora_master_password                 = "testing@123"
+rds_aurora_master_username                 = "testing"
+rds_aurora_storage_encrypted               = true
+rds_aurora_enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
+rds_aurora_publicly_accessible             = false

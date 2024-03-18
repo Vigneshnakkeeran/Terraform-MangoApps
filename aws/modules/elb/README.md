@@ -1,7 +1,7 @@
 <!-- BEGIN_TF_DOCS -->
-## Create Application LoadBalancer using Terraform Template.
-- This Terraform template is designed for creating and managing Application Loadbalancer on Amazon Web Services (AWS). This template allows you to create ALB and Target Groups.
-- This template offers flexibility in configuring ALB attributes such as name, accessibility (internal or external), associated subnets, security groups, and tags.
+## Create Elastic LoadBalancer using Terraform Template.
+- This Terraform template is designed for creating and managing Elastic Loadbalancer on Amazon Web Services (AWS). This template allows you to create ALB, NLB, Listners and Target Groups.
+- This template offers flexibility in configuring LB attributes such as name, accessibility (internal or external), associated subnets, security groups, and tags.
 
 ## Requirements
 

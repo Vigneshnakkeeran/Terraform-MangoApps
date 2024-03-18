@@ -54,11 +54,11 @@
 | <a name="input_target_groups"></a> [target\_groups](#input\_target\_groups) | Map of target group configurations to create | `any` | `{}` | no |
 | <a name="input_timeouts"></a> [timeouts](#input\_timeouts) | Create, update, and delete timeout configurations for the load balancer | `map(string)` | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
-| <a name="input_nlb_internal"></a> [internal](#input\_internal) | If true, the LB will be internal. Defaults to `false` | `bool` | `null` | no |
-| <a name="input_nlb_ip_address_type"></a> [ip\_address\_type](#input\_ip\_address\_type) | The type of IP addresses used by the subnets for your load balancer. The possible values are `ipv4` and `dualstack` | `string` | `null` | no |
-| <a name="input_nlb_load_balancer_type"></a> [load\_balancer\_type](#input\_load\_balancer\_type) | The type of load balancer to create. Possible values are `application`, `gateway`, or `network`. The default value is `application` | `string` | `"application"` | no |
-| <a name="input_nlb_enable_deletion_protection"></a> [enable\_deletion\_protection](#input\_enable\_deletion\_protection) | If `true`, deletion of the load balancer will be disabled via the AWS API. This will prevent Terraform from deleting the load balancer. | `bool` | `true` | no |
-| <a name="input_nlb_enable_cross_zone_load_balancing"></a> [enable\_cross\_zone\_load\_balancing](#input\_enable\_cross\_zone\_load\_balancing) | If `true`, cross-zone load balancing of the load balancer will be enabled. For application load balancer this feature is always enabled (`true`) and cannot be disabled. Defaults to `true` | `bool` | `true` | no |
+| <a name="input_nlb_enable_cross_zone_load_balancing"></a> [nlb\_enable\_cross\_zone\_load\_balancing](#input\_nlb\_enable\_cross\_zone\_load\_balancing) | If `true`, cross-zone load balancing of the Network load balancer will be enabled. For application load balancer this feature is always enabled (`true`) and cannot be disabled. Defaults to `true` | `bool` | `true` | no |
+| <a name="input_nlb_enable_deletion_protection"></a> [nlb\_enable\_deletion\_protection](#input\_nlb\_enable\_deletion\_protection) | If `true`, deletion of the load balancer will be disabled via the AWS API. This will prevent Terraform from deleting the load balancer. | `bool` | n/a | yes |
+| <a name="input_nlb_internal"></a> [nlb\_internal](#input\_nlb\_internal) | If true, the NLB will be internal. | `bool` | n/a | yes |
+| <a name="input_nlb_ip_address_type"></a> [nlb\_ip\_address\_type](#input\_nlb\_ip\_address\_type) | The type of IP addresses used by the subnets for your Network load balancer. The possible values are `ipv4` and `dualstack` | `string` | n/a | yes |
+| <a name="input_nlb_load_balancer_type"></a> [nlb\_load\_balancer\_type](#input\_nlb\_load\_balancer\_type) | The type of load balancer to create. Possible values are `application`, `gateway`, or `network`. The default value is `application` | `string` | n/a | yes |
 
 ## Outputs
 

@@ -6,7 +6,7 @@ module "nlb" {
   subnets            = [module.vpc.public_subnets[0]]
 # security_groups    = [module.nlb_security_group.security_group_id]
   internal           = var.nlb_internal
-  ip_address_type    = var.ip_address_type 
+  ip_address_type    = var.nlb_ip_address_type 
   load_balancer_type = var.nlb_load_balancer_type
   enable_deletion_protection       = var.nlb_enable_deletion_protection
   enable_cross_zone_load_balancing = var.nlb_enable_cross_zone_load_balancing

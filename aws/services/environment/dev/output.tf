@@ -127,3 +127,15 @@ output "cloudfront_waf_arn" {
   description = "ARN of Regional WAF"
   value = module.cloudfront_wafv2_web_acl.arn
 }
+
+####################### Cloudtrail #######################
+
+output "cloudtrail_id" {
+  value       = module.cloudtrail.cloudtrail_id
+  description = "The name of the trail"
+}
+
+output "cloudtrail_arn" {
+  value       = module.cloudtrail.cloudtrail_arn
+  description = "The Amazon Resource Name of the trail"
+}

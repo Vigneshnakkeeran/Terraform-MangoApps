@@ -40,7 +40,7 @@ module "storage" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_storage"></a> [storage](#module\_storage) | ./modules/storage_account | n/a |
+| <a name="module_storage"></a> [storage](#module\_storage) | mangoapps/azure/modules/storage_account | n/a |
 
 ## Resources
 

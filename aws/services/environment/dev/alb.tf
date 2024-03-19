@@ -104,26 +104,10 @@
      attach-ec2-5223target = {
        target_group_key = "server5223"
        target_type      = "instance"
-       target_id        = module.ec2_instance_target.id
+       target_id        = module.ec2_backendserver.id
        port             = "5223"
      }
    }
- }
-
-
-
- ########################
- #ec2 module for target
-
- module "ec2_instance_target" {
-   source  = "../../../modules/ec2"
-
-   name = "single-instance"
-
-   instance_type          = "t2.micro"
-   key_name               = "user1"
-   vpc_security_group_ids = [module.bastion_security_group.security_group_id]
-   subnet_id              = module.vpc.private_subnets[0]
  }
 
 

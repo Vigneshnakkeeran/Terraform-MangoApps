@@ -75,12 +75,7 @@ storage_account_fileshares = [{ name = "mangoapps-dev-fileshare", quota = 1000 }
 
 
 ############################## Application Gateway ###############################
-#resource_group_name      = "test-terraform-rg"
-#location             = "eastus"
-# virtual_network_name = "vnet"
-# subnet_name          = "public-subnet-02"
 enable_http2         = true
-#vnet_resource_group_name = "test-terraform-rg"
 app_gateway_name = "mangoapps-app-gateweay"
 sku = {
   name     = "WAF_v2"

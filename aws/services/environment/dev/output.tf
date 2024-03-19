@@ -139,3 +139,15 @@ output "cloudtrail_arn" {
   value       = module.cloudtrail.cloudtrail_arn
   description = "The Amazon Resource Name of the trail"
 }
+
+####################### Shield #######################
+
+output "shield_id" {
+  description = "Shield IDs"
+  value = module.aws_shield.shield_id
+}
+
+output "shield_arn" {
+  description = "Shield ARNs"
+  value = module.aws_shield.shield_arn
+}

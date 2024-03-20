@@ -1,5 +1,5 @@
 resource "aws_backup_vault" "main" {
-  name        = "var.backup_vault_name"
+  name        = var.backup_vault_name
   kms_key_arn = aws_kms_key.example.arn
 }
 

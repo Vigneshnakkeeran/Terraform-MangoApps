@@ -17,6 +17,13 @@ resource "aws_backup_plan" "main" {
     lifecycle {
       delete_after = 35
     }
+
+    copy_action {
+      destination_vault_arn = var.destination_vault_arn
+      lifecycle {
+        delete_after = var.copy_retention
+      }
+    }
   }
 }
 

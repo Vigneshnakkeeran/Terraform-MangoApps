@@ -18,6 +18,18 @@ variable "backup_rule_name" {
   type        = string
 }
 
+variable "destination_vault_arn" {
+  description = "The AWS region to copy the backups to."
+  type        = string
+}
+
+variable "copy_retention" {
+  description = "The number of days to retain the copied backups in the destination region."
+  default     = 30
+  type        = number
+}
+
+
 variable "schedule" {
   description = "A CRON expression specifying when to perform the backup."
   type        = string

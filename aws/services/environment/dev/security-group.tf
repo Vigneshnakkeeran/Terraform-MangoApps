@@ -14,10 +14,10 @@ module "bastion_security_group" {
   }
 }
 
-module "private_security_group" {
+module "backend_security_group" {
   source                   = "../../../modules/security-group"
-  create_sg                = var.create_private_sg
-  description              = var.bastion_sg_description
+  create_sg                = var.create_backend_sg
+  description              = var.backend_sg_description
   vpc_id                   = module.vpc.vpc_id
   name                     = "${var.client_name}-${var.environment}-private-sg"
   ingress_with_source_security_group_id = [
@@ -69,8 +69,15 @@ module "rds_security_group" {
   description              = var.rds_sg_description
   vpc_id                   = module.vpc.vpc_id
   name                     = "${var.client_name}-${var.environment}-rds-sg"
-  ingress_with_cidr_blocks = var.rds_ingress_with_cidr_blocks
-  # ingress_with_source_security_group_id = var.rds_ingress_with_source_security_group_id
+  ingress_with_source_security_group_id = [
+    {
+      from_port   = 3306
+      to_port     = 3306
+      protocol    = "tcp"
+      description = "Backend server access"
+      source_security_group_id = "${module.backend_security_group.security_group_id}"
+    }
+  ]
   egress_with_cidr_blocks = var.rds_egress_with_cidr_blocks
   tags = {
     Created_by = "Terraform"

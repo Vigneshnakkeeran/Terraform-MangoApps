@@ -448,16 +448,6 @@ enable_content_based_deduplication = true #to enable this fifo queue should also
 create_rds_sg      = true
 rds_sg_description = "Security group for RDS instances"
 
-rds_ingress_with_cidr_blocks = [
-  {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    description = "SSH Access from anywhere"
-    cidr_blocks = "0.0.0.0/0"
-  }
-]
-
 rds_egress_with_cidr_blocks = [
   {
     from_port   = 0

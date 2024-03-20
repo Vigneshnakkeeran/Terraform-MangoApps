@@ -503,6 +503,33 @@ variable "bastion_egress_with_cidr_blocks" {
   type        = list(map(string))
 }
 
+# ################## Backend Security Group variables ##########################
+
+variable "create_backend_sg" {
+  description = "Whether to create security group for ASG"
+  type        = bool
+}
+
+variable "backend_sg_description" {
+  description = "Security Group for instances created by the ASG"
+  type        = string
+}
+
+variable "backend_ingress_with_cidr_blocks" {
+  description = "List of ingress rules to create where 'cidr_blocks' is used"
+  type        = list(map(string))
+}
+
+# variable "backend_ingress_with_source_security_group_id" {
+#   description = "List of ingress rules to create where 'security group' is used"
+#   type        = list(map(string))
+# }
+
+variable "backend_egress_with_cidr_blocks" {
+  description = "List of egress rules to create by name"
+  type        = list(map(string))
+}
+
 ################################ Cloudtrail ################################
 
 variable "enable_cloudtrail" {

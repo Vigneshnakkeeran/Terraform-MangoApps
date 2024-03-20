@@ -8,7 +8,7 @@ variable "backup_plan_name" {
   type        = string
 }
 
-variable "aurora_cluster_arn" {
+variable "target_backup_resource_arn" {
   description = "The ARN of the Aurora cluster to back up."
   type        = string
 }
@@ -29,6 +29,16 @@ variable "copy_retention" {
   type        = number
 }
 
+variable "delete_after" {
+  description = "The number of days to retain the copied backups in the destination region."
+  default     = 30
+  type        = number
+}
+
+variable "backup_selection_name" {
+  description = "A CRON expression specifying when to perform the backup."
+  type        = string
+}
 
 variable "schedule" {
   description = "A CRON expression specifying when to perform the backup."

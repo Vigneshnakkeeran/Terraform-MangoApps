@@ -11,6 +11,11 @@ module "aws_backup" {
     "Project" = "MyProject"
   }
   delete_after       = ""
-  destination_vault_arn = ""
+  destination_vault_arn = module.destination_vault_aws_backup.arn
   backup_selection_name = ""
+}
+
+module "destination_vault_aws_backup" {
+  source              = "../../../../modules/backup"
+  backup_vault_name   = "my-destination-vault"
 }

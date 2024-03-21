@@ -27,14 +27,10 @@ resource "aws_backup_plan" "main" {
   }
 }
 
-resource "aws_backup_selection" "main" {
+resource "aws_backup_selection" "example" {
   iam_role_arn = "arn:aws:iam::123456789012:role/service-role/AWSBackupDefaultServiceRole"
-  plan_id      = aws_backup_plan.main.id
   name         = var.backup_selection_name
+  plan_id      = aws_backup_plan.main.id
 
-  selection_tag {
-    type  = "STRINGEQUALS"
-    key   = "aws:backup:source-resource"
-    value = var.target_backup_resource_arn
-  }
+  resources = var.target_backup_resource_arn
 }

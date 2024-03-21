@@ -447,3 +447,36 @@ variable "policy_mode" {
   description = "Policy Mode"
   type = string
 }
+
+############################### Service Bus Variables #################################
+
+variable "service_bus_sku" {
+  type        = string
+  default     = "Standard"
+  description = "The SKU of the namespace. The options are: `Basic`, `Standard`, `Premium`."
+}
+
+variable "service_bus_capacity" {
+  type        = number
+  default     = 0
+  description = "The number of message units."
+}
+
+variable "service_bus_namespace_authorization_rules" {
+  type        = any
+  default     = []
+  description = "List of namespace authorization rules for the service bus namespace."
+}
+
+variable "service_bus_topics" {
+  type = any
+  default = []
+  description = "List of topics in the service bus namespace"
+}
+
+variable "service_bus_queues" {
+  type = any
+  default = []
+  description = "List of queues in the service bus namespace"
+}
+

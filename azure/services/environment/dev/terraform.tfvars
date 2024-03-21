@@ -212,3 +212,40 @@ waf_managed_rule_set_configuration = [
 ]
 
 policy_mode = "Detection"
+
+############################# Service Bus #################################
+
+service_bus_sku = "Standard"
+
+service_bus_namespace_authorization_rules = [
+  {
+    name = "mangoapps-dev-sb-namespace-authorization-rule"
+    rights = ["listen", "send", "manage"]
+  }
+]
+
+service_bus_topics = [
+  {
+    name = "mango-apps-sb-topic"
+    enable_partioning = true
+    subscriptions = [
+      {
+        name = "mango-apps-sb-topic-queue-subscription"
+        forward_to = "mango-apps-sb-queue"
+        max_delivery_count = 1
+      }
+    ]
+  }
+]
+
+service_bus_queues = [
+  {
+    name = "mango-apps-sb-queue" 
+    authorization_rules = [
+      {
+        name = "mangoapps-dev-sb-queue-authorization-rule"
+        rights = ["listen", "send"]
+      }
+    ]
+  }
+]

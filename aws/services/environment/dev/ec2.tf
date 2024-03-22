@@ -82,11 +82,11 @@ module "ec2_frontendserver" {
   hibernation = false
   # enclave_options_enabled = true
 
-  #user_data            = <<-EOF
-  #                                #!/bin/bash
-  #                                hostnamectl set-hostname "${var.client_name}-${var.environment}-01"
-  #                                # Add any additional commands here
-  #                                EOF
+  user_data            = <<-EOF
+                                  #!/bin/bash
+                                  hostnamectl set-hostname "${var.client_name}-${var.environment}-01"
+                                  # Add any additional commands here
+                                  EOF
   user_data_replace_on_change = true
   enable_volume_tags = false
   root_block_device = [
@@ -138,11 +138,11 @@ module "ec2_backendserver" {
   hibernation = false
   # enclave_options_enabled = true
 
-  #user_data            = <<-EOF
-  #                                #!/bin/bash
-  #                                 hostnamectl set-hostname "${var.client_name}-${var.environment}-11"
-  #                                # Add any additional commands here
-  #                                EOF
+  user_data            = <<-EOF
+                                  #!/bin/bash
+                                   hostnamectl set-hostname "${var.client_name}-${var.environment}-11"
+                                 # Add any additional commands here
+                                  EOF
   user_data_replace_on_change = true
   enable_volume_tags = false
   root_block_device = [

@@ -215,6 +215,27 @@ cloudtrail_bucket_server_side_encryption_configuration = {
   }
 }
 
+############################## SES S3 Bucket ################################
+
+ses_bucket_acl              = "private"
+ses_bucket_versioning = {
+  "status" = "enabled"
+}
+ses_bucket_block_public_acls        = true
+ses_bucket_block_public_policy      = true
+ses_bucket_ignore_public_acls       = true
+ses_bucket_restrict_public_buckets  = true
+ses_bucket_control_object_ownership = true
+ses_bucket_object_ownership         = "ObjectWriter"
+ses_bucket_server_side_encryption_configuration = {
+  rule = {
+    apply_server_side_encryption_by_default = {
+      sse_algorithm = "AES256"
+    }
+    bucket_key_enabled = true
+  }
+}
+
 ############################# Bastion Host Security Group ##############################
 
 create_bastion_sg      = true

@@ -10,7 +10,7 @@ module "ses_email" {
   receipt_rule_name = var.receipt_rule_name
   s3_store_bucket_name = module.ses_s3.name
 
-  ses_lambda_function_arn = var.ses_lambda_function_arn
+  ses_lambda_function_arn = module.my_lambda_module.arn #var.ses_lambda_function_arn
   lambda_invocation_type = var.lambda_invocation_type
 
   ##Enable Feedback notifications

@@ -76,6 +76,13 @@ module "rds_security_group" {
       protocol    = "tcp"
       description = "Backend server access"
       source_security_group_id = "${module.backend_security_group.security_group_id}"
+    },
+    {
+      from_port   = 3306
+      to_port     = 3306
+      protocol    = "tcp"
+      description = "Backend server access"
+      source_security_group_id = "${module.asg_security_group.security_group_id}" 
     }
   ]
   egress_with_cidr_blocks = var.rds_egress_with_cidr_blocks

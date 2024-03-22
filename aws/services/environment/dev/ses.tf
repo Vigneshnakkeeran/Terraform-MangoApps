@@ -37,6 +37,9 @@ module "ses_domain" {
   domain = var.domain
   zone_id = var.zone_id
 
+  ses_lambda_function_arn = var.ses_lambda_function_arn
+  lambda_invocation_type = var.lambda_invocation_type
+
   ##Enable Feedback notifications
   sns_topic_arn = aws_sns_topic.user_updates.arn
   notification_type = var.notification_type

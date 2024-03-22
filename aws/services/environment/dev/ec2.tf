@@ -67,7 +67,7 @@ module "ec2_frontendserver" {
 
   name =   "${var.client_name}01"
   ami                         = "ami-04ee0ad06cc44c358"  # custom ami id
-  instance_type               = "r5a.xlarge" # used to set core count below
+  instance_type               = "r6a.2xlarge" # used to set core count below
   subnet_id                   = module.vpc.pivate_subnets[0]
   vpc_security_group_ids      = [module.private_security_group.security_group_id]
   associate_public_ip_address = false
@@ -123,7 +123,7 @@ module "ec2_backendserver" {
 
   name = "${var.client_name}11"
   ami                         = "ami-04ee0ad06cc44c358"
-  instance_type               = "r5a.xlarge" # used to set core count below
+  instance_type               = "r6a.2xlarge" # used to set core count below
   subnet_id                   = module.vpc.pivate_subnets[0]
   vpc_security_group_ids      = [module.private_security_group.security_group_id]
   associate_public_ip_address = false
@@ -153,62 +153,6 @@ module "ec2_backendserver" {
       volume_size = 100
       tags = {
         Name = "backend-root-block"
-      }
-    },
-  ]
-
-  ebs_block_device = [
-    {
-      device_name = "/dev/sdf"
-      volume_type = "gp3"
-      volume_size = 5
-      throughput  = 200
-      encrypted   = false
-    }
-  ]
-
-  tags = {
-    Created_by = "Terraform"
-  }
-}
-
-############### Backend #################
-
-module "ec2_backendserver2" {
-  source = "../../../modules/ec2"
-
-  name = "${var.client_name}21"
-  ami                         = "ami-04ee0ad06cc44c358"
-  instance_type               = "r5a.xlarge" # used to set core count below
-  subnet_id                   = module.vpc.pivate_subnets[0]
-  vpc_security_group_ids      = [module.private_security_group.security_group_id]
-  associate_public_ip_address = false
-  key_name        = var.asg_key_name
-  create_iam_instance_profile = false
-  #iam_role_description        = "IAM role for EC2 instance"
-  #iam_role_policies = {
-  #  AdministratorAccess = "arn:aws:iam::aws:policy/AdministratorAccess"
-  #}
-
-  # only one of these can be enabled at a time
-  hibernation = false
-  # enclave_options_enabled = true
-
-  user_data            = <<-EOF
-                                  #!/bin/bash
-                                   hostnamectl set-hostname "${var.client_name}21"
-                                 # Add any additional commands here
-                                  EOF
-  user_data_replace_on_change = true
-  enable_volume_tags = false
-  root_block_device = [
-    {
-      encrypted   = true
-      volume_type = "gp3"
-      throughput  = 200
-      volume_size = 100
-      tags = {
-        Name = "backend2-root-block"
       }
     },
   ]

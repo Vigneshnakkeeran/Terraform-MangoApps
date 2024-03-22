@@ -34,7 +34,7 @@
 
  module "lambda_execution_role" {
    source = "./../../../../aws/modules/IAM-Role"
-   role_name           = "${var.lambda_function_name}_ses_execution_role"
+   role_name           = "ses_lambda_execution_role"
    assume_role_policy = jsonencode({
      Version = "2012-10-17"
      Statement = [

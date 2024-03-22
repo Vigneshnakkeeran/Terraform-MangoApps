@@ -32,7 +32,7 @@ listner_rule_https443_sync  = {
           actions = [
             {
               type             = "forward"
-              target_group_key = "server5223"
+              target_group_key = "server9001"
             }
           ]
           conditions = [{
@@ -41,6 +41,52 @@ listner_rule_https443_sync  = {
             }
           }]
         }
+
+      forward-media = {
+          priority = 3
+          actions = [
+            {
+              type             = "forward"
+              target_group_key = "server8008"
+            }
+          ]
+          conditions = [{
+            path_pattern = {
+              values = ["/mjanus*", "/zip*", "/dl*", "/v2/media*", "/media*"]
+            }
+          }]
+        }
+
+      forward-solr = {
+          priority = 2
+          actions = [
+            {
+              type             = "forward"
+              target_group_key = "server8080"
+            }
+          ]
+          conditions = [{
+            path_pattern = {
+              values = ["/api/solr*"]
+            }
+          }]
+        }
+
+      forward-cjs = {
+          priority = 4
+          actions = [
+            {
+              type             = "forward"
+              target_group_key = "server9000"
+            }
+          ]
+          conditions = [{
+            path_pattern = {
+              values = ["/cjs*"]
+            }
+          }]
+        }
+
       }
 
 

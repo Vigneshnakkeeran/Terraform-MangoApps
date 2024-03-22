@@ -14,7 +14,7 @@ module "ses_email" {
   lambda_invocation_type = var.lambda_invocation_type
 
   ##Enable Feedback notifications
-  sns_topic_arn = aws_sns_topic.user_updates.arn
+  sns_topic_arn = module.sns_for_ses.arn
   notification_type = var.notification_type
 
   recipients = var.recipients

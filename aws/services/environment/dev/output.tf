@@ -15,6 +15,12 @@ output "public_subnets" {
   value       = module.vpc.public_subnets
 }
 
+######################## S3 ##########################
+
+output "s3_bucket_name" {
+  description = "The name of the bucket."
+  value       = module.s3.s3_bucket_id
+}
 
 # ######################## ASG ##########################
 
@@ -33,44 +39,60 @@ output "autoscaling_group_arn" {
   value       = module.asg.autoscaling_group_arn
 }
 
+########################## RDS ##########################
+
+output "rds_cluster_writer_endpoint" {
+  description = "Writer endpoint for the cluster"
+  value       = module.rds.cluster_writer_endpoint
+}
+
+output "rds_cluster_reader_endpoint" {
+  description = "A read-only endpoint for the cluster, automatically load-balanced across replicas"
+  value       = module.rds.cluster_reader_endpoint
+}
+
+output "rds_db_name" {
+  description =  "Name for an automatically created database on cluster creation"
+  value = module.rds.cluster_database_name
+}
+
+output "rds_cluster_port" {
+  description = "The database port"
+  value       = module.rds.cluster_port
+}
 
 # ####################### SNS ###########################
 
-# output "topic_arn" {
-#   description = "The ARN of the SNS topic, as a more obvious property (clone of id)"
-#   value       = try(aws_sns_topic.this[0].arn, null)
-# }
+output "topic_arn" {
+  description = "The ARN of the SNS topic, as a more obvious property (clone of id)"
+  value       = module.sns.topic_arn
+}
 
-# output "topic_name" {
-#   description = "The name of the topic"
-#   value       = try(aws_sns_topic.this[0].name, null)
-# }
+output "topic_name" {
+  description = "The name of the topic"
+  value       = module.sns.topic_name
+}
 
-# output "subscriptions" {
-#   description = "Map of subscriptions created and their attributes"
-#   value       = aws_sns_topic_subscription.this
-# }
+######################## SQS ##############################
+output "queue_id" {
+  description = "The URL for the created Amazon SQS queue"
+  value       = module.sqs.queue_id
+}
 
-# ######################## SQS ##############################
-# output "queue_id" {
-#   description = "The URL for the created Amazon SQS queue"
-#   value       = try(aws_sqs_queue.this[0].id, null)
-# }
+output "queue_arn" {
+  description = "The ARN of the SQS queue"
+  value       = module.sqs.queue_arn
+}
 
-# output "queue_arn" {
-#   description = "The ARN of the SQS queue"
-#   value       = try(aws_sqs_queue.this[0].arn, null)
-# }
+output "queue_url" {
+  description = "Same as `queue_id`: The URL for the created Amazon SQS queue"
+  value       = module.sqs.queue_url
+}
 
-# output "queue_url" {
-#   description = "Same as `queue_id`: The URL for the created Amazon SQS queue"
-#   value       = try(aws_sqs_queue.this[0].url, null)
-# }
-
-# output "queue_name" {
-#   description = "The name of the SQS queue"
-#   value       = try(aws_sqs_queue.this[0].name, null)
-# }
+output "queue_name" {
+  description = "The name of the SQS queue"
+  value       = module.sqs.queue_name
+}
 
 # ###################### Dead Letter Queue ###########################
 

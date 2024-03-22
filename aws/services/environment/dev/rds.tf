@@ -5,7 +5,7 @@ module "rds" {
   allow_major_version_upgrade = var.rds_aurora_allow_major_version_upgrade
   apply_immediately           = var.rds_aurora_apply_immediately
   #backup_retention_period = ""
-  #database_name       = "testingdatabse"
+  database_name       = var.rds_db_name
   create_db_subnet_group = true
   db_subnet_group_name = "db-subnet-group"
   subnets              = module.vpc.private_subnets

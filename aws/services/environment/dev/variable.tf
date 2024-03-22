@@ -274,6 +274,11 @@ variable "cloudtrail_bucket_server_side_encryption_configuration" {
 
 # ####################### RDS Aurora variables #############################
 
+variable "rds_db_name" {
+  description = "Name of Database to be created in RDS"
+  type        = string
+}
+
 variable "rds_aurora_allow_major_version_upgrade" {
   description = "Enable to allow major engine version upgrades when changing engine versions. Defaults to `false`"
   type        = bool

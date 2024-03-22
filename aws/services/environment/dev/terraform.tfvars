@@ -454,9 +454,9 @@ cloudfront_waf_managed_rule_group_statement_rules = [
   }
 ]
 
-
 ################################ RDS ####################################
 
+rds_db_name                            = "TestDb"
 rds_aurora_allow_major_version_upgrade = false
 rds_aurora_apply_immediately           = false
 rds_aurora_instance_class              = "db.r6g.large"

@@ -31,7 +31,7 @@ output "cluster_members" {
   value       = try(aws_rds_cluster.this[0].cluster_members, null)
 }
 
-output "cluster_endpoint" {
+output "cluster_writer_endpoint" {
   description = "Writer endpoint for the cluster"
   value       = try(aws_rds_cluster.this[0].endpoint, null)
 }

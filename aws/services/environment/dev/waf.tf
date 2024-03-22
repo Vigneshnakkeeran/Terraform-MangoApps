@@ -11,7 +11,7 @@ module "regional_wafv2_web_acl" {
   managed_rule_group_statement_rules = var.regional_waf_managed_rule_group_statement_rules
   
   # List of resources to which WAF is associated to. (Associated to Cloudfront should done from Cloudfront module)
-  association_resource_arns          = [module.alb.arn]
+  association_resource_arns          = [module.nlb.arn]
   
   tags                               = {
     Created_by  = "Terraform"

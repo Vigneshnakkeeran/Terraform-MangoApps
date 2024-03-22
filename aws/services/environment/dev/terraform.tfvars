@@ -20,7 +20,7 @@ bastion_instance_type = "t2.micro"
 
 ####################### Application Load Balancer #######################
 
-alb_certificate_domain_name = "vipinktxing.in"
+alb_certificate_domain_name = "hub.mangoapps-test-terraform.com"
 enable_deletion_protection = false
 internal                   = true
 ip_address_type            = "ipv4"

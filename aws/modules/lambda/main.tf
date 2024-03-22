@@ -1,6 +1,6 @@
 resource "aws_lambda_function" "my_lambda" {
   function_name = var.lambda_function_name
-  filename      = "${path.module}/lambda_function.zip"
+  filename      = var.source_path
   source_code_hash = filebase64sha256("${path.module}/lambda_function.zip")
   layer = aws_lambda_layer_version.lambda_layer.arn
   runtime = var.runtime
@@ -18,9 +18,8 @@ resource "aws_lambda_function" "my_lambda" {
   }
 }
 
-# resource "aws_lambda_layer_version" "lambda_layer" {
-#  filename   =  var.lambda_layer_filename     # "lambda_layer_payload.zip"
-#  layer_name = "lambda_layer_name"
-#
-#  compatible_runtimes = ["ruby2.7"]
-#}
+ resource "aws_lambda_layer_version" "lambda_layer" {
+  filename   =  var.lambda_layer_path    # "lambda_layer_payload.zip"
+  layer_name = var.layer_name
+  compatible_runtimes = ["ruby2.7"]
+}

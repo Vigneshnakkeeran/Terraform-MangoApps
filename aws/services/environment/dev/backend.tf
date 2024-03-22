@@ -8,7 +8,7 @@ terraform {
 }
 
 resource "local_file" "file_output" {
-  filename              = "${var.client_name}-${var.environment}-terraform-output"
+  filename              = "${var.client_name}-${var.environment}-terraform-output.txt"
   file_permission       = "0664"
   directory_permission  = "0755"
   content               = <<-EOT
@@ -34,6 +34,6 @@ resource "local_file" "file_output" {
 resource "aws_s3_object" "output_file_upload" {
   depends_on = [local_file.file_output ]
   bucket = "mangoapps-tf-backend-bucket"
-  key    = "env/dev/outputs"
-  source = "./${var.client_name}-${var.environment}-terraform-output"
+  key    = "env/dev/outputs/${var.client_name}-${var.environment}-terraform-output.txt"
+  source = "./${var.client_name}-${var.environment}-terraform-output.txt"
 }

@@ -18,6 +18,24 @@ variable "role" {
   type        = string
 }
 
+variable "source_path" {
+  description = "The absolute path to a local file or directory containing your Lambda source code"
+  type        = any # string | list(string | map(any))
+  default     = null
+}
+
+variable "layer_name" {
+  description = "The absolute path to a local file or directory containing your Lambda source code"
+  type        = string # string | list(string | map(any))
+  default     = null
+}
+
+variable "lambda_layer_path" {
+  description = "The absolute path to a local file or directory containing your Lambda source code"
+  type        = string # string | list(string | map(any))
+  default     = null
+}
+
 variable "memory_size" {
   description = "Memory size"
   type        = string

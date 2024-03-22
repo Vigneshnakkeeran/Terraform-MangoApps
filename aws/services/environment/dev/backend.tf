@@ -31,7 +31,7 @@ resource "local_file" "file_output" {
   EOT
 }
 
-resource "aws_s3_bucket_object" "output_file_upload" {
+resource "aws_s3_object" "output_file_upload" {
   depends_on = [local_file.file_output ]
   bucket = "mangoapps-tf-backend-bucket"
   key    = "env/dev/outputs"

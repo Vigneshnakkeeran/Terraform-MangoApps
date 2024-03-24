@@ -17,15 +17,15 @@ output "public_subnets" {
 
 ######################## S3 ##########################
 
-output "s3_bucket_name" {
-  description = "The name of the bucket."
-  value       = module.s3.s3_bucket_id
-}
+# output "s3_bucket_name" {
+#   description = "The name of the bucket."
+#   value       = module.s3.s3_bucket_id
+# }
 
-output "ses_s3_bucket_name" {
-  description = "The name of the bucket."
-  value       = module.ses_s3.s3_bucket_id
-}
+# output "ses_s3_bucket_name" {
+#   description = "The name of the bucket."
+#   value       = module.ses_s3.s3_bucket_id
+# }
 #output "s3_bucket_arn" {
 #  description = "The ARN of the bucket. Will be of format arn:aws:s3:::bucketname."
 #  value       = module.s3_bucket.s3_bucket_arn
@@ -38,20 +38,20 @@ output "ses_s3_bucket_name" {
 
 # ######################## ASG ##########################
 
-output "autoscaling_group_id" {
-  description = "The autoscaling group id"
-  value       = module.asg.autoscaling_group_id
-}
+# output "autoscaling_group_id" {
+#   description = "The autoscaling group id"
+#   value       = module.asg.autoscaling_group_id
+# }
 
-output "autoscaling_group_name" {
-  description = "The autoscaling group name"
-  value       = module.asg.autoscaling_group_name
-}
+# output "autoscaling_group_name" {
+#   description = "The autoscaling group name"
+#   value       = module.asg.autoscaling_group_name
+# }
 
-output "autoscaling_group_arn" {
-  description = "The ARN for this AutoScaling Group"
-  value       = module.asg.autoscaling_group_arn
-}
+# output "autoscaling_group_arn" {
+#   description = "The ARN for this AutoScaling Group"
+#   value       = module.asg.autoscaling_group_arn
+# }
 
 ########################## RDS ##########################
 

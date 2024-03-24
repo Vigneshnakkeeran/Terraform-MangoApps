@@ -106,7 +106,7 @@ resource "aws_security_group_rule" "ingress_with_source_security_group_id" {
   security_group_id = local.this_sg_id
   type              = "ingress"
 
-  source_security_group_id = var.ingress_with_source_security_group_id[count.index]["source_security_group_id"]
+  source_security_group_id = try(var.ingress_with_source_security_group_id[count.index]["source_security_group_id"], null)
   prefix_list_ids          = var.ingress_prefix_list_ids
   description = lookup(
     var.ingress_with_source_security_group_id[count.index],

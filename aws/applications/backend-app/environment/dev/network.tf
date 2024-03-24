@@ -1,6 +1,6 @@
 # Network Module
 module "vpc" {
-  source = "../../../modules/network"
+  source = "../../../../modules/network"
   name   = "${var.client_name}-${var.environment}-vpc"
   cidr   = var.vpc_cidr
   azs    = local.azs

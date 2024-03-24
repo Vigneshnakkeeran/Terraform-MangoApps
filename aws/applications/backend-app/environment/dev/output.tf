@@ -22,44 +22,27 @@ output "s3_bucket_name" {
   value       = module.s3.s3_bucket_id
 }
 
-# ######################## ASG ##########################
-
-output "autoscaling_group_id" {
-  description = "The autoscaling group id"
-  value       = module.asg.autoscaling_group_id
-}
-
-output "autoscaling_group_name" {
-  description = "The autoscaling group name"
-  value       = module.asg.autoscaling_group_name
-}
-
-output "autoscaling_group_arn" {
-  description = "The ARN for this AutoScaling Group"
-  value       = module.asg.autoscaling_group_arn
-}
-
 ########################## RDS ##########################
 
-output "rds_cluster_writer_endpoint" {
-  description = "Writer endpoint for the cluster"
-  value       = module.rds.cluster_writer_endpoint
-}
+# output "rds_cluster_writer_endpoint" {
+#   description = "Writer endpoint for the cluster"
+#   value       = module.rds.cluster_writer_endpoint
+# }
 
-output "rds_cluster_reader_endpoint" {
-  description = "A read-only endpoint for the cluster, automatically load-balanced across replicas"
-  value       = module.rds.cluster_reader_endpoint
-}
+# output "rds_cluster_reader_endpoint" {
+#   description = "A read-only endpoint for the cluster, automatically load-balanced across replicas"
+#   value       = module.rds.cluster_reader_endpoint
+# }
 
-output "rds_db_name" {
-  description =  "Name for an automatically created database on cluster creation"
-  value = module.rds.cluster_database_name
-}
+# output "rds_db_name" {
+#   description =  "Name for an automatically created database on cluster creation"
+#   value = module.rds.cluster_database_name
+# }
 
-output "rds_cluster_port" {
-  description = "The database port"
-  value       = module.rds.cluster_port
-}
+# output "rds_cluster_port" {
+#   description = "The database port"
+#   value       = module.rds.cluster_port
+# }
 
 # ####################### SNS ###########################
 
@@ -74,25 +57,25 @@ output "topic_name" {
 }
 
 ######################## SQS ##############################
-output "queue_id" {
-  description = "The URL for the created Amazon SQS queue"
-  value       = module.sqs.queue_id
-}
+# output "queue_id" {
+#   description = "The URL for the created Amazon SQS queue"
+#   value       = module.sqs.queue_id[count.index]
+# }
 
-output "queue_arn" {
-  description = "The ARN of the SQS queue"
-  value       = module.sqs.queue_arn
-}
+# output "queue_arn" {
+#   description = "The ARN of the SQS queue"
+#   value       = module.sqs.queue_arn[*]
+# }
 
-output "queue_url" {
-  description = "Same as `queue_id`: The URL for the created Amazon SQS queue"
-  value       = module.sqs.queue_url
-}
+# output "queue_url" {
+#   description = "Same as `queue_id`: The URL for the created Amazon SQS queue"
+#   value       = module.sqs.queue_url[*]
+# }
 
-output "queue_name" {
-  description = "The name of the SQS queue"
-  value       = module.sqs.queue_name
-}
+# output "queue_name" {
+#   description = "The name of the SQS queue"
+#   value       = module.sqs.queue_name[*]
+# }
 
 # ###################### Dead Letter Queue ###########################
 
@@ -140,15 +123,15 @@ output "regional_waf_arn" {
   value = module.regional_wafv2_web_acl.arn
 }
 
-output "cloudfront_waf_id" {
-  description = "ID of Reginal WAF"
-  value = module.cloudfront_wafv2_web_acl.id
-}
+# output "cloudfront_waf_id" {
+#   description = "ID of Reginal WAF"
+#   value = module.cloudfront_wafv2_web_acl.id
+# }
 
-output "cloudfront_waf_arn" {
-  description = "ARN of Regional WAF"
-  value = module.cloudfront_wafv2_web_acl.arn
-}
+# output "cloudfront_waf_arn" {
+#   description = "ARN of Regional WAF"
+#   value = module.cloudfront_wafv2_web_acl.arn
+# }
 
 ####################### Cloudtrail #######################
 

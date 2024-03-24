@@ -1,5 +1,5 @@
 module "cloudtrail" {
-  source = "../../../modules/cloudtrail"
+  source = "../../../../modules/cloudtrail"
 
   enable_cloudtrail             = var.enable_cloudtrail
   name                          = "${var.client_name}-${var.environment}-cloudtrail" 

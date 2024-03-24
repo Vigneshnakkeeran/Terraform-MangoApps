@@ -1,16 +1,16 @@
  data "aws_acm_certificate" "mangoapp_cert" {
    domain   = var.alb_certificate_domain_name
    statuses = ["ISSUED"]
-   types       = ["AMAZON_ISSUED"]  #PRIVATE, IMPORTED
+   types       = ["AMAZON_ISSUED"] 
  }
 
  module "alb" {
-   source  = "../../../modules/elb"
+   source  = "../../../../modules/elb"
 
    name               = "${var.client_name}-${var.environment}-alb"
    vpc_id             = module.vpc.vpc_id
    subnets            = module.vpc.private_subnets
-   security_groups    = [module.alb_security_group.security_group_id]
+   #security_groups    = [module.alb_security_group.security_group_id]
    internal           = var.internal 
    ip_address_type    = var.ip_address_type 
    load_balancer_type = var.load_balancer_type

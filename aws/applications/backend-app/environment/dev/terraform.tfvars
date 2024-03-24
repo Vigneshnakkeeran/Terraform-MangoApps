@@ -15,8 +15,9 @@ create_igw                         = true
 
 ############################ Bastion Host ##################################
 
-bastion_instance_type = "t2.micro"
-
+bastion_key_name = "mango-apps-dev-ec2-bastion-key"
+backend_key_name = "mango-apps-dev-backend-key"
+frontend_key_name = "mango-apps-dev-frontend-key"
 
 ####################### Application Load Balancer #######################
 
@@ -98,31 +99,17 @@ nlb_ip_address_type                    = "ipv4"
 nlb_load_balancer_type                 = "network"
 nlb_enable_cross_zone_load_balancing   = false
 
+########################## NLB Security Group ####################################
+
+create_nlb_sg      = true
+nlb_sg_description = "Security group for NLB"
+
 
 ########################## ALB Security Group ####################################
 
 create_alb_sg      = true
 alb_sg_description = "Security group for ALB"
-alb_ingress_with_cidr_blocks = [
-  {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = "0.0.0.0/16"
-  },
-  {
-    from_port   = 5223
-    to_port     = 5223
-    protocol    = "tcp"
-    cidr_blocks = "0.0.0.0/16"
-  },
-  {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = "0.0.0.0/16"
-  }
-]
+
 
 alb_egress_with_cidr_blocks = [
   {
@@ -130,45 +117,6 @@ alb_egress_with_cidr_blocks = [
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = "0.0.0.0/0"
-  }
-]
-
-
-
-################################ ASG ####################################
-
-asg_min_size                    = 1
-asg_max_size                    = 5
-asg_desired_size                = 2
-asg_ami_id                      = "ami-0f403e3180720dd7e"
-asg_instance_type               = "t3.medium"
-asg_key_name                    = "mango-apps-dev-asg-key"
-create_asg_iam_instance_profile = true
-asg_instance_ebs_optimized      = false
-enable_asg_monitoring           = true
-asg_volume_mapping = [
-  {
-    # Root volume
-    device_name = "/dev/xvda"
-    no_device   = 0
-    ebs = {
-      delete_on_termination = true
-      encrypted             = true
-      volume_size           = 20
-      volume_type           = "gp3"
-    }
-  },
-
-  # Additional volume
-  {
-    device_name = "/dev/sdf"
-    no_device   = 1
-    ebs = {
-      delete_on_termination = true
-      encrypted             = true
-      volume_size           = 10
-      volume_type           = "gp3"
-    }
   }
 ]
 
@@ -217,24 +165,24 @@ cloudtrail_bucket_server_side_encryption_configuration = {
 
 ############################## SES S3 Bucket ################################
 
-ses_bucket_acl              = "private"
-ses_bucket_versioning = {
-  "status" = "enabled"
-}
-ses_bucket_block_public_acls        = true
-ses_bucket_block_public_policy      = true
-ses_bucket_ignore_public_acls       = true
-ses_bucket_restrict_public_buckets  = true
-ses_bucket_control_object_ownership = true
-ses_bucket_object_ownership         = "ObjectWriter"
-ses_bucket_server_side_encryption_configuration = {
-  rule = {
-    apply_server_side_encryption_by_default = {
-      sse_algorithm = "AES256"
-    }
-    bucket_key_enabled = true
-  }
-}
+# ses_bucket_acl              = "private"
+# ses_bucket_versioning = {
+#   "status" = "enabled"
+# }
+# ses_bucket_block_public_acls        = true
+# ses_bucket_block_public_policy      = true
+# ses_bucket_ignore_public_acls       = true
+# ses_bucket_restrict_public_buckets  = true
+# ses_bucket_control_object_ownership = true
+# ses_bucket_object_ownership         = "ObjectWriter"
+# ses_bucket_server_side_encryption_configuration = {
+#   rule = {
+#     apply_server_side_encryption_by_default = {
+#       sse_algorithm = "AES256"
+#     }
+#     bucket_key_enabled = true
+#   }
+# }
 
 ############################# Bastion Host Security Group ##############################
 
@@ -257,7 +205,9 @@ bastion_egress_with_cidr_blocks = [
     cidr_blocks = "0.0.0.0/0"
   }
 ]
-
+############################# Backend Security Group ##############################
+create_backend_sg      = true
+backend_sg_description = "Security group for Bastion Host"
 ############################# ASG Security Group ##############################
 
 create_asg_sg      = true
@@ -477,19 +427,19 @@ cloudfront_waf_managed_rule_group_statement_rules = [
 
 ################################ RDS ####################################
 
-rds_db_name                            = "TestDb"
-rds_aurora_allow_major_version_upgrade = false
-rds_aurora_apply_immediately           = false
-rds_aurora_instance_class              = "db.r6g.large"
-rds_aurora_engine                      = "aurora-mysql"
-rds_aurora_engine_mode                 = "provisioned"
-rds_aurora_engine_version              = "8.0"
-rds_aurora_manage_master_user_password = true
-# rds_aurora_master_password                 = "testing@123"
-rds_aurora_master_username                 = "testing"
-rds_aurora_storage_encrypted               = true
-rds_aurora_enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
-rds_aurora_publicly_accessible             = false
+# rds_db_name                            = "TestDb"
+# rds_aurora_allow_major_version_upgrade = false
+# rds_aurora_apply_immediately           = false
+# rds_aurora_instance_class              = "db.r6g.large"
+# rds_aurora_engine                      = "aurora-mysql"
+# rds_aurora_engine_mode                 = "provisioned"
+# rds_aurora_engine_version              = "8.0"
+# rds_aurora_manage_master_user_password = true
+# # rds_aurora_master_password                 = "testing@123"
+# rds_aurora_master_username                 = "testing"
+# rds_aurora_storage_encrypted               = true
+# rds_aurora_enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
+# rds_aurora_publicly_accessible             = false
 
 ################################ SNS ####################################
 
@@ -527,25 +477,25 @@ rds_egress_with_cidr_blocks = [
 
 ################################ SES ######################################
 
-cloudwatch_destination_event = {
-    "EMAIL_HEADER" = "emailHeader"
-    "MESSAGE_TAG"  = "messageTag"
-    "LINK_TAG"     = "linkTag"
-  }
+# cloudwatch_destination_event = {
+#     "EMAIL_HEADER" = "emailHeader"
+#     "MESSAGE_TAG"  = "messageTag"
+#     "LINK_TAG"     = "linkTag"
+#   }
 
-configuration_set_name    = "mango_config" 
-create_dedicated_ip_pool  = true
-create_receipt_rule_set   = true
-create_receipt_rule      = true
-dedicated_ip_pool_name   = "mangoapps_ses_ips"
-domain                   = "hub.mangoapps-test-terraform.com"
-emails                   = []
-lambda_invocation_type   = "Event"
-notification_type        = ["Bounce", "Complaint"]
-receipt_rule_set_name    = "mangoapps-rule-set"
-receipt_rule_name        = "rule_1"
-recipients               = ["rohithtest1email@gmail.com", "rohithtest2email@gmail.com"]
-s3_store_bucket_name     = "testbucketforsesmango"
-tls_policy               = "OPTIONAL"
-zone_id                  = "Z040829313CSW6QBN73I3"
+# configuration_set_name    = "mango_config" 
+# create_dedicated_ip_pool  = true
+# create_receipt_rule_set   = true
+# create_receipt_rule      = true
+# dedicated_ip_pool_name   = "mangoapps_ses_ips"
+# domain                   = "hub.mangoapps-test-terraform.com"
+# emails                   = []
+# lambda_invocation_type   = "Event"
+# notification_type        = ["Bounce", "Complaint"]
+# receipt_rule_set_name    = "mangoapps-rule-set"
+# receipt_rule_name        = "rule_1"
+# recipients               = ["rohithtest1email@gmail.com", "rohithtest2email@gmail.com"]
+# s3_store_bucket_name     = "testbucketforsesmango"
+# tls_policy               = "OPTIONAL"
+# zone_id                  = "Z040829313CSW6QBN73I3"
 

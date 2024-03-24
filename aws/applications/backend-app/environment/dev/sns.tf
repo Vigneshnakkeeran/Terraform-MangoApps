@@ -1,5 +1,5 @@
 module "sns" {
-  source = "../../../modules/sns"
+  source = "../../../../modules/sns"
 
   name            = "${var.client_name}-${var.environment}-sns"
   use_name_prefix = false
@@ -45,7 +45,7 @@ module "sns" {
 
 # SNS Email Subscription
 module "sns_email_subscription" {
-	source = "../../../modules/sns/sns-subscription"
+	source = "../../../../modules/sns/sns-subscription"
 	count = var.sns_email_subscriptions == null ? 0 : 1
 	subscriptions = var.sns_email_subscriptions
 	sns_topic_arn = module.sns.topic_arn
@@ -53,7 +53,7 @@ module "sns_email_subscription" {
 
 
 module "sns_for_ses" {
-  source = "../../../modules/sns"
+  source = "../../../../modules/sns"
 
   name            = "${var.client_name}-${var.environment}-ses-sns"
   use_name_prefix = false

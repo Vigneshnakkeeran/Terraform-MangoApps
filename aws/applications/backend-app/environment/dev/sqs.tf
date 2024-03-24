@@ -1,5 +1,5 @@
 module "sqs" {
-  source = "../../../modules/sqs"
+  source = "../../../../modules/sqs"
         count = var.create_sqs ? 1 : 0
 
   name                        = "${var.client_name}-${var.environment}-sqs"

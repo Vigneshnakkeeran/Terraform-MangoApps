@@ -1,5 +1,5 @@
 module "aws_shield" {
-  source = "../../../modules/shield"
+  source = "../../../../modules/shield"
 
   name = "${var.client_name}-${var.environment}-shield"
   associated_arns = [module.alb.arn]

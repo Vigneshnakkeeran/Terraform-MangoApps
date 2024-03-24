@@ -50,11 +50,18 @@ variable "create_igw" {
 
 ################## Bastion Host variables ##########################
 
-variable "bastion_instance_type" {
-  description = "Instance Type used by the Bastion Host"
+variable "bastion_key_name" {
+  description = "Instance key for ssh"
   type = string
 }
-
+variable "frontend_key_name" {
+  description = "Instance key for ssh"
+  type = string
+}
+variable "backend_key_name" {
+  description = "Instance key for ssh"
+  type = string
+}
 
 
 ################################# ALB Variables #######################################
@@ -116,59 +123,6 @@ variable "nlb_enable_cross_zone_load_balancing" {
   description = "If `true`, cross-zone load balancing of the load balancer will be enabled. For application load balancer this feature is always enabled (`true`) and cannot be disabled. Defaults to `true`"
   type        = bool
   default     = true
-}
-
-
-################## ASG variables ##########################
-
-variable "asg_min_size" {
-  description = "Minimum Size for the ASG"
-  type        = number
-}
-
-variable "asg_max_size" {
-  description = "Maximum Size for the ASG"
-  type        = number
-}
-
-variable "asg_desired_size" {
-  description = "Desired Size for the ASG"
-  type        = number
-}
-
-variable "asg_ami_id" {
-  description = "AMI ID for the ASG Launch Template"
-  type        = string
-}
-
-variable "asg_instance_type" {
-  description = "Instance type for the ASG Launch Template"
-  type        = string
-}
-
-variable "create_asg_iam_instance_profile" {
-  description = "If enabled, creates instance profiles for the instances launched by the ASG"
-  type        = bool
-}
-
-variable "asg_instance_ebs_optimized" {
-  description = "If enabled, the instances launched by the ASG will be EBS optimized"
-  type        = bool
-}
-
-variable "enable_asg_monitoring" {
-  description = "Enables monitoring for the ASG"
-  type        = bool
-}
-
-variable "asg_volume_mapping" {
-  description = "EBS Volume mappings for ASG"
-  type        = list(any)
-}
-
-variable "asg_key_name" {
-  description = "Key Pair used for SSH to ASG instances"
-  type        = string
 }
 
 ################## S3 variables ##########################
@@ -274,83 +228,83 @@ variable "cloudtrail_bucket_server_side_encryption_configuration" {
 
 # ####################### RDS Aurora variables #############################
 
-variable "rds_db_name" {
-  description = "Name of Database to be created in RDS"
-  type        = string
-}
+# variable "rds_db_name" {
+#   description = "Name of Database to be created in RDS"
+#   type        = string
+# }
 
-variable "rds_aurora_allow_major_version_upgrade" {
-  description = "Enable to allow major engine version upgrades when changing engine versions. Defaults to `false`"
-  type        = bool
-}
+# variable "rds_aurora_allow_major_version_upgrade" {
+#   description = "Enable to allow major engine version upgrades when changing engine versions. Defaults to `false`"
+#   type        = bool
+# }
 
-variable "rds_aurora_apply_immediately" {
-  description = "Specifies whether any cluster modifications are applied immediately, or during the next maintenance window. Default is `false`"
-  type        = bool
-}
+# variable "rds_aurora_apply_immediately" {
+#   description = "Specifies whether any cluster modifications are applied immediately, or during the next maintenance window. Default is `false`"
+#   type        = bool
+# }
 
-variable "rds_aurora_instance_class" {
-  description = "Instance type to use at master instance. Note: if `autoscaling_enabled` is `true`, this will be the same instance class used on instances created by autoscaling"
-  type        = string
-  default     = ""
-}
+# variable "rds_aurora_instance_class" {
+#   description = "Instance type to use at master instance. Note: if `autoscaling_enabled` is `true`, this will be the same instance class used on instances created by autoscaling"
+#   type        = string
+#   default     = ""
+# }
 
-variable "rds_aurora_engine" {
-  description = "The name of the database engine to be used for this DB cluster. Defaults to `aurora`. Valid Values: `aurora`, `aurora-mysql`, `aurora-postgresql`"
-  type        = string
-  default     = null
-}
-
-variable "rds_aurora_engine_mode" {
-  description = "The database engine mode. Valid values: `global`, `multimaster`, `parallelquery`, `provisioned`, `serverless`. Defaults to: `provisioned`"
-  type        = string
-  default     = "provisioned"
-}
-
-variable "rds_aurora_engine_version" {
-  description = "The database engine version. Updating this argument results in an outage"
-  type        = string
-  default     = null
-}
-
-variable "rds_aurora_manage_master_user_password" {
-  description = "Set to true to allow RDS to manage the master user password in Secrets Manager. Cannot be set if `master_password` is provided"
-  type        = bool
-  default     = true
-}
-
-variable "create_db_subnet_group" {
-  description = "Determines whether to create the database subnet group or use existing"
-  type        = bool
-  default     = true
-}
-
-# variable "master_password" {
-#   description = "Password for the master DB user. Note that this may show up in logs, and it will be stored in the state file. Required unless `manage_master_user_password` is set to `true` or unless `snapshot_identifier` or `replication_source_identifier` is provided or unless a `global_cluster_identifier` is provided when the cluster is the secondary cluster of a global database"
+# variable "rds_aurora_engine" {
+#   description = "The name of the database engine to be used for this DB cluster. Defaults to `aurora`. Valid Values: `aurora`, `aurora-mysql`, `aurora-postgresql`"
 #   type        = string
 #   default     = null
 # }
 
-variable "rds_aurora_master_username" {
-  description = "Username for the master DB user. Required unless `snapshot_identifier` or `replication_source_identifier` is provided or unless a `global_cluster_identifier` is provided when the cluster is the secondary cluster of a global database"
-  type        = string
-  default     = null
-}
+# variable "rds_aurora_engine_mode" {
+#   description = "The database engine mode. Valid values: `global`, `multimaster`, `parallelquery`, `provisioned`, `serverless`. Defaults to: `provisioned`"
+#   type        = string
+#   default     = "provisioned"
+# }
 
-variable "rds_aurora_storage_encrypted" {
-  description = "Specifies whether the DB cluster is encrypted. The default is `true`"
-  type        = bool
-}
+# variable "rds_aurora_engine_version" {
+#   description = "The database engine version. Updating this argument results in an outage"
+#   type        = string
+#   default     = null
+# }
 
-variable "rds_aurora_enabled_cloudwatch_logs_exports" {
-  description = "Set of log types to export to cloudwatch. If omitted, no logs will be exported. The following log types are supported: `audit`, `error`, `general`, `slowquery`, `postgresql`"
-  type        = list(string)
-}
+# variable "rds_aurora_manage_master_user_password" {
+#   description = "Set to true to allow RDS to manage the master user password in Secrets Manager. Cannot be set if `master_password` is provided"
+#   type        = bool
+#   default     = true
+# }
 
-variable "rds_aurora_publicly_accessible" {
-  description = "Determines whether instances are publicly accessible. Default `false`"
-  type        = bool
-}
+# variable "create_db_subnet_group" {
+#   description = "Determines whether to create the database subnet group or use existing"
+#   type        = bool
+#   default     = true
+# }
+
+# # variable "master_password" {
+# #   description = "Password for the master DB user. Note that this may show up in logs, and it will be stored in the state file. Required unless `manage_master_user_password` is set to `true` or unless `snapshot_identifier` or `replication_source_identifier` is provided or unless a `global_cluster_identifier` is provided when the cluster is the secondary cluster of a global database"
+# #   type        = string
+# #   default     = null
+# # }
+
+# variable "rds_aurora_master_username" {
+#   description = "Username for the master DB user. Required unless `snapshot_identifier` or `replication_source_identifier` is provided or unless a `global_cluster_identifier` is provided when the cluster is the secondary cluster of a global database"
+#   type        = string
+#   default     = null
+# }
+
+# variable "rds_aurora_storage_encrypted" {
+#   description = "Specifies whether the DB cluster is encrypted. The default is `true`"
+#   type        = bool
+# }
+
+# variable "rds_aurora_enabled_cloudwatch_logs_exports" {
+#   description = "Set of log types to export to cloudwatch. If omitted, no logs will be exported. The following log types are supported: `audit`, `error`, `general`, `slowquery`, `postgresql`"
+#   type        = list(string)
+# }
+
+# variable "rds_aurora_publicly_accessible" {
+#   description = "Determines whether instances are publicly accessible. Default `false`"
+#   type        = bool
+# }
 
 
 ################## SNS Variables ##########################
@@ -425,7 +379,16 @@ variable "asg_egress_with_cidr_blocks" {
   type        = list(map(string))
 }
 
+########################### NLB Security Group #############################################
+variable "create_nlb_sg" {
+  description = "Whether to create security group for Network Load Balancer"
+  type        = bool
+}
 
+variable "nlb_sg_description" {
+  description = "Security Group for NLB"
+  type        = string
+}
 
 ########################### ALB Security Group #############################################
 
@@ -439,10 +402,10 @@ variable "alb_sg_description" {
   type        = string
 }
 
-variable "alb_ingress_with_cidr_blocks" {
-  description = "List of ingress rules to create where 'cidr_blocks' is used"
-  type        = list(map(string))
-}
+# variable "alb_ingress_with_cidr_blocks" {
+#   description = "List of ingress rules to create where 'cidr_blocks' is used"
+#   type        = list(map(string))
+# }
 
 # variable "alb_ingress_with_source_security_group_id" {
 #   description = "List of ingress rules to create where 'security group' is used"
@@ -466,10 +429,10 @@ variable "rds_sg_description" {
   type        = string
 }
 
-variable "rds_ingress_with_cidr_blocks" {
-  description = "List of ingress rules to create where 'cidr_blocks' is used"
-  type        = list(map(string))
-}
+# variable "rds_ingress_with_cidr_blocks" {
+#   description = "List of ingress rules to create where 'cidr_blocks' is used"
+#   type        = list(map(string))
+# }
 
 # variable "rds_ingress_with_source_security_group_id" {
 #   description = "List of ingress rules to create where 'security group' is used"
@@ -520,20 +483,20 @@ variable "backend_sg_description" {
   type        = string
 }
 
-variable "backend_ingress_with_cidr_blocks" {
-  description = "List of ingress rules to create where 'cidr_blocks' is used"
-  type        = list(map(string))
-}
+# variable "backend_ingress_with_cidr_blocks" {
+#   description = "List of ingress rules to create where 'cidr_blocks' is used"
+#   type        = list(map(string))
+# }
 
 # variable "backend_ingress_with_source_security_group_id" {
 #   description = "List of ingress rules to create where 'security group' is used"
 #   type        = list(map(string))
 # }
 
-variable "backend_egress_with_cidr_blocks" {
-  description = "List of egress rules to create by name"
-  type        = list(map(string))
-}
+# variable "backend_egress_with_cidr_blocks" {
+#   description = "List of egress rules to create by name"
+#   type        = list(map(string))
+# }
 
 ################################ Cloudtrail ################################
 
@@ -1296,99 +1259,99 @@ variable "cloudfront_waf_xss_match_statement_rules" {
 #######################################################################
 
 ##################### SES ###############################
-variable "cloudwatch_destination_event" {
-  description = "Provide the Dimention name and value for cloudwatch destination."
-  type        = map(string)
-}
-
-
-variable "configuration_set_name" {
-  description = "Provide the name for Configuration set."
-  type = string
-}
-
-variable "create_dedicated_ip_pool" {
-  description = "Should be true if you want to create dedicated ip pool"
-  type        = bool
-}
-
-variable "create_receipt_rule_set" {
-  description = "Should be true if you wnat to create receipt rule set."
-  type = bool
-}
-
-variable "create_receipt_rule" {
-  description = "Should be true if you want to create receipt rule"
-  type = bool
-}
-
-variable "dedicated_ip_pool_name" {
-  description = "Provide the name for dedicated ip pool"
-  type        = string
-}
-
-variable "domain" {
-  description = "Provide the domain name to assign to SES"
-  type = string
-}
-
-variable "emails" {
-  type        = list(string)
-  description = "Emails list to use for SES."
-}
-
-
-variable "lambda_invocation_type" {
-  description = "Provide the Invocation type to Invoke Lambda function. Allowed values are Event or RequestResponse"
-  type = string
-}
-
-
-variable "notification_type" {
-  description = "The type of notifications that will be published to the specified Amazon SNS topic. Allowed values are Bounce, Complaint or Delivery"
-  type = list(string) #set(string)
-}
-
-variable "receipt_rule_set_name" {
-  description = "Provide the name for Receipt rule set"
-  type = string
-}
-
-variable "receipt_rule_name" {
-  description = "Provide the name for Receipt rule."
-  type = string
-}
-
-variable "recipients" {
-  description = "A list of email addresses"
-  type        = list(string)
-}
-
-variable "s3_store_bucket_name" {
-  description = "Provide the nsme of s3 bucket where you want to store emails."
-  type = string
-}
-
-variable "ses_lambda_function_arn" {
-  description = "Provide the ARN of the Lambda function to invoke"
-  type = string
-}
-
-# variable "sns_topic_arn" {
-#   description = "Provide the SNS Topic arn"
-#   type = string
-#   default = ""
+# variable "cloudwatch_destination_event" {
+#   description = "Provide the Dimention name and value for cloudwatch destination."
+#   type        = map(string)
 # }
 
-variable "tls_policy" {
-  type        = string
-  description = "Whether messages that use the configuration set are required to use Transport Layer Security. The possible values are REQUIRE or OPTIONAL"
-}
 
-variable "zone_id" {
-  description = "Provide the Zone ID of the Route53 Domain. If Route 53 and SES Present in the same account."
-  type = string
-}
+# variable "configuration_set_name" {
+#   description = "Provide the name for Configuration set."
+#   type = string
+# }
+
+# variable "create_dedicated_ip_pool" {
+#   description = "Should be true if you want to create dedicated ip pool"
+#   type        = bool
+# }
+
+# variable "create_receipt_rule_set" {
+#   description = "Should be true if you wnat to create receipt rule set."
+#   type = bool
+# }
+
+# variable "create_receipt_rule" {
+#   description = "Should be true if you want to create receipt rule"
+#   type = bool
+# }
+
+# variable "dedicated_ip_pool_name" {
+#   description = "Provide the name for dedicated ip pool"
+#   type        = string
+# }
+
+# variable "domain" {
+#   description = "Provide the domain name to assign to SES"
+#   type = string
+# }
+
+# variable "emails" {
+#   type        = list(string)
+#   description = "Emails list to use for SES."
+# }
+
+
+# variable "lambda_invocation_type" {
+#   description = "Provide the Invocation type to Invoke Lambda function. Allowed values are Event or RequestResponse"
+#   type = string
+# }
+
+
+# variable "notification_type" {
+#   description = "The type of notifications that will be published to the specified Amazon SNS topic. Allowed values are Bounce, Complaint or Delivery"
+#   type = list(string) #set(string)
+# }
+
+# variable "receipt_rule_set_name" {
+#   description = "Provide the name for Receipt rule set"
+#   type = string
+# }
+
+# variable "receipt_rule_name" {
+#   description = "Provide the name for Receipt rule."
+#   type = string
+# }
+
+# variable "recipients" {
+#   description = "A list of email addresses"
+#   type        = list(string)
+# }
+
+# variable "s3_store_bucket_name" {
+#   description = "Provide the nsme of s3 bucket where you want to store emails."
+#   type = string
+# }
+
+# variable "ses_lambda_function_arn" {
+#   description = "Provide the ARN of the Lambda function to invoke"
+#   type = string
+# }
+
+# # variable "sns_topic_arn" {
+# #   description = "Provide the SNS Topic arn"
+# #   type = string
+# #   default = ""
+# # }
+
+# variable "tls_policy" {
+#   type        = string
+#   description = "Whether messages that use the configuration set are required to use Transport Layer Security. The possible values are REQUIRE or OPTIONAL"
+# }
+
+# variable "zone_id" {
+#   description = "Provide the Zone ID of the Route53 Domain. If Route 53 and SES Present in the same account."
+#   type = string
+# }
 
 ###########################################################################################
 

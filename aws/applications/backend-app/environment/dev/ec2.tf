@@ -7,7 +7,7 @@ locals {
 ################################################################################
 
 module "ec2_bastion" {
-  source = "../../../modules/ec2"
+  source = "../../../../modules/ec2"
 
   name =  "${var.client_name}bastion-host"
   ami                         = "ami-07d9b9ddc6cd8dd30"
@@ -15,7 +15,7 @@ module "ec2_bastion" {
   subnet_id                   = module.vpc.public_subnets[0]
   vpc_security_group_ids      = [module.bastion_security_group.security_group_id]
   associate_public_ip_address = true
-  key_name        = var.asg_key_name
+  key_name        = var.bastion_key_name
   create_iam_instance_profile = false
   iam_role_description        = "IAM role for EC2 instance"
   iam_role_policies = {
@@ -63,15 +63,15 @@ module "ec2_bastion" {
 ################ Frontend ###################
 
 module "ec2_frontendserver" {
-  source = "../../../modules/ec2"
+  source = "../../../../modules/ec2"
 
   name =   "${var.client_name}01"
   ami                         = "ami-04ee0ad06cc44c358"  # custom ami id
   instance_type               = "r6a.2xlarge" # used to set core count below
-  subnet_id                   = module.vpc.pivate_subnets[0]
-  vpc_security_group_ids      = [module.private_security_group.security_group_id]
+  subnet_id                   = module.vpc.private_subnets[0]
+  vpc_security_group_ids      = [module.asg_security_group.security_group_id]
   associate_public_ip_address = false
-  key_name        = var.asg_key_name
+  key_name        = var.frontend_key_name
   create_iam_instance_profile = false
   #iam_role_description        = "IAM role for EC2 instance"
   #iam_role_policies = {
@@ -119,15 +119,15 @@ module "ec2_frontendserver" {
 ################ Backend ###################
 
 module "ec2_backendserver" {
-  source = "../../../modules/ec2"
+  source = "../../../../modules/ec2"
 
   name = "${var.client_name}11"
   ami                         = "ami-04ee0ad06cc44c358"
   instance_type               = "r6a.2xlarge" # used to set core count below
-  subnet_id                   = module.vpc.pivate_subnets[0]
-  vpc_security_group_ids      = [module.private_security_group.security_group_id]
+  subnet_id                   = module.vpc.private_subnets[0]
+  vpc_security_group_ids      = [module.backend_security_group.security_group_id]
   associate_public_ip_address = false
-  key_name        = var.asg_key_name
+  key_name        = var.backend_key_name
   create_iam_instance_profile = false
   #iam_role_description        = "IAM role for EC2 instance"
   #iam_role_policies = {

@@ -18,9 +18,9 @@ module "ec2_bastion" {
   key_name        = var.bastion_key_name
   create_iam_instance_profile = false
   iam_role_description        = "IAM role for EC2 instance"
-  iam_role_policies = {
-    AdministratorAccess = "arn:aws:iam::aws:policy/AdministratorAccess"
-  }
+  # iam_role_policies = {
+  #   AdministratorAccess = "arn:aws:iam::aws:policy/AdministratorAccess"
+  # }
 
   # only one of these can be enabled at a time
   hibernation = false

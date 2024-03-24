@@ -14,6 +14,7 @@ module "bastion_security_group" {
   }
 }
 
+# Backend Security Group 
 module "backend_security_group" {
   source                   = "../../../../modules/security-group"
   create_sg                = var.create_backend_sg
@@ -26,7 +27,7 @@ module "backend_security_group" {
     to_port     = 22
     protocol    = "tcp"
     description = "SSH Access to instances"
-    source_security_group_id = "${module.bastion_security_group.security_group_id}"
+    source_security_group_id = module.bastion_security_group.security_group_id
   }
   ]
   egress_with_cidr_blocks = var.asg_egress_with_cidr_blocks
@@ -50,7 +51,7 @@ module "asg_security_group" {
     to_port     = 22
     protocol    = "tcp"
     description = "SSH Access to instances"
-    source_security_group_id = "${module.bastion_security_group.security_group_id}"
+    source_security_group_id = module.bastion_security_group.security_group_id
   }
   ]
   egress_with_cidr_blocks = var.asg_egress_with_cidr_blocks
@@ -75,14 +76,14 @@ module "rds_security_group" {
       to_port     = 3306
       protocol    = "tcp"
       description = "Backend server access"
-      source_security_group_id = "${module.backend_security_group.security_group_id}"
+      source_security_group_id = module.backend_security_group.security_group_id
     },
     {
       from_port   = 3306
       to_port     = 3306
       protocol    = "tcp"
       description = "Backend server access"
-      source_security_group_id = "${module.asg_security_group.security_group_id}" 
+      source_security_group_id = module.asg_security_group.security_group_id
     }
   ]
   egress_with_cidr_blocks = var.rds_egress_with_cidr_blocks
@@ -106,19 +107,19 @@ module "alb_security_group" {
       to_port     = 443
       protocol    = "tcp"
       description = "nlb sg access"
-      source_security_group_id = "${module.nlb_security_group.security_group_id}"
+      source_security_group_id = module.nlb_security_group.security_group_id
     },
   {
     from_port   = 5223
     to_port     = 5223
     protocol    = "tcp"
-    source_security_group_id = "${module.nlb_security_group.security_group_id}"
+    source_security_group_id = module.nlb_security_group.security_group_id
   },
   {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    source_security_group_id = "${module.nlb_security_group.security_group_id}"
+    source_security_group_id = module.nlb_security_group.security_group_id
   }
 ]
   # ingress_with_source_security_group_id = var.rds_ingress_with_source_security_group_id
@@ -137,7 +138,7 @@ module "nlb_security_group" {
   description              = var.nlb_sg_description
   vpc_id                   = module.vpc.vpc_id
   name                     = "${var.client_name}-${var.environment}-nlb-sg"
-  ingress_with_source_security_group_id = [
+  ingress_with_cidr_blocks = [
   {
     from_port   = 443
     to_port     = 443

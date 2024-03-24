@@ -2,6 +2,9 @@
 #   source = "./ses"
 
 #   emails = var.emails
+ # emails = var.emails
+  domain = var.domain
+  zone_id = var.zone_id
 
 #   ## Email receiving Rule set.
 #   create_receipt_rule_set  = var.create_receipt_rule_set

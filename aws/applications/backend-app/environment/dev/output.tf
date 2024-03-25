@@ -134,7 +134,7 @@ output "queue_name" {
 
 output "lambda_execution_role" {
   description = "The ARN of the IAM role created for Lambda execution"
-  value       = module.lambda_execution_role.arn
+  value       = module.lambda_execution_role.role_arn
 }
 
 # output "lambda_arn" {

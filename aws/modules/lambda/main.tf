@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "my_lambda" {
   function_name = var.lambda_function_name
   filename      = var.source_path
-  source_code_hash = filebase64sha256("${path.module}/lambda_function.zip")
+  source_code_hash = filebase64sha256("${var.source_path}")
   layers = aws_lambda_layer_version.lambda_layer.arn
   runtime = var.runtime
   handler = var.handler

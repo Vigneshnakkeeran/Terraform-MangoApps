@@ -165,24 +165,24 @@ cloudtrail_bucket_server_side_encryption_configuration = {
 
 ############################## SES S3 Bucket ################################
 
-# ses_bucket_acl              = "private"
-# ses_bucket_versioning = {
-#   "status" = "enabled"
-# }
-# ses_bucket_block_public_acls        = true
-# ses_bucket_block_public_policy      = true
-# ses_bucket_ignore_public_acls       = true
-# ses_bucket_restrict_public_buckets  = true
-# ses_bucket_control_object_ownership = true
-# ses_bucket_object_ownership         = "ObjectWriter"
-# ses_bucket_server_side_encryption_configuration = {
-#   rule = {
-#     apply_server_side_encryption_by_default = {
-#       sse_algorithm = "AES256"
-#     }
-#     bucket_key_enabled = true
-#   }
-# }
+ses_bucket_acl              = "private"
+ses_bucket_versioning = {
+  "status" = "enabled"
+}
+ses_bucket_block_public_acls        = true
+ses_bucket_block_public_policy      = true
+ses_bucket_ignore_public_acls       = true
+ses_bucket_restrict_public_buckets  = true
+ses_bucket_control_object_ownership = true
+ses_bucket_object_ownership         = "ObjectWriter"
+ses_bucket_server_side_encryption_configuration = {
+  rule = {
+    apply_server_side_encryption_by_default = {
+      sse_algorithm = "AES256"
+    }
+    bucket_key_enabled = true
+  }
+}
 
 ############################# Bastion Host Security Group ##############################
 
@@ -425,21 +425,21 @@ cloudfront_waf_managed_rule_group_statement_rules = [
   }
 ]
 
-################################ RDS ####################################
+############################### RDS ####################################
 
-# rds_db_name                            = "TestDb"
-# rds_aurora_allow_major_version_upgrade = false
-# rds_aurora_apply_immediately           = false
-# rds_aurora_instance_class              = "db.r6g.large"
-# rds_aurora_engine                      = "aurora-mysql"
-# rds_aurora_engine_mode                 = "provisioned"
-# rds_aurora_engine_version              = "8.0"
-# rds_aurora_manage_master_user_password = true
-# # rds_aurora_master_password                 = "testing@123"
-# rds_aurora_master_username                 = "testing"
-# rds_aurora_storage_encrypted               = true
-# rds_aurora_enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
-# rds_aurora_publicly_accessible             = false
+rds_db_name                            = "TestDb"
+rds_aurora_allow_major_version_upgrade = false
+rds_aurora_apply_immediately           = false
+rds_aurora_instance_class              = "db.r6g.large"
+rds_aurora_engine                      = "aurora-mysql"
+rds_aurora_engine_mode                 = "provisioned"
+rds_aurora_engine_version              = "8.0"
+rds_aurora_manage_master_user_password = true
+# rds_aurora_master_password                 = "testing@123"
+rds_aurora_master_username                 = "testing"
+rds_aurora_storage_encrypted               = true
+rds_aurora_enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
+rds_aurora_publicly_accessible             = false
 
 ################################ SNS ####################################
 

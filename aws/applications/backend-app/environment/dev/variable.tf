@@ -177,6 +177,54 @@ variable "server_side_encryption_configuration" {
   type        = map(any)
 }
 
+
+# for ses-s3
+
+variable "ses_bucket_acl" {
+  description = "(Optional) The canned ACL to apply. Conflicts with `grant`"
+  type        = string
+}
+
+variable "ses_bucket_versioning" {
+  description = "Map containing versioning configuration."
+  type        = map(string)
+}
+
+variable "ses_bucket_block_public_acls" {
+  description = "Whether Amazon S3 should block public ACLs for this bucket."
+  type        = bool
+}
+
+variable "ses_bucket_block_public_policy" {
+  description = "Whether Amazon S3 should block public bucket policies for this bucket."
+  type        = bool
+}
+
+variable "ses_bucket_ignore_public_acls" {
+  description = "Whether Amazon S3 should ignore public ACLs for this bucket."
+  type        = bool
+}
+
+variable "ses_bucket_restrict_public_buckets" {
+  description = "Whether Amazon S3 should restrict public bucket policies for this bucket."
+  type        = bool
+}
+
+variable "ses_bucket_control_object_ownership" {
+  description = "Whether to manage S3 Bucket Ownership Controls on this bucket."
+  type        = bool
+}
+
+variable "ses_bucket_object_ownership" {
+  description = "Object ownership. Valid values: BucketOwnerEnforced, BucketOwnerPreferred or ObjectWriter. 'BucketOwnerEnforced': ACLs are disabled, and the bucket owner automatically owns and has full control over every object in the bucket. 'BucketOwnerPreferred': Objects uploaded to the bucket change ownership to the bucket owner if the objects are uploaded with the bucket-owner-full-control canned ACL. 'ObjectWriter': The uploading account will own the object if the object is uploaded with the bucket-owner-full-control canned ACL."
+  type        = string
+}
+
+variable "ses_bucket_server_side_encryption_configuration" {
+  description = "server side encryption configuration"
+  type        = map(any)
+}
+
 # Cloudtrail Bucket
 
 variable "cloudtrail_bucket_acl" {
@@ -226,85 +274,85 @@ variable "cloudtrail_bucket_server_side_encryption_configuration" {
 
 
 
-# ####################### RDS Aurora variables #############################
+####################### RDS Aurora variables #############################
 
-# variable "rds_db_name" {
-#   description = "Name of Database to be created in RDS"
-#   type        = string
-# }
+variable "rds_db_name" {
+  description = "Name of Database to be created in RDS"
+  type        = string
+}
 
-# variable "rds_aurora_allow_major_version_upgrade" {
-#   description = "Enable to allow major engine version upgrades when changing engine versions. Defaults to `false`"
-#   type        = bool
-# }
+variable "rds_aurora_allow_major_version_upgrade" {
+  description = "Enable to allow major engine version upgrades when changing engine versions. Defaults to `false`"
+  type        = bool
+}
 
-# variable "rds_aurora_apply_immediately" {
-#   description = "Specifies whether any cluster modifications are applied immediately, or during the next maintenance window. Default is `false`"
-#   type        = bool
-# }
+variable "rds_aurora_apply_immediately" {
+  description = "Specifies whether any cluster modifications are applied immediately, or during the next maintenance window. Default is `false`"
+  type        = bool
+}
 
-# variable "rds_aurora_instance_class" {
-#   description = "Instance type to use at master instance. Note: if `autoscaling_enabled` is `true`, this will be the same instance class used on instances created by autoscaling"
-#   type        = string
-#   default     = ""
-# }
+variable "rds_aurora_instance_class" {
+  description = "Instance type to use at master instance. Note: if `autoscaling_enabled` is `true`, this will be the same instance class used on instances created by autoscaling"
+  type        = string
+  default     = ""
+}
 
-# variable "rds_aurora_engine" {
-#   description = "The name of the database engine to be used for this DB cluster. Defaults to `aurora`. Valid Values: `aurora`, `aurora-mysql`, `aurora-postgresql`"
-#   type        = string
-#   default     = null
-# }
+variable "rds_aurora_engine" {
+  description = "The name of the database engine to be used for this DB cluster. Defaults to `aurora`. Valid Values: `aurora`, `aurora-mysql`, `aurora-postgresql`"
+  type        = string
+  default     = null
+}
 
-# variable "rds_aurora_engine_mode" {
-#   description = "The database engine mode. Valid values: `global`, `multimaster`, `parallelquery`, `provisioned`, `serverless`. Defaults to: `provisioned`"
-#   type        = string
-#   default     = "provisioned"
-# }
+variable "rds_aurora_engine_mode" {
+  description = "The database engine mode. Valid values: `global`, `multimaster`, `parallelquery`, `provisioned`, `serverless`. Defaults to: `provisioned`"
+  type        = string
+  default     = "provisioned"
+}
 
-# variable "rds_aurora_engine_version" {
-#   description = "The database engine version. Updating this argument results in an outage"
-#   type        = string
-#   default     = null
-# }
+variable "rds_aurora_engine_version" {
+  description = "The database engine version. Updating this argument results in an outage"
+  type        = string
+  default     = null
+}
 
-# variable "rds_aurora_manage_master_user_password" {
-#   description = "Set to true to allow RDS to manage the master user password in Secrets Manager. Cannot be set if `master_password` is provided"
-#   type        = bool
-#   default     = true
-# }
+variable "rds_aurora_manage_master_user_password" {
+  description = "Set to true to allow RDS to manage the master user password in Secrets Manager. Cannot be set if `master_password` is provided"
+  type        = bool
+  default     = true
+}
 
-# variable "create_db_subnet_group" {
-#   description = "Determines whether to create the database subnet group or use existing"
-#   type        = bool
-#   default     = true
-# }
+variable "create_db_subnet_group" {
+  description = "Determines whether to create the database subnet group or use existing"
+  type        = bool
+  default     = true
+}
 
-# # variable "master_password" {
-# #   description = "Password for the master DB user. Note that this may show up in logs, and it will be stored in the state file. Required unless `manage_master_user_password` is set to `true` or unless `snapshot_identifier` or `replication_source_identifier` is provided or unless a `global_cluster_identifier` is provided when the cluster is the secondary cluster of a global database"
-# #   type        = string
-# #   default     = null
-# # }
-
-# variable "rds_aurora_master_username" {
-#   description = "Username for the master DB user. Required unless `snapshot_identifier` or `replication_source_identifier` is provided or unless a `global_cluster_identifier` is provided when the cluster is the secondary cluster of a global database"
+# variable "master_password" {
+#   description = "Password for the master DB user. Note that this may show up in logs, and it will be stored in the state file. Required unless `manage_master_user_password` is set to `true` or unless `snapshot_identifier` or `replication_source_identifier` is provided or unless a `global_cluster_identifier` is provided when the cluster is the secondary cluster of a global database"
 #   type        = string
 #   default     = null
 # }
 
-# variable "rds_aurora_storage_encrypted" {
-#   description = "Specifies whether the DB cluster is encrypted. The default is `true`"
-#   type        = bool
-# }
+variable "rds_aurora_master_username" {
+  description = "Username for the master DB user. Required unless `snapshot_identifier` or `replication_source_identifier` is provided or unless a `global_cluster_identifier` is provided when the cluster is the secondary cluster of a global database"
+  type        = string
+  default     = null
+}
 
-# variable "rds_aurora_enabled_cloudwatch_logs_exports" {
-#   description = "Set of log types to export to cloudwatch. If omitted, no logs will be exported. The following log types are supported: `audit`, `error`, `general`, `slowquery`, `postgresql`"
-#   type        = list(string)
-# }
+variable "rds_aurora_storage_encrypted" {
+  description = "Specifies whether the DB cluster is encrypted. The default is `true`"
+  type        = bool
+}
 
-# variable "rds_aurora_publicly_accessible" {
-#   description = "Determines whether instances are publicly accessible. Default `false`"
-#   type        = bool
-# }
+variable "rds_aurora_enabled_cloudwatch_logs_exports" {
+  description = "Set of log types to export to cloudwatch. If omitted, no logs will be exported. The following log types are supported: `audit`, `error`, `general`, `slowquery`, `postgresql`"
+  type        = list(string)
+}
+
+variable "rds_aurora_publicly_accessible" {
+  description = "Determines whether instances are publicly accessible. Default `false`"
+  type        = bool
+}
 
 
 ################## SNS Variables ##########################

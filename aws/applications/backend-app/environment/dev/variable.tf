@@ -1306,100 +1306,100 @@ variable "cloudfront_waf_xss_match_statement_rules" {
 
 #######################################################################
 
-##################### SES ###############################
-# variable "cloudwatch_destination_event" {
-#   description = "Provide the Dimention name and value for cloudwatch destination."
-#   type        = map(string)
-# }
+#################### SES ###############################
+variable "cloudwatch_destination_event" {
+  description = "Provide the Dimention name and value for cloudwatch destination."
+  type        = map(string)
+}
 
 
-# variable "configuration_set_name" {
-#   description = "Provide the name for Configuration set."
-#   type = string
-# }
+variable "configuration_set_name" {
+  description = "Provide the name for Configuration set."
+  type = string
+}
 
-# variable "create_dedicated_ip_pool" {
-#   description = "Should be true if you want to create dedicated ip pool"
-#   type        = bool
-# }
+variable "create_dedicated_ip_pool" {
+  description = "Should be true if you want to create dedicated ip pool"
+  type        = bool
+}
 
-# variable "create_receipt_rule_set" {
-#   description = "Should be true if you wnat to create receipt rule set."
-#   type = bool
-# }
+variable "create_receipt_rule_set" {
+  description = "Should be true if you wnat to create receipt rule set."
+  type = bool
+}
 
-# variable "create_receipt_rule" {
-#   description = "Should be true if you want to create receipt rule"
-#   type = bool
-# }
+variable "create_receipt_rule" {
+  description = "Should be true if you want to create receipt rule"
+  type = bool
+}
 
-# variable "dedicated_ip_pool_name" {
-#   description = "Provide the name for dedicated ip pool"
-#   type        = string
-# }
+variable "dedicated_ip_pool_name" {
+  description = "Provide the name for dedicated ip pool"
+  type        = string
+}
 
-# variable "domain" {
-#   description = "Provide the domain name to assign to SES"
-#   type = string
-# }
+variable "domain" {
+  description = "Provide the domain name to assign to SES"
+  type = string
+}
 
-# variable "emails" {
-#   type        = list(string)
-#   description = "Emails list to use for SES."
-# }
-
-
-# variable "lambda_invocation_type" {
-#   description = "Provide the Invocation type to Invoke Lambda function. Allowed values are Event or RequestResponse"
-#   type = string
-# }
+variable "emails" {
+  type        = list(string)
+  description = "Emails list to use for SES."
+}
 
 
-# variable "notification_type" {
-#   description = "The type of notifications that will be published to the specified Amazon SNS topic. Allowed values are Bounce, Complaint or Delivery"
-#   type = list(string) #set(string)
-# }
+variable "lambda_invocation_type" {
+  description = "Provide the Invocation type to Invoke Lambda function. Allowed values are Event or RequestResponse"
+  type = string
+}
 
-# variable "receipt_rule_set_name" {
-#   description = "Provide the name for Receipt rule set"
-#   type = string
-# }
 
-# variable "receipt_rule_name" {
-#   description = "Provide the name for Receipt rule."
-#   type = string
-# }
+variable "notification_type" {
+  description = "The type of notifications that will be published to the specified Amazon SNS topic. Allowed values are Bounce, Complaint or Delivery"
+  type = list(string) #set(string)
+}
 
-# variable "recipients" {
-#   description = "A list of email addresses"
-#   type        = list(string)
-# }
+variable "receipt_rule_set_name" {
+  description = "Provide the name for Receipt rule set"
+  type = string
+}
 
-# variable "s3_store_bucket_name" {
-#   description = "Provide the nsme of s3 bucket where you want to store emails."
-#   type = string
-# }
+variable "receipt_rule_name" {
+  description = "Provide the name for Receipt rule."
+  type = string
+}
+
+variable "recipients" {
+  description = "A list of email addresses"
+  type        = list(string)
+}
+
+variable "s3_store_bucket_name" {
+  description = "Provide the nsme of s3 bucket where you want to store emails."
+  type = string
+}
 
 # variable "ses_lambda_function_arn" {
 #   description = "Provide the ARN of the Lambda function to invoke"
 #   type = string
 # }
 
-# # variable "sns_topic_arn" {
-# #   description = "Provide the SNS Topic arn"
-# #   type = string
-# #   default = ""
-# # }
-
-# variable "tls_policy" {
-#   type        = string
-#   description = "Whether messages that use the configuration set are required to use Transport Layer Security. The possible values are REQUIRE or OPTIONAL"
-# }
-
-# variable "zone_id" {
-#   description = "Provide the Zone ID of the Route53 Domain. If Route 53 and SES Present in the same account."
+# variable "sns_topic_arn" {
+#   description = "Provide the SNS Topic arn"
 #   type = string
+#   default = ""
 # }
+
+variable "tls_policy" {
+  type        = string
+  description = "Whether messages that use the configuration set are required to use Transport Layer Security. The possible values are REQUIRE or OPTIONAL"
+}
+
+variable "zone_id" {
+  description = "Provide the Zone ID of the Route53 Domain. If Route 53 and SES Present in the same account."
+  type = string
+}
 
 ###########################################################################################
 

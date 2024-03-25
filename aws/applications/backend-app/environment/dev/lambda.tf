@@ -5,7 +5,7 @@
    layer_name           = "ses-lambda-layer"  
    lambda_layer_path    = "./layer.zip"
    role                 = module.lambda_execution_role.role_arn
-   runtime              = "ruby2.7"
+   runtime              = "ruby3.2"
    handler              = "index.handler"
    memory_size =          "128"
    ephemeral_storage_size = "512"

@@ -17,6 +17,45 @@ module "s3" {
   }
 }
 
+####################### Cloudtrail #########################
+
+data "aws_iam_policy_document" "cloudtrail_bucket_policy" {
+  statement {
+    effect = "Allow"
+    principals {
+      type = "Service"
+      identifiers = ["cloudtrail.amazonaws.com"]
+    }
+    actions = ["s3:GetBucketAcl"]
+    resources = ["arn:aws:s3:::${var.client_name}-${var.environment}-cloudtrail-bucket"]
+    condition {
+      test     = "StringEquals"
+      variable = "aws:SourceArn"
+      values   = ["arn:aws:cloudtrail:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:trail/${var.client_name}-${var.environment}-cloudtrail"]
+    }
+  }
+
+  statement {
+    effect = "Allow"
+    principals {
+      type = "Service"
+      identifiers = ["cloudtrail.amazonaws.com"]
+    }
+    actions = ["s3:PutObject"]
+    resources = ["arn:aws:s3:::${var.client_name}-${var.environment}-cloudtrail-bucket/*"]
+    condition {
+      test     = "StringEquals"
+      variable = "s3:x-amz-acl"
+      values   = ["bucket-owner-full-control"]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "aws:SourceArn"
+      values   = ["arn:aws:cloudtrail:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:trail/${var.client_name}-${var.environment}-cloudtrail"]
+    }
+  }
+}
+
 module "cloudtrail_s3" {
   source                               = "../../../../modules/s3"
   bucket                               = "${var.client_name}-${var.environment}-cloudtrail-bucket"
@@ -29,6 +68,8 @@ module "cloudtrail_s3" {
   control_object_ownership             = var.cloudtrail_bucket_control_object_ownership
   object_ownership                     = var.cloudtrail_bucket_object_ownership
   server_side_encryption_configuration = var.cloudtrail_bucket_server_side_encryption_configuration
+  attach_policy                        = true
+  policy                               = data.aws_iam_policy_document.cloudtrail_bucket_policy.json
   tags = {
     Created_by = "Terraform"
     Client     = var.client_name
@@ -36,7 +77,7 @@ module "cloudtrail_s3" {
   }
 }
 
-################# SES ###################
+####################### SES #########################
 
 data "aws_iam_policy_document" "ses_bucket_policy" {
   statement {

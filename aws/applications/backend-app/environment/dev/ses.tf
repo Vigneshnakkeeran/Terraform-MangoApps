@@ -1,7 +1,7 @@
 module "ses_email" {
   source = "../../../../modules/ses"
 
- #  emails = var.emails
+ # emails = var.emails
  domain = var.domain
  zone_id = var.zone_id
 
@@ -12,7 +12,7 @@ module "ses_email" {
   receipt_rule_name = var.receipt_rule_name
   s3_store_bucket_name = module.ses_s3.s3_bucket_id
 
-  ses_lambda_function_arn = module.my_lambda_module.lambda_arn #var.ses_lambda_function_arn
+  ses_lambda_function_arn = module.my_lambda_module.lambda_arn
   lambda_invocation_type = var.lambda_invocation_type
 
   ##Enable Feedback notifications
@@ -29,6 +29,9 @@ module "ses_email" {
   #to create dedicated ip pool
   create_dedicated_ip_pool = var.create_dedicated_ip_pool
   dedicated_ip_pool_name  = var.dedicated_ip_pool_name
+
+  depends_on = [ aws_lambda_permission.ses_lambda_permission ]
+
 }
 
 

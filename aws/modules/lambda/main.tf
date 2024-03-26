@@ -1,7 +1,13 @@
+data "archive_file" "lambda_function" {
+  type        = var.file_type
+  source_file = var.source_path
+  output_path = "lambda_function.zip"
+}
+
 resource "aws_lambda_function" "my_lambda" {
   function_name = var.lambda_function_name
-  filename      = var.source_path
-  source_code_hash = filebase64sha256("${var.source_path}")
+  filename      = data.archive_file.lambda_function.output_path
+  # source_code_hash = filebase64sha256(data.archive_file.lambda_function.output_path)
   layers = [aws_lambda_layer_version.lambda_layer.arn]
   runtime = var.runtime
   handler = var.handler
@@ -13,7 +19,9 @@ resource "aws_lambda_function" "my_lambda" {
 
   environment {
     variables = {
-      EXAMPLE_VARIABLE = "exampleValue"
+      MA_REGION = var.aws_region
+      MA_BUCKET = var.aws_incoming_bucket
+      DEBUG_MODE = var.debug_mode
     }
   }
 }

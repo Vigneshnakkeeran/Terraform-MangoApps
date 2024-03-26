@@ -495,7 +495,7 @@ notification_type        = ["Bounce", "Complaint"]
 receipt_rule_set_name    = "mangoapps-rule-set"
 receipt_rule_name        = "rule_1"
 recipients               = ["rohithtest1email@gmail.com", "rohithtest2email@gmail.com"]
-s3_store_bucket_name     = "testbucketforsesmango"
+# s3_store_bucket_name     = "testbucketforsesmango"
 tls_policy               = "OPTIONAL"
 zone_id                  = "Z07995521YXG7AO6A1BLM"
 

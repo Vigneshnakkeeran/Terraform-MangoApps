@@ -1357,7 +1357,7 @@ variable "lambda_invocation_type" {
 
 variable "notification_type" {
   description = "The type of notifications that will be published to the specified Amazon SNS topic. Allowed values are Bounce, Complaint or Delivery"
-  type = list(string) #set(string)
+  type = list(string)
 }
 
 variable "receipt_rule_set_name" {
@@ -1375,10 +1375,10 @@ variable "recipients" {
   type        = list(string)
 }
 
-variable "s3_store_bucket_name" {
-  description = "Provide the nsme of s3 bucket where you want to store emails."
-  type = string
-}
+# variable "s3_store_bucket_name" {
+#   description = "Provide the nsme of s3 bucket where you want to store emails."
+#   type = string
+# }
 
 # variable "ses_lambda_function_arn" {
 #   description = "Provide the ARN of the Lambda function to invoke"

@@ -66,7 +66,7 @@ module "ec2_frontendserver" {
   source = "../../../../modules/ec2"
 
   name =   "${var.client_name}01"
-  ami                         = "ami-08116b9957a259459"  # custom ami id
+  ami                         = "ami-04377a4b42b31e8e5"  # custom ami id
   instance_type               = "r6a.2xlarge" # used to set core count below
   subnet_id                   = module.vpc.private_subnets[0]
   vpc_security_group_ids      = [module.asg_security_group.security_group_id]
@@ -122,7 +122,7 @@ module "ec2_backendserver" {
   source = "../../../../modules/ec2"
 
   name = "${var.client_name}11"
-  ami                         = "ami-08116b9957a259459"
+  ami                         = "ami-04377a4b42b31e8e5"
   instance_type               = "r6a.2xlarge" # used to set core count below
   subnet_id                   = module.vpc.private_subnets[0]
   vpc_security_group_ids      = [module.backend_security_group.security_group_id]

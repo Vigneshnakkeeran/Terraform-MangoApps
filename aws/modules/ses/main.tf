@@ -135,11 +135,11 @@ resource "aws_ses_receipt_rule" "store" {
     position    = 1
   }
 
-  # lambda_action {
-  #   function_arn = var.ses_lambda_function_arn
-  #   invocation_type = var.lambda_invocation_type
-  #   position = 2
-  # }
+  lambda_action {
+    function_arn = var.ses_lambda_function_arn
+    invocation_type = var.lambda_invocation_type
+    position = 2
+  }
 }
 
 resource "aws_ses_active_receipt_rule_set" "main" {

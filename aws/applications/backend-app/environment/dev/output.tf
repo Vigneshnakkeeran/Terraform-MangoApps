@@ -36,22 +36,7 @@ output "public_subnets" {
 #  value       = module.s3_bucket.s3_bucket_bucket_domain_name
 #}
 
-# ######################## ASG ##########################
 
-# output "autoscaling_group_id" {
-#   description = "The autoscaling group id"
-#   value       = module.asg.autoscaling_group_id
-# }
-
-# output "autoscaling_group_name" {
-#   description = "The autoscaling group name"
-#   value       = module.asg.autoscaling_group_name
-# }
-
-# output "autoscaling_group_arn" {
-#   description = "The ARN for this AutoScaling Group"
-#   value       = module.asg.autoscaling_group_arn
-# }
 
 ########################## RDS ##########################
 
@@ -187,3 +172,18 @@ output "regional_waf_arn" {
 #   description = "Shield ARNs"
 #   value = module.aws_shield.shield_arn
 # }
+
+######################## Security Group ####################
+
+## ASG SG##
+output "asg_sg_id" {
+  description = "Security group id of ASG"
+  value = module.asg_security_group.security_group_id
+}
+
+
+############################ ALB ###########################
+output "alb_target_group_asg_arn" {
+  description = "Target group arn of alb for asg."
+  value = module.alb.target_groups.server443.arn
+}

@@ -8,9 +8,9 @@ environment = "dev"
 asg_min_size                    = 1
 asg_max_size                    = 5
 asg_desired_size                = 2
-asg_ami_id                      = "ami-0f403e3180720dd7e"
-asg_instance_type               = "t3.medium"
-asg_key_name                    = "mango-apps-dev-asg-key"
+asg_ami_id                      = "ami-0ddf421ede6f8c954"
+asg_instance_type               = "r6a.2xlarge"
+asg_key_name                    = "mango-apps-dev-frontend-key"
 create_asg_iam_instance_profile = true
 asg_instance_ebs_optimized      = false
 enable_asg_monitoring           = true
@@ -40,15 +40,15 @@ asg_volume_mapping = [
   }
 ]
 
-############################# ASG Security Group ##############################
+# ############################# ASG Security Group ##############################
 
-create_asg_sg      = true
-asg_sg_description = "Security group for ASG instances"
-asg_egress_with_cidr_blocks = [
-  {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = "0.0.0.0/0"
-  }
-]
+# create_asg_sg      = true
+# asg_sg_description = "Security group for ASG instances"
+# asg_egress_with_cidr_blocks = [
+#   {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"
+#     cidr_blocks = "0.0.0.0/0"
+#   }
+# ]

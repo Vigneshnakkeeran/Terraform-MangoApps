@@ -31,7 +31,7 @@ module "ec2_bastion" {
                                   hostnamectl set-hostname "${var.client_name}bastion-host"
                                   # Add any additional commands here
                                   EOF
-  user_data_replace_on_change = true
+  # user_data_replace_on_change = true
   enable_volume_tags = false
   root_block_device = [
     {
@@ -45,15 +45,15 @@ module "ec2_bastion" {
     },
   ]
 
-  ebs_block_device = [
-    {
-      device_name = "/dev/sdf"
-      volume_type = "gp3"
-      volume_size = 5
-      throughput  = 200
-      encrypted   = false
-    }
-  ]
+  # ebs_block_device = [
+  #   {
+  #     device_name = "/dev/sdf"
+  #     volume_type = "gp3"
+  #     volume_size = 5
+  #     throughput  = 200
+  #     encrypted   = false
+  #   }
+  # ]
 
   tags = {
     Created_by = "Terraform"
@@ -87,7 +87,7 @@ module "ec2_frontendserver" {
                                   hostnamectl set-hostname "${var.client_name}01"
                                   # Add any additional commands here
                                   EOF
-  user_data_replace_on_change = true
+  # user_data_replace_on_change = true
   enable_volume_tags = false
   root_block_device = [
     {
@@ -101,15 +101,15 @@ module "ec2_frontendserver" {
     },
   ]
 
-  ebs_block_device = [
-    {
-      device_name = "/dev/sdf"
-      volume_type = "gp3"
-      volume_size = 5
-      throughput  = 200
-      encrypted   = false
-    }
-  ]
+  # ebs_block_device = [
+  #   {
+  #     device_name = "/dev/sdf"
+  #     volume_type = "gp3"
+  #     volume_size = 5
+  #     throughput  = 200
+  #     encrypted   = false
+  #   }
+  # ]
 
   tags = {
     Created_by = "Terraform"
@@ -140,10 +140,10 @@ module "ec2_backendserver" {
 
   user_data            = <<-EOF
                                   #!/bin/bash
-                                   hostnamectl set-hostname "${var.client_name}11"
-                                 # Add any additional commands here
+                                  hostnamectl set-hostname "${var.client_name}11"
+                                  # Add any additional commands here
                                   EOF
-  user_data_replace_on_change = true
+  # user_data_replace_on_change = true
   enable_volume_tags = false
   root_block_device = [
     {
@@ -157,15 +157,72 @@ module "ec2_backendserver" {
     },
   ]
 
-  ebs_block_device = [
+  # ebs_block_device = [
+  #   {
+  #     device_name = "/dev/sdf"
+  #     volume_type = "gp3"
+  #     volume_size = 5
+  #     throughput  = 200
+  #     encrypted   = false
+  #   }
+  # ]
+
+  tags = {
+    Created_by = "Terraform"
+  }
+}
+
+###########################################
+##########Backend server02################
+
+module "ec2_frontendserver_02" {
+  source = "../../../../modules/ec2"
+
+  name =   "${var.client_name}21"
+  ami                         = "ami-04377a4b42b31e8e5"  # custom ami id
+  instance_type               = "r6a.2xlarge" # used to set core count below
+  subnet_id                   = module.vpc.private_subnets[0]
+  vpc_security_group_ids      = [module.asg_security_group.security_group_id]
+  associate_public_ip_address = false
+  key_name        = var.frontend_key_name
+  create_iam_instance_profile = false
+  #iam_role_description        = "IAM role for EC2 instance"
+  #iam_role_policies = {
+  #  AdministratorAccess = "arn:aws:iam::aws:policy/AdministratorAccess"
+  #}
+
+  # only one of these can be enabled at a time
+  hibernation = false
+  # enclave_options_enabled = true
+
+  user_data            = <<-EOF
+                                  #!/bin/bash
+                                  hostnamectl set-hostname "${var.client_name}21"
+                                  # Add any additional commands here
+                                  EOF
+  # user_data_replace_on_change = true
+  enable_volume_tags = false
+  root_block_device = [
     {
-      device_name = "/dev/sdf"
+      encrypted   = true
       volume_type = "gp3"
-      volume_size = 5
       throughput  = 200
-      encrypted   = false
-    }
+      volume_size = 100
+      tags = {
+        Name = "frontend-root-block"
+      }
+    },
   ]
+
+  # ebs_block_device = [
+  #   {
+  #     device_name = "/dev/sdf"
+  #     volume_type = "gp3"
+  #     volume_size = 5
+  #     throughput  = 200
+  #     encrypted   = false
+  #   }
+  # ]
 
   tags = {
     Created_by = "Terraform"

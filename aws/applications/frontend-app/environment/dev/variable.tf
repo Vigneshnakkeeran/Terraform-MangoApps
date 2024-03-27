@@ -65,31 +65,31 @@ variable "asg_key_name" {
 }
 
 
-################## ASG Security Group variables ##########################
+# ################## ASG Security Group variables ##########################
 
-variable "create_asg_sg" {
-  description = "Whether to create security group for ASG"
-  type        = bool
-}
-
-variable "asg_sg_description" {
-  description = "Security Group for instances created by the ASG"
-  type        = string
-}
-
-# variable "asg_ingress_with_cidr_blocks" {
-#   description = "List of ingress rules to create where 'cidr_blocks' is used"
-#   type        = list(map(string))
+# variable "create_asg_sg" {
+#   description = "Whether to create security group for ASG"
+#   type        = bool
 # }
 
-# variable "asg_ingress_with_source_security_group_id" {
-#   description = "List of ingress rules to create where 'security group' is used"
-#   type        = list(map(string))
+# variable "asg_sg_description" {
+#   description = "Security Group for instances created by the ASG"
+#   type        = string
 # }
 
-variable "asg_egress_with_cidr_blocks" {
-  description = "List of egress rules to create by name"
-  type        = list(map(string))
-}
+# # variable "asg_ingress_with_cidr_blocks" {
+# #   description = "List of ingress rules to create where 'cidr_blocks' is used"
+# #   type        = list(map(string))
+# # }
+
+# # variable "asg_ingress_with_source_security_group_id" {
+# #   description = "List of ingress rules to create where 'security group' is used"
+# #   type        = list(map(string))
+# # }
+
+# variable "asg_egress_with_cidr_blocks" {
+#   description = "List of egress rules to create by name"
+#   type        = list(map(string))
+# }
 
 

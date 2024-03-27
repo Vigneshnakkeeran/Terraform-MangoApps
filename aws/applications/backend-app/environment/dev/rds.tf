@@ -15,8 +15,8 @@ module "rds" {
   instance_class = var.rds_aurora_instance_class
   instances = {
     one   = {}
-    two   = {}
-    three = {}
+    # two   = {}
+    # three = {}
   }
   engine                      = var.rds_aurora_engine
   engine_mode                 = var.rds_aurora_engine_mode

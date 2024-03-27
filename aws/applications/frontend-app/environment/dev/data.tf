@@ -10,3 +10,13 @@ data "aws_ssm_parameter" "rds_aurora_parameter_password" {
 }
 
 data "aws_caller_identity" "current" {}
+
+# For Fetching the Resource Group Data From the Statefile.
+data "terraform_remote_state" "Statefile" {
+  backend = "s3"
+  config = {
+    bucket = "mangoapps-tfbackend-bucket"
+    key    = "backend-app/env/dev/terraform.tfstate"
+    region = "us-west-2"
+  }
+}

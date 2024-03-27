@@ -66,12 +66,12 @@
          enabled             = true
          interval            = 30
          path                = "/healthcheck"
-         port                = 443
+         port                = "traffic-port" #443
          healthy_threshold   = 2
          unhealthy_threshold = 5
          timeout             = 5
          protocol            = "HTTPS"
-         matcher             = "200-399"
+         matcher             = "200"
        }
      }
 
@@ -95,7 +95,7 @@
          unhealthy_threshold = 2
          timeout             = 5
          protocol            = "HTTPS"
-         matcher             = "200-399"
+         matcher             = "200"
        }
      }
 
@@ -119,7 +119,7 @@
          unhealthy_threshold = 2
          timeout             = 5
          protocol            = "HTTPS"
-         matcher             = "200-399"
+         matcher             = "200"
        }
      }
 
@@ -143,7 +143,7 @@
          unhealthy_threshold = 2
          timeout             = 5
          protocol            = "HTTPS"
-         matcher             = "200-399"
+         matcher             = "200"
        }
      }
      
@@ -167,7 +167,7 @@
          unhealthy_threshold = 2
          timeout             = 5
          protocol            = "HTTPS"
-         matcher             = "200-399"
+         matcher             = "200"
        }
      }
 
@@ -191,7 +191,7 @@
          unhealthy_threshold = 2
          timeout             = 5
          protocol            = "HTTPS"
-         matcher             = "200-399"
+         matcher             = "200"
        }
      }     
    }

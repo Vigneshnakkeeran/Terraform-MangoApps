@@ -37,7 +37,7 @@ module "ec2_bastion" {
       throughput  = 200
       volume_size = 50
       tags = {
-        Name = "my-root-block"
+        Name = "bastion-root-block"
       }
     }
   ]

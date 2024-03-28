@@ -8,7 +8,7 @@ environment = "dev"
 asg_min_size                    = 1
 asg_max_size                    = 5
 asg_desired_size                = 2
-asg_ami_id                      = "ami-0ddf421ede6f8c954"
+asg_ami_id                      = "ami-02f0f3474e47134b3"
 asg_instance_type               = "r6a.2xlarge"
 asg_key_name                    = "mango-apps-dev-frontend-key"
 create_asg_iam_instance_profile = true
@@ -22,22 +22,22 @@ asg_volume_mapping = [
     ebs = {
       delete_on_termination = true
       encrypted             = true
-      volume_size           = 20
+      volume_size           = 50
       volume_type           = "gp3"
     }
   },
 
-  # Additional volume
-  {
-    device_name = "/dev/sdf"
-    no_device   = 1
-    ebs = {
-      delete_on_termination = true
-      encrypted             = true
-      volume_size           = 10
-      volume_type           = "gp3"
-    }
-  }
+  # # Additional volume
+  # {
+  #   device_name = "/dev/sdf"
+  #   no_device   = 1
+  #   ebs = {
+  #     delete_on_termination = true
+  #     encrypted             = true
+  #     volume_size           = 10
+  #     volume_type           = "gp3"
+  #   }
+  # }
 ]
 
 # ############################# ASG Security Group ##############################

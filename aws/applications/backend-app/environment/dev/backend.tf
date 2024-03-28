@@ -3,7 +3,7 @@ terraform {
     bucket = "mangoapps-tfbackend-bucket"
     key    = "backend-app/env/dev/terraform.tfstate"
     region = "us-west-2"
-    # dynamodb_table = "mangoapps-terraform-backend-db"
+    dynamodb_table = "mangoapps-tfbackend-db"
   }
 }
 

@@ -1,7 +1,7 @@
-# data "aws_availability_zones" "available" {}
-locals {
- instance_name = "${var.client_name}-${var.environment}-private-host"
-}
+# # data "aws_availability_zones" "available" {}
+# locals {
+#  instance_name = "${var.client_name}-${var.environment}-private-host"
+# }
 ################################################################################
 # EC2 Module
 ################################################################################
@@ -18,9 +18,6 @@ module "ec2_bastion" {
   key_name        = var.bastion_key_name
   create_iam_instance_profile = false
   iam_role_description        = "IAM role for EC2 instance"
-  # iam_role_policies = {
-  #   AdministratorAccess = "arn:aws:iam::aws:policy/AdministratorAccess"
-  # }
 
   # only one of these can be enabled at a time
   hibernation = false
@@ -42,18 +39,8 @@ module "ec2_bastion" {
       tags = {
         Name = "my-root-block"
       }
-    },
+    }
   ]
-
-  # ebs_block_device = [
-  #   {
-  #     device_name = "/dev/sdf"
-  #     volume_type = "gp3"
-  #     volume_size = 5
-  #     throughput  = 200
-  #     encrypted   = false
-  #   }
-  # ]
 
   tags = {
     Created_by = "Terraform"
@@ -73,10 +60,6 @@ module "ec2_frontendserver" {
   associate_public_ip_address = false
   key_name        = var.frontend_key_name
   create_iam_instance_profile = false
-  #iam_role_description        = "IAM role for EC2 instance"
-  #iam_role_policies = {
-  #  AdministratorAccess = "arn:aws:iam::aws:policy/AdministratorAccess"
-  #}
 
   # only one of these can be enabled at a time
   hibernation = false
@@ -98,18 +81,8 @@ module "ec2_frontendserver" {
       tags = {
         Name = "frontend-root-block"
       }
-    },
+    }
   ]
-
-  # ebs_block_device = [
-  #   {
-  #     device_name = "/dev/sdf"
-  #     volume_type = "gp3"
-  #     volume_size = 5
-  #     throughput  = 200
-  #     encrypted   = false
-  #   }
-  # ]
 
   tags = {
     Created_by = "Terraform"
@@ -129,10 +102,6 @@ module "ec2_backendserver" {
   associate_public_ip_address = false
   key_name        = var.backend_key_name
   create_iam_instance_profile = false
-  #iam_role_description        = "IAM role for EC2 instance"
-  #iam_role_policies = {
-  #  AdministratorAccess = "arn:aws:iam::aws:policy/AdministratorAccess"
-  #}
 
   # only one of these can be enabled at a time
   hibernation = false
@@ -154,18 +123,8 @@ module "ec2_backendserver" {
       tags = {
         Name = "backend-root-block"
       }
-    },
+    }
   ]
-
-  # ebs_block_device = [
-  #   {
-  #     device_name = "/dev/sdf"
-  #     volume_type = "gp3"
-  #     volume_size = 5
-  #     throughput  = 200
-  #     encrypted   = false
-  #   }
-  # ]
 
   tags = {
     Created_by = "Terraform"
@@ -186,10 +145,6 @@ module "ec2_frontendserver_02" {
   associate_public_ip_address = false
   key_name        = var.frontend_key_name
   create_iam_instance_profile = false
-  #iam_role_description        = "IAM role for EC2 instance"
-  #iam_role_policies = {
-  #  AdministratorAccess = "arn:aws:iam::aws:policy/AdministratorAccess"
-  #}
 
   # only one of these can be enabled at a time
   hibernation = false
@@ -214,17 +169,8 @@ module "ec2_frontendserver_02" {
     },
   ]
 
-  # ebs_block_device = [
-  #   {
-  #     device_name = "/dev/sdf"
-  #     volume_type = "gp3"
-  #     volume_size = 5
-  #     throughput  = 200
-  #     encrypted   = false
-  #   }
-  # ]
-
   tags = {
     Created_by = "Terraform"
   }
 }
+

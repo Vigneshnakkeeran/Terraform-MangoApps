@@ -118,3 +118,36 @@ module "ses_s3" {
   }
 }
 
+############## Mango_Media_endpoint ##################
+
+module "Mango_Media_endpoint_s3_bucket" {
+  source                  = "../s3"
+  bucket                  = "mango_media_cloudfront_bucket"
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+  attach_policy                        = true
+  policy                               = data.aws_iam_policy_document.Mango_Media_endpoint.json
+  # website = {
+  #   index_document = "index.html"
+  # }
+  # versioning = {
+  #   enabled = true
+  # }
+  tags = {
+    purpose = "S3 Bucket for Mango Media endpoint code hosting"
+  }
+}
+data "aws_iam_policy_document" "Mango_Media_endpoint" {
+  version         = "2012-10-17"
+  statement {
+    actions       = ["s3:GetObject"]
+    resources     = ["arn:aws:s3:::mango_media_cloudfront_bucket/*"]
+    principals {
+      type        = "AWS"
+      identifiers = module.Mango_Media_endpoint.cloudfront_origin_access_identity_iam_arns
+    }
+  }
+}
+

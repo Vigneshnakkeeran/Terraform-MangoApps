@@ -32,8 +32,8 @@
 
 ################### LAMBDA FUNCTION EXECUTION ROLE ####################
 
-module "lambda_execution_role" {
-   source = "../../../../modules/IAM-Role"
+module "ses_lambda_execution_role" {
+   source = "../IAM-Role"
    role_name           = "ses_lambda_execution_role"
    assume_role_policy = jsonencode({
      Version = "2012-10-17"
@@ -42,7 +42,8 @@ module "lambda_execution_role" {
          Action = "sts:AssumeRole"
          Effect = "Allow"
          Principal = {
-           Service = "lambda.amazonaws.com"
+           Service = [ "lambda.amazonaws.com"
+           ]
          }
        },
      ]
@@ -78,6 +79,42 @@ module "lambda_execution_role" {
               "arn:aws:sqs:us-west-2:730335460835:*",
               "arn:aws:ses:us-west-2:730335460835:identity/*"
             ]
+        }
+    ]
+}
+ EOF
+}
+
+module "qaLamdaAdge-viewer-request_role" {
+   source = "../IAM-Role"
+   role_name           = "ses_lambda_execution_role"
+   assume_role_policy = jsonencode({
+     Version = "2012-10-17"
+     Statement = [
+       {
+         Action = "sts:AssumeRole"
+         Effect = "Allow"
+         Principal = {
+           Service = ["lambda.amazonaws.com",
+                    "edgelambda.amazonaws.com"]
+         }
+       },
+     ]
+   })
+#   managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]
+   custom_policy_name  = "qaLamdaAdge-viewer-request_ploicy"
+   custom_policy       = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "*"
         }
     ]
 }

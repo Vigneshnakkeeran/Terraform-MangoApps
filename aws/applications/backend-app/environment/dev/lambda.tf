@@ -1,14 +1,15 @@
  module "my_lambda_module" {
    source               = "../lambda"
    create_layer = true
-   s3_bucket          =  ""
-   s3_key_function_code = ""
+   s3_bucket          =  "cloudify-lambda-code"
+   s3_key_function_code = "lambda_function.zip"
    lambda_function_name = "ses-lambda-function"  
    layer_name           = "ses-lambda-layer" 
 #   layer_runtime        = ["nodejs18.x"]
-   s3_key_layer         = "./layer.zip"
+   s3_key_layer         = "layer.zip"
    role                 = module.ses_lambda_execution_role.role_arn
    runtime              = "ruby3.2"
+   compatible_runtimes  = ["ruby3.2"]
    handler              = "lambda_function.lambda_handler"
    memory_size =          "128"
 #   lambda_permission_source_arn = "arn:aws:ses:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:receipt-rule-set/*"
@@ -17,10 +18,6 @@
     AWS_REGION = "us-west-2"
     hub_mangoapps_test_terraform_com = "https://sqs.eu-west-1.amazonaws.com/760042596542/hub-mangoapps-test-terraform-com"
   }
-#   ephemeral_storage_size = "512"
-#   aws_region = "us-west-2"
-#   aws_incoming_bucket = module.ses_s3.s3_bucket_id
-#   debug_mode = ""
  }
 # resource "aws_lambda_permission" "lambda_permission" {
 #   statement_id  = "AllowSESLambdaInvocation"
@@ -30,33 +27,26 @@
 #   source_arn    = "arn:aws:ses:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:receipt-rule-set/*"  #module.ses_email.ses_receipt_rule_arn               
 # }
 
-
  module "qaLamdaAdge-viewer-request" {
    source               = "../lambda"
    create_layer = false
    lambda_function_name = "qaLamdaAdge-viewer-request" 
-   s3_bucket          =  "./lambda_function.rb"
-   s3_key_function_code = ""
-#   layer_name           = "ses-lambda-layer"  
-#   lambda_layer_path    = "./layer.zip"
-   role                 = module.qaLamdaAdge-viewer-request_role.role_arn
+   s3_bucket          =  "cloudify-lambda-code"
+   s3_key_function_code = "qaLamdaAdge-viewer-request.zip"
+   role                 = module.lambda_edge_cloudfront.role_arn
    runtime              = "nodejs18.x"
    handler              = "lambda_function.lambda_handler"
    memory_size =          "128"
    ephemeral_storage_size = "512"
-#   lambda_permission_source_arn = ""
-#   aws_region = "us-west-2"
-#   aws_incoming_bucket = module.ses_s3.s3_bucket_id
-#   debug_mode = ""
  }
 
  module "qaLamdaAdge-viewer-response" {
    source               = "../lambda"
    create_layer = false
-   lambda_function_name = "qaLamdaAdge-viewer-request" 
-   s3_bucket          =  "./lambda_function.rb"
-   s3_key_function_code = ""
-   role                 = module.qaLamdaAdge-viewer-request_role.role_arn
+   lambda_function_name = "qaLamdaAdge-viewer-response" 
+   s3_bucket          =  "cloudify-lambda-code"
+   s3_key_function_code = "qaLamdaAdge-viewer-response.zip"
+   role                 = module.lambda_edge_cloudfront.role_arn
    runtime              = "nodejs18.x"
    handler              = "lambda_function.lambda_handler"
    memory_size =          "128"
@@ -66,13 +56,52 @@
   module "qaLamdaAdge-origin-request" {
    source               = "../lambda"
    create_layer = false
-   lambda_function_name = "qaLamdaAdge-viewer-request" 
-   s3_bucket          =  "./lambda_function.rb"
-   s3_key_function_code = ""
-   role                 = module.qaLamdaAdge-viewer-request_role.role_arn
+   lambda_function_name = "qaLamdaAdge-origin-request" 
+   s3_bucket          =  "cloudify-lambda-code"
+   s3_key_function_code = "qaLamdaAdge-origin-request.zip"
+   role                 = module.lambda_edge_cloudfront.role_arn
    runtime              = "nodejs18.x"
    handler              = "lambda_function.lambda_handler"
    memory_size =          "128"
    ephemeral_storage_size = "512"
  }
 
+   module "ma-media-auth-service" {
+   source               = "../lambda"
+   create_layer = false
+   lambda_function_name = "ma_media_auth_service" 
+   s3_bucket          =  "./lambda_function.rb"
+   s3_key_function_code = ""
+   role                 = module.lambda_edge_cloudfront.role_arn
+   runtime              = "nodejs18.x"
+   handler              = "lambda_function.lambda_handler"
+   memory_size =          "128"
+   ephemeral_storage_size = "512"
+ }
+
+
+   module "add-origin-cache-control-lambda-funtion" {
+   source               = "../lambda"
+   create_layer = false
+   lambda_function_name = "add-origin-cache-control-lambda-funtion" 
+   s3_bucket          =  "cloudify-lambda-code"
+   s3_key_function_code = "add-origin-cache-control-lambda-funtion.zip"
+   role                 = module.lambda_edge_cloudfront.role_arn
+   runtime              = "nodejs18.x"
+   handler              = "lambda_function.lambda_handler"
+   memory_size =          "128"
+   ephemeral_storage_size = "512"
+ }
+
+  module "multi-s3-origin-request-lambda-function" {
+   source               = "../lambda"
+   create_layer = false
+   lambda_function_name = "multi-s3-origin-request-lambda-function" 
+   s3_bucket          =  "cloudify-lambda-code"
+   s3_key_function_code = "multi-s3-origin-request-lambda-function.zip"
+   role                 = module.lambda_edge_cloudfront.role_arn
+   runtime              = "nodejs18.x"
+   handler              = "lambda_function.lambda_handler"
+   memory_size =          "128"
+   ephemeral_storage_size = "512"
+ }

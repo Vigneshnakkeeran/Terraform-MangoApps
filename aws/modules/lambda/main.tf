@@ -58,5 +58,5 @@ resource "aws_lambda_alias" "lambda_version_alias" {
   s3_bucket   =  var.s3_bucket
   s3_key      =  var.s3_key_layer
   layer_name =   var.layer_name
-  compatible_runtimes = ["ruby3.2"]
+  compatible_runtimes = length(var.compatible_runtimes) > 0 ? var.compatible_runtimes : (var.runtime == "" ? null : [var.runtime])
 }

@@ -37,10 +37,11 @@ variable "runtime" {
 #   type        = list(string)
 #   default = "value"
 # }
-# variable "layer_runtime" {
-#   description = "The layer runtime environment for the Lambda function"
-#   type        = list(string)
-# }
+variable "compatible_runtimes" {
+  description = "A list of Runtimes this layer is compatible with. Up to 5 runtimes can be specified."
+  type        = list(string)
+  default     = []
+}
 variable "aws_region" {
   description = "AWS region for the Lambda function."
   type        = string

@@ -85,9 +85,9 @@ module "ses_lambda_execution_role" {
  EOF
 }
 
-module "qaLamdaAdge-viewer-request_role" {
+module "lambda_edge_cloudfront" {
    source = "../IAM-Role"
-   role_name           = "ses_lambda_execution_role"
+   role_name           = "lambda_edge_cloudfront_role"
    assume_role_policy = jsonencode({
      Version = "2012-10-17"
      Statement = [
@@ -102,7 +102,7 @@ module "qaLamdaAdge-viewer-request_role" {
      ]
    })
 #   managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]
-   custom_policy_name  = "qaLamdaAdge-viewer-request_ploicy"
+   custom_policy_name  = "lambda_edge_cloudfront_policy"
    custom_policy       = <<EOF
 {
     "Version": "2012-10-17",
@@ -120,5 +120,3 @@ module "qaLamdaAdge-viewer-request_role" {
 }
  EOF
 }
-
-

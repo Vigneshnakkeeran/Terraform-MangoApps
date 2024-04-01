@@ -55,16 +55,16 @@ module "cdn_post_endpoint" {
 
       # Valid keys: viewer-request, origin-request, viewer-response, origin-response
       viewer-request = {
-        lambda_arn   = module.qaLamdaAdge-viewer-request.lambda_function_qualified_arn
+        lambda_arn   = "${module.qaLamdaAdge-viewer-request.lambda_function_qualified_arn}"
 #        include_body = false
       }
 
       origin-request = {
-        lambda_arn = module.qaLamdaAdge-origin-request.lambda_function_qualified_arn
+        lambda_arn = "${module.qaLamdaAdge-viewer-response.lambda_function_qualified_arn}"
 #        include_body = false      
       }
       viewer-response = {
-        lambda_arn = module.qaLamdaAdge-viewer-response.lambda_function_qualified_arn
+        lambda_arn = "${module.qaLamdaAdge-origin-request.lambda_function_qualified_arn}"
 #        include_body = false
       }
     }
@@ -188,6 +188,7 @@ locals {
 
 module "Mango_Media_endpoint" {
   source = "../cloudfront"
+#  depends_on          = [module.Mango_Media_endpoint]
 
   aliases = ["${local.subdomain}.${local.domain_name}"]
 
@@ -198,10 +199,10 @@ module "Mango_Media_endpoint" {
   retain_on_delete    = false
   wait_for_deployment = false
 
-  # create_origin_access_identity = true
-  # origin_access_identities = {
-  #   s3_bucket_one = "My awesome CloudFront can access"
-  # }
+  create_origin_access_identity = true
+  origin_access_identities = {
+    s3_bucket_mango_media_endpoint = "s3_bucket_mango_media_endpoint"
+  }
 
 #   logging_config = {
 #     bucket = "logs-my-cdn.s3.amazonaws.com"
@@ -209,7 +210,7 @@ module "Mango_Media_endpoint" {
 
   origin = {
     Mango_Media_endpoint = {
-      domain_name = "s3_bucket_bucket_regional_domain_name"
+      domain_name = "${module.Mango_Media_endpoint_s3_bucket.s3_bucket_bucket_regional_domain_name}"
       custom_origin_config = {
         http_port              = 80
         https_port             = 443
@@ -246,16 +247,16 @@ module "Mango_Media_endpoint" {
 
       # Valid keys: viewer-request, origin-request, viewer-response, origin-response
       viewer-request = {
-        lambda_arn   = module.qaLamdaAdge-viewer-request.lambda_function_qualified_arn
+        lambda_arn   = "${module.ma-media-auth-service.lambda_function_qualified_arn}"
 #        include_body = false
       }
 
       origin-request = {
-        lambda_arn = module.qaLamdaAdge-origin-request.lambda_function_qualified_arn
+        lambda_arn = "${module.add-origin-cache-control-lambda-funtion.lambda_function_qualified_arn}"
 #        include_body = false      
       }
       viewer-response = {
-        lambda_arn = module.qaLamdaAdge-viewer-response.lambda_function_qualified_arn
+        lambda_arn = "${module.multi-s3-origin-request-lambda-function.lambda_function_qualified_arn}"
 #        include_body = false
       }
     }

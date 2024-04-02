@@ -192,10 +192,10 @@ output "alb_target_group_asg_arn" {
 ######################## LAMBDA ###################
 
 # ##### LAMBDA@EDGE ######
-# output "lambda_function_qualified_arn" {
-#   description = "The ARN identifying your Lambda Function Version"
-#   value       = module.qaLamdaAdge-viewer-request.lambda_function_qualified_arn
-# }
+output "lambda_function_qualified_arn" {
+  description = "The ARN identifying your Lambda Function Version"
+  value       = module.qaLamdaAdge-viewer-request.lambda_function_qualified_arn
+}
 
 output "lambda_function_arn" {
   description = "The ARN of the Lambda Function"

@@ -188,7 +188,7 @@ locals {
 
 module "Mango_Media_endpoint" {
   source = "../cloudfront"
-#  depends_on          = [module.Mango_Media_endpoint]
+#  depends_on          = [module.Mango_Media_endpoint_s3_bucket]
 
   aliases = ["${local.subdomain}.${local.domain_name}"]
 
@@ -201,7 +201,7 @@ module "Mango_Media_endpoint" {
 
   create_origin_access_identity = true
   origin_access_identities = {
-    s3_bucket_mango_media_endpoint = "s3_bucket_mango_media_endpoint"
+    s3_bucket_mango_media_endpoint = "s3_bucket_mango_media_endpoint-cloudfront-origin"
   }
 
 #   logging_config = {
@@ -211,24 +211,25 @@ module "Mango_Media_endpoint" {
   origin = {
     Mango_Media_endpoint = {
       domain_name = "${module.Mango_Media_endpoint_s3_bucket.s3_bucket_bucket_regional_domain_name}"
-      custom_origin_config = {
-        http_port              = 80
-        https_port             = 443
-        origin_protocol_policy = "https-only"
-        origin_ssl_protocols   = ["TLSv1.2"]
+      s3_origin_config = {
+        origin_access_identity = "s3_bucket_mango_media_endpoint"
       }
+      # custom_origin_config = {
+      #   http_port              = 80
+      #   https_port             = 443
+      #   origin_protocol_policy = "https-only"
+      #   origin_ssl_protocols   = ["TLSv1.2"]
+      # }
     }
 
     # s3_one = {
     #   domain_name = "s3_bucket_bucket_regional_domain_name" #module.s3_one.s3_bucket_bucket_regional_domain_name
-    #   s3_origin_config = {
-    #     origin_access_identity = "s3_bucket_one"
-    #   }
+
     # }
   }
 
   default_cache_behavior = {
-    target_origin_id           = "Static_Content_endpoint"
+    target_origin_id           = "Mango_Media_endpoint"
     viewer_protocol_policy     = "allow-all"
 
     allowed_methods = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]

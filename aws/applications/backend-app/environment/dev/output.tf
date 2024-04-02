@@ -115,12 +115,12 @@ output "queue_name" {
 #   value       = try(aws_sqs_queue.dlq[0].name, null)
 # }
 
-############## lambda role arn #################
+# ############## lambda role arn #################
 
-output "lambda_execution_role" {
-  description = "The ARN of the IAM role created for Lambda execution"
-  value       = module.lambda_execution_role.role_arn
-}
+# output "lambda_execution_role" {
+#   description = "The ARN of the IAM role created for Lambda execution"
+# #   value       = module.lambda_execution_role.role_arn
+# }
 
 # output "lambda_arn" {
 #  description = "The ARN of the Lambda function"
@@ -186,4 +186,18 @@ output "asg_sg_id" {
 output "alb_target_group_asg_arn" {
   description = "Target group arn of alb for asg."
   value = module.alb.target_groups.server443.arn
+}
+
+
+######################## LAMBDA ###################
+
+##### LAMBDA@EDGE ######
+output "lambda_function_qualified_arn" {
+  description = "The ARN identifying your Lambda Function Version"
+  value       = module.qaLamdaAdge-viewer-request.lambda_function_qualified_arn
+}
+
+output "lambda_function_arn" {
+  description = "The ARN of the Lambda Function"
+  value       = module.ses_lambda_module.lambda_function_arn
 }

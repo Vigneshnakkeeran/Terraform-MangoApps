@@ -75,22 +75,22 @@ output "topic_name" {
 ######################## SQS ##############################
 output "queue_id" {
   description = "The URL for the created Amazon SQS queue"
-  value       = module.sqs[0].queue_id
+  value       = module.sqs_feedback[0].queue_id
 }
 
 output "queue_arn" {
   description = "The ARN of the SQS queue"
-  value       = module.sqs[0].queue_arn
+  value       = module.sqs_feedback[0].queue_arn
 }
 
 output "queue_url" {
   description = "Same as `queue_id`: The URL for the created Amazon SQS queue"
-  value       = module.sqs[0].queue_url
+  value       = module.sqs_feedback[0].queue_url
 }
 
 output "queue_name" {
   description = "The name of the SQS queue"
-  value       = module.sqs[0].queue_name
+  value       = module.sqs_feedback[0].queue_name
 }
 
 # ###################### Dead Letter Queue ###########################
@@ -191,11 +191,11 @@ output "alb_target_group_asg_arn" {
 
 ######################## LAMBDA ###################
 
-##### LAMBDA@EDGE ######
-output "lambda_function_qualified_arn" {
-  description = "The ARN identifying your Lambda Function Version"
-  value       = module.qaLamdaAdge-viewer-request.lambda_function_qualified_arn
-}
+# ##### LAMBDA@EDGE ######
+# output "lambda_function_qualified_arn" {
+#   description = "The ARN identifying your Lambda Function Version"
+#   value       = module.qaLamdaAdge-viewer-request.lambda_function_qualified_arn
+# }
 
 output "lambda_function_arn" {
   description = "The ARN of the Lambda Function"

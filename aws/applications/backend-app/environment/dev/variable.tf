@@ -96,6 +96,11 @@ variable "listner_rule_https443_sync" {
   type = any
 }
 
+variable "listner_rule_https5223" {
+  description = "Listner rules for https 5223"
+  type = any
+}
+
 
 ################################# NLB Variables #######################################
 
@@ -399,6 +404,7 @@ variable "enable_content_based_deduplication" {
   description = "Should be true to enables content-based deduplication for FIFO queues."
   type = bool
 }
+
 
 ################## ASG Security Group variables ##########################
 

@@ -67,7 +67,8 @@ module "lambda_layer_s3" {
 
   source = "../../../../modules/lambda"
 
-  create_package         = false   
+  create_package   = false   
+  publish          = true 
 
   s3_existing_package = {
      bucket = "cloudify-lambda-code"
@@ -78,11 +79,30 @@ module "lambda_layer_s3" {
   
    function_name          = "lambda-delete-custom-image"
    runtime              = "python3.12"
-  #  compatible_runtimes  = ["ruby3.2"]
    handler              = "lambda_function.lambda_handler"
    memory_size =          "128"
+ }
 
-  publish = true
+ ################### Lambda for update_launch_template #################
+
+ module "update_launch_template_lambda_module" {
+
+  source = "../../../../modules/lambda"
+
+  create_package   = false   
+  publish          = true
+
+  s3_existing_package = {
+     bucket = "cloudify-lambda-code"
+     key = "update_launch_template.zip"
+  }
+
+  lambda_role = module.lambda_execution_role_ssm.role_arn
+  
+   function_name          = "lambda-update-launch-template"
+   runtime              = "python3.12"
+   handler              = "lambda_function.lambda_handler"
+   memory_size =          "128"
 
  }
 
@@ -117,6 +137,7 @@ module "qaLamdaAdge-viewer-request" {
   allowed_triggers = {
     Cloudfront = {
       principal  = "edgelambda.amazonaws.com"
+      source_arn = "arn:aws:cloudfront::730335460835:distribution/*"
     }
   }  
 }
@@ -151,6 +172,7 @@ module "qaLamdaAdge-viewer-response" {
   allowed_triggers = {
     Cloudfront = {
       principal  = "edgelambda.amazonaws.com"
+      source_arn = "arn:aws:cloudfront::730335460835:distribution/*"
     }
   }  
 }
@@ -186,6 +208,7 @@ module "qaLamdaAdge-origin-request" {
   allowed_triggers = {
     Cloudfront = {
       principal  = "edgelambda.amazonaws.com"
+      source_arn = "arn:aws:cloudfront::730335460835:distribution/*"
     }
   }  
 }

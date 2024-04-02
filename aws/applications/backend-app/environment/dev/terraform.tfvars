@@ -39,6 +39,9 @@ listner_rule_https443_sync  = {
           conditions = [{
             path_pattern = {
               values = ["/mangoappssync*", "/folderSyncList*", "/fpu*", "/fileAccess*"]
+            },
+            host_header = {
+              values = ["hub.mangoapps-test-terraform.com"]
             }
           }]
         }
@@ -53,10 +56,30 @@ listner_rule_https443_sync  = {
           ]
           conditions = [{
             path_pattern = {
-              values = ["/mjanus*", "/zip*", "/dl*", "/v2/media*", "/media*"]
+              values = ["/mjanus*", "/zip*", "/dl*", "/media*"]
+            },
+            host_header = {
+              values = ["hub.mangoapps-test-terraform.com"]
             }
           }]
         }
+        forward-v2media = {
+          priority = 4
+          actions = [
+            {
+              type             = "forward"
+              target_group_key = "server8008"
+            }
+          ]
+          conditions = [{
+            path_pattern = {
+              values = ["/v2/media*"]
+            },
+            host_header = {
+              values = ["hub.mangoapps-test-terraform.com"]
+            }
+          }]
+        }  
 
       forward-solr = {
           priority = 2
@@ -69,12 +92,15 @@ listner_rule_https443_sync  = {
           conditions = [{
             path_pattern = {
               values = ["/api/solr*"]
+            },
+            host_header = {
+              values = ["hub.mangoapps-test-terraform.com"]
             }
           }]
         }
 
       forward-cjs = {
-          priority = 4
+          priority = 5
           actions = [
             {
               type             = "forward"
@@ -84,11 +110,32 @@ listner_rule_https443_sync  = {
           conditions = [{
             path_pattern = {
               values = ["/cjs*"]
+            },
+            host_header = {
+              values = ["hub.mangoapps-test-terraform.com"]
             }
           }]
         }
 
       }
+
+  listner_rule_https5223  = {
+      forward = {
+          priority = 1
+          actions = [
+            {
+              type             = "forward"
+              target_group_key = "server5223"
+            }
+          ]
+          conditions = [{
+            host_header = {
+              values = ["hub.mangoapps-test-terraform.com"]
+            }
+          }]
+        }
+      }  
+
 
 
 ####################### Network Load Balancer #######################
@@ -454,10 +501,10 @@ sns_email_subscriptions = {
 
 create_sqs            = true
 sqs_create_fifo_queue = false
-sqs_sse_enabled       = true
+sqs_sse_enabled       = false
 sqs_create_dlq        = false
 max_message_size      = null #262144
-message_retention_seconds = null  #provide value in second 345600
+message_retention_seconds = 604800  #provide value in second 345600
 enable_content_based_deduplication = true #to enable this fifo queue should also true
 
 ############################# RDS Security Group ##############################

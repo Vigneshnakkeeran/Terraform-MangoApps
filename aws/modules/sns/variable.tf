@@ -165,7 +165,7 @@ variable "override_topic_policy_documents" {
 variable "enable_default_topic_policy" {
   description = "Specifies whether to enable the default topic policy. Defaults to `true`"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "topic_policy_statements" {

@@ -16,7 +16,7 @@ module "ses_email" {
   lambda_invocation_type = var.lambda_invocation_type
 
   ##Enable Feedback notifications
-  sns_topic_arn = module.sns_for_ses.topic_arn
+  sns_topic_arn = module.sns.topic_arn
   notification_type = var.notification_type
 
   recipients = var.recipients

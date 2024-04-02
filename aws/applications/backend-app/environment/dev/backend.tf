@@ -20,8 +20,8 @@ resource "local_file" "file_output" {
   RDS_PORT            = ${module.rds.cluster_port}
 
   [SQS]
-  SQS_QUEUE_NAME      = ${module.sqs[0].queue_name}
-  SQS_QUEUE_URL       = ${module.sqs[0].queue_url}
+  SQS_QUEUE_NAME      = ${module.sqs_feedback[0].queue_name}
+  SQS_QUEUE_URL       = ${module.sqs_feedback[0].queue_url}
 
   [SNS]
   SNS_TOPIC_NAME      = ${module.sns.topic_name}

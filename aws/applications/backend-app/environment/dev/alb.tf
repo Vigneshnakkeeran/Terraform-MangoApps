@@ -34,7 +34,8 @@
        forward = {
          target_group_key = "server5223"
        }
-     }
+       rules  =  var.listner_rule_https5223
+     } 
 
      https443 = {
        port            = 443
@@ -228,7 +229,7 @@
        port             = "9000"
      }           
    }
- }
+}
 
 
 

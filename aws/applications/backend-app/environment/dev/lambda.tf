@@ -136,8 +136,8 @@ module "qaLamdaAdge-viewer-request" {
 
   allowed_triggers = {
     Cloudfront = {
-      principal  = "edgelambda.amazonaws.com"
-      source_arn = "arn:aws:cloudfront::730335460835:distribution/*"
+      principal  = "cloudfront.amazonaws.com"
+      source_arn = module.cdn_post_endpoint.cloudfront_distribution_arn
     }
   }  
 }
@@ -171,8 +171,8 @@ module "qaLamdaAdge-viewer-response" {
 
   allowed_triggers = {
     Cloudfront = {
-      principal  = "edgelambda.amazonaws.com"
-      source_arn = "arn:aws:cloudfront::730335460835:distribution/*"
+      principal  = "cloudfront.amazonaws.com"
+      source_arn = module.cdn_post_endpoint.cloudfront_distribution_arn
     }
   }  
 }
@@ -207,8 +207,8 @@ module "qaLamdaAdge-origin-request" {
 
   allowed_triggers = {
     Cloudfront = {
-      principal  = "edgelambda.amazonaws.com"
-      source_arn = "arn:aws:cloudfront::730335460835:distribution/*"
+      principal  = "cloudfront.amazonaws.com"
+      source_arn = module.cdn_post_endpoint.cloudfront_distribution_arn
     }
   }  
 }

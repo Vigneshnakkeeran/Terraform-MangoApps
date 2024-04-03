@@ -116,6 +116,7 @@ module "qaLamdaAdge-viewer-request" {
   }
   source = "../../../../modules/lambda"
 
+  skip_destroy   = true
   lambda_at_edge = true
   create_package = false
   publish = true
@@ -151,6 +152,7 @@ module "qaLamdaAdge-viewer-response" {
   }
   source = "../../../../modules/lambda"
 
+  skip_destroy   = true
   lambda_at_edge = true
   create_package = false
   publish = true
@@ -187,6 +189,7 @@ module "qaLamdaAdge-origin-request" {
   }
   source = "../../../../modules/lambda"
 
+  skip_destroy   = true
   lambda_at_edge = true
   create_package = false
   publish = true
@@ -210,5 +213,6 @@ module "qaLamdaAdge-origin-request" {
       principal  = "cloudfront.amazonaws.com"
       source_arn = module.cdn_post_endpoint.cloudfront_distribution_arn
     }
-  }  
+  }
+  
 }

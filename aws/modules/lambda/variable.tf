@@ -40,6 +40,12 @@ variable "create_sam_metadata" {
   default     = false
 }
 
+variable "skip_destroy" {
+  description = "Whether to retain the old version of a previously deployed Lambda Layer."
+  type        = bool
+  default     = false
+}
+
 ###########
 # Function
 ###########

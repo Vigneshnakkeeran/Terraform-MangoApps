@@ -23,6 +23,7 @@ locals {
 
 resource "aws_lambda_function" "this" {
   count = local.create && var.create_function && !var.create_layer ? 1 : 0
+  skip_destroy = var.skip_destroy
 
   function_name                      = var.function_name
   description                        = var.description
@@ -159,6 +160,7 @@ resource "aws_lambda_function" "this" {
     aws_iam_role_policy_attachment.vpc,
     aws_iam_role_policy_attachment.tracing,
   ]
+
 }
 
 resource "aws_lambda_layer_version" "this" {

@@ -91,7 +91,7 @@ module "lambda_layer_s3" {
 
   create_package   = false   
   publish          = true
-
+  
   s3_existing_package = {
      bucket = "cloudify-lambda-code"
      key = "update_launch_template.zip"
@@ -120,7 +120,7 @@ module "qaLamdaAdge-viewer-request" {
   lambda_at_edge = true
   create_package = false
   publish = true
-
+  timeout = 3
   function_name = "qaLamdaAdge-viewer-request"
   description   = "My awesome lambda@edge function"
   handler       = "lambda_function.lambda_handler"
@@ -156,7 +156,7 @@ module "qaLamdaAdge-viewer-response" {
   lambda_at_edge = true
   create_package = false
   publish = true
-
+  timeout = 3
   function_name = "qaLamdaAdge-viewer-response"
   description   = "My awesome lambda@edge function"
   handler       = "lambda_function.lambda_handler"
@@ -200,6 +200,7 @@ module "qaLamdaAdge-origin-request" {
   runtime       = "nodejs18.x"
   memory_size =          "128"
   ephemeral_storage_size = "512"
+  timeout = 3
 
   lambda_role = module.lambda_edge_cloudfront.role_arn
 

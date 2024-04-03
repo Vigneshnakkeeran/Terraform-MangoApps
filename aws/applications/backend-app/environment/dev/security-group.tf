@@ -85,7 +85,7 @@ module "rds_security_group" {
       description = "bastion server access"
       source_security_group_id = module.bastion_security_group.security_group_id
     },
-        {
+    {
       from_port   = 3306
       to_port     = 3306
       protocol    = "tcp"

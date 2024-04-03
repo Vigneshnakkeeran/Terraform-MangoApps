@@ -59,7 +59,11 @@ module "ec2_frontendserver" {
   vpc_security_group_ids      = [module.asg_security_group.security_group_id]
   associate_public_ip_address = false
   key_name        = var.frontend_key_name
-  create_iam_instance_profile = false
+  create_iam_instance_profile = true
+  iam_role_name = "ma-ec2-instace-role"
+  iam_role_policies = {
+    AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  }
 
   metadata_options = {
     http_endpoint               = "enabled"
@@ -111,6 +115,9 @@ module "ec2_backendserver" {
   associate_public_ip_address = false
   key_name        = var.backend_key_name
   create_iam_instance_profile = false
+  iam_role_policies = {
+    AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  }
 
   # only one of these can be enabled at a time
   hibernation = false
@@ -154,6 +161,9 @@ module "ec2_frontendserver_02" {
   associate_public_ip_address = false
   key_name        = var.frontend_key_name
   create_iam_instance_profile = false
+  iam_role_policies = {
+    AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  }
 
   # only one of these can be enabled at a time
   hibernation = false

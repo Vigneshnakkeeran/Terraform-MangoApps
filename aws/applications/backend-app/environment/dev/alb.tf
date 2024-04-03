@@ -198,6 +198,12 @@
    }
 
    target_group_attachments = {
+     attach-ec2-443target = {
+       target_group_key = "server443"
+       target_type      = "instance"
+       target_id        = module.ec2_frontendserver.id
+       port             = "443"
+     }    
      attach-ec2-5223target = {
        target_group_key = "server5223"
        target_type      = "instance"

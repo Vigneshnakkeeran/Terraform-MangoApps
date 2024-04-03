@@ -59,6 +59,13 @@ module "asg_security_group" {
     protocol    = "tcp"
     description = "SSH Access to instances"
     source_security_group_id = module.bastion_security_group.security_group_id
+  },
+  {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "tcp"
+    description = "alb Access to instances"
+    source_security_group_id = module.alb_security_group.security_group_id
   }
   ]
   egress_with_cidr_blocks = var.asg_egress_with_cidr_blocks

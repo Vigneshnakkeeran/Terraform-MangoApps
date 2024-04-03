@@ -218,110 +218,110 @@ module "qaLamdaAdge-origin-request" {
   
 }
 
-module "ma-media-auth-service" {
+# module "ma-media-auth-service" {
 
-  providers = {
-    aws = aws.us-east-1
-  }
-  source = "../../../../modules/lambda"
+#   providers = {
+#     aws = aws.us-east-1
+#   }
+#   source = "../../../../modules/lambda"
 
-  skip_destroy   = true
-  lambda_at_edge = true
-  create_package = false
-  publish = true
+#   skip_destroy   = true
+#   lambda_at_edge = true
+#   create_package = false
+#   publish = true
 
-  function_name = "ma-media-auth-service"
-  description   = "ma-media-auth-service"
-  handler       = "lambda_function.lambda_handler"
-  runtime       = "nodejs18.x"
-  memory_size =          "128"
-  ephemeral_storage_size = "512"
-  timeout = 3
+#   function_name = "ma-media-auth-service"
+#   description   = "ma-media-auth-service"
+#   handler       = "lambda_function.lambda_handler"
+#   runtime       = "nodejs18.x"
+#   memory_size =          "128"
+#   ephemeral_storage_size = "512"
+#   timeout = 3
 
-  lambda_role = module.lambda_edge_cloudfront.role_arn
+#   lambda_role = module.lambda_edge_cloudfront.role_arn
 
-  s3_existing_package = {
-     bucket = "cloudifyops-lambda-code-us-east-1"
-     key = "ma_media_auth_service-bf.zip"
-  } 
+#   s3_existing_package = {
+#      bucket = "cloudifyops-lambda-code-us-east-1"
+#      key = "ma_media_auth_service-bf.zip"
+#   } 
 
-  allowed_triggers = {
-    Cloudfront = {
-      principal  = "cloudfront.amazonaws.com"
-      source_arn = module.Mango_Media_endpoint.cloudfront_distribution_arn
-    }
-  }
+#   allowed_triggers = {
+#     Cloudfront = {
+#       principal  = "cloudfront.amazonaws.com"
+#       source_arn = module.Mango_Media_endpoint.cloudfront_distribution_arn
+#     }
+#   }
   
-}
+# }
 
-module "add-origin-cache-control-lambda-funtion" {
+# module "add-origin-cache-control-lambda-funtion" {
 
-  providers = {
-    aws = aws.us-east-1
-  }
-  source = "../../../../modules/lambda"
+#   providers = {
+#     aws = aws.us-east-1
+#   }
+#   source = "../../../../modules/lambda"
 
-  skip_destroy   = true
-  lambda_at_edge = true
-  create_package = false
-  publish = true
+#   skip_destroy   = true
+#   lambda_at_edge = true
+#   create_package = false
+#   publish = true
 
-  function_name = "add-origin-cache-control-lambda-funtion"
-  description   = "add-origin-cache-control-lambda-funtion"
-  handler       = "lambda_function.lambda_handler"
-  runtime       = "nodejs18.x"
-  memory_size =          "128"
-  ephemeral_storage_size = "512"
-  timeout = 3
+#   function_name = "add-origin-cache-control-lambda-funtion"
+#   description   = "add-origin-cache-control-lambda-funtion"
+#   handler       = "lambda_function.lambda_handler"
+#   runtime       = "nodejs18.x"
+#   memory_size =          "128"
+#   ephemeral_storage_size = "512"
+#   timeout = 3
 
-  lambda_role = module.lambda_edge_cloudfront.role_arn
+#   lambda_role = module.lambda_edge_cloudfront.role_arn
 
-  s3_existing_package = {
-     bucket = "cloudifyops-lambda-code-us-east-1"
-     key = "add-origin-cache-control-lambda-funtion.zip"
-  } 
+#   s3_existing_package = {
+#      bucket = "cloudifyops-lambda-code-us-east-1"
+#      key = "add-origin-cache-control-lambda-funtion.zip"
+#   } 
 
-  allowed_triggers = {
-    Cloudfront = {
-      principal  = "cloudfront.amazonaws.com"
-      source_arn = module.Mango_Media_endpoint.cloudfront_distribution_arn
-    }
-  }
+#   allowed_triggers = {
+#     Cloudfront = {
+#       principal  = "cloudfront.amazonaws.com"
+#       source_arn = module.Mango_Media_endpoint.cloudfront_distribution_arn
+#     }
+#   }
   
-}
+# }
 
-module "multi-s3-origin-request-lambda-function" {
+# module "multi-s3-origin-request-lambda-function" {
 
-  providers = {
-    aws = aws.us-east-1
-  }
-  source = "../../../../modules/lambda"
+#   providers = {
+#     aws = aws.us-east-1
+#   }
+#   source = "../../../../modules/lambda"
 
-  skip_destroy   = true
-  lambda_at_edge = true
-  create_package = false
-  publish = true
+#   skip_destroy   = true
+#   lambda_at_edge = true
+#   create_package = false
+#   publish = true
 
-  function_name = "multi-s3-origin-request-lambda-function"
-  description   = "multi-s3-origin-request-lambda-function"
-  handler       = "lambda_function.lambda_handler"
-  runtime       = "nodejs18.x"
-  memory_size =          "128"
-  ephemeral_storage_size = "512"
-  timeout = 3
+#   function_name = "multi-s3-origin-request-lambda-function"
+#   description   = "multi-s3-origin-request-lambda-function"
+#   handler       = "lambda_function.lambda_handler"
+#   runtime       = "nodejs18.x"
+#   memory_size =          "128"
+#   ephemeral_storage_size = "512"
+#   timeout = 3
 
-  lambda_role = module.lambda_edge_cloudfront.role_arn
+#   lambda_role = module.lambda_edge_cloudfront.role_arn
 
-  s3_existing_package = {
-     bucket = "cloudifyops-lambda-code-us-east-1"
-     key = "multi-s3-origin-request-lambda-function.zip"
-  } 
+#   s3_existing_package = {
+#      bucket = "cloudifyops-lambda-code-us-east-1"
+#      key = "multi-s3-origin-request-lambda-function.zip"
+#   } 
 
-  allowed_triggers = {
-    Cloudfront = {
-      principal  = "cloudfront.amazonaws.com"
-      source_arn = module.Mango_Media_endpoint.cloudfront_distribution_arn
-    }
-  }
+#   allowed_triggers = {
+#     Cloudfront = {
+#       principal  = "cloudfront.amazonaws.com"
+#       source_arn = module.Mango_Media_endpoint.cloudfront_distribution_arn
+#     }
+#   }
   
-}
+# }

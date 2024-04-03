@@ -35,24 +35,6 @@ module "sns" {
     }
   }
 
-  delivery_policy = jsonencode({
-    "http" : {
-      "defaultHealthyRetryPolicy" : {
-        "minDelayTarget" : 20,
-        "maxDelayTarget" : 20,
-        "numRetries" : 3,
-        "numMaxDelayRetries" : 0,
-        "numNoDelayRetries" : 0,
-        "numMinDelayRetries" : 0,
-        "backoffFunction" : "linear"
-      },
-      "disableSubscriptionOverrides" : false,
-      "defaultThrottlePolicy" : {
-        "maxReceivesPerSecond" : 1
-      }
-    }
-  })
-
   create_subscription = var.create_sqs
         subscriptions = {
     sqs = {
@@ -75,41 +57,3 @@ module "sns_email_subscription" {
 	subscriptions = var.sns_email_subscriptions
 	sns_topic_arn = module.sns.topic_arn
 }
-
-
-# module "sns_for_ses" {
-#   source = "../../../../modules/sns"
-
-#   name            = "${var.client_name}-${var.environment}-ses-sns"
-#   use_name_prefix = false
-#   display_name    = "${var.client_name}-${var.environment}-ses-sns"
-
-
-#   # SQS queue must be FIFO as well
-#   fifo_topic                  = false
-#   content_based_deduplication = false
-
-#   delivery_policy = jsonencode({
-#     "http" : {
-#       "defaultHealthyRetryPolicy" : {
-#         "minDelayTarget" : 20,
-#         "maxDelayTarget" : 20,
-#         "numRetries" : 3,
-#         "numMaxDelayRetries" : 0,
-#         "numNoDelayRetries" : 0,
-#         "numMinDelayRetries" : 0,
-#         "backoffFunction" : "linear"
-#       },
-#       "disableSubscriptionOverrides" : false,
-#       "defaultThrottlePolicy" : {
-#         "maxReceivesPerSecond" : 1
-#       }
-#     }
-#   })
-
-#   tags = {
-#     CreatedBy   = "Terraform"
-#     Client      = var.client_name
-#     Environment = var.environment
-#   }
-# }

@@ -1,284 +1,302 @@
-module "cdn_post_endpoint" {
-  source = "../../../../modules/cloudfront"
+data "aws_partition" "current" {}
 
- # aliases = ["cdn.example.com"]
+ module "ses_lambda_module" {
 
-#  comment             = "My awesome CloudFront"
-  enabled             = true
-  is_ipv6_enabled     = true
-  price_class         = "PriceClass_All"
-  retain_on_delete    = false
-  wait_for_deployment = false
+  source = "../../../../modules/lambda"
 
-#   create_origin_access_identity = true
-#   origin_access_identities = {
-#     s3_bucket_one = "My awesome CloudFront can access"
-#   }
+  create_package         = false   
 
-#   logging_config = {
-#     bucket = "logs-my-cdn.s3.amazonaws.com"
-#   }
-
-  origin = {
-    post_endpoint = {
-      domain_name = "hub.mangoapps-test-terraform.com"
-      custom_origin_config = {
-        http_port              = 80
-        https_port             = 443
-        origin_protocol_policy = "match-viewer"
-        origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
-      }
-    }
-
-    # s3_one = {
-    #   domain_name = "my-s3-bycket.s3.amazonaws.com"
-    #   s3_origin_config = {
-    #     origin_access_identity = "s3_bucket_one"
-    #   }
-    # }
+  s3_existing_package = {
+     bucket = "cloudify-lambda-code"
+     key = "lambda_function.zip"
   }
 
-  default_cache_behavior = {
-    target_origin_id           = "post_endpoint"
-    viewer_protocol_policy     = "redirect-to-https"
-    use_forwarded_values       = true
-    allowed_methods = ["GET", "HEAD", "OPTIONS"]
-    cached_methods  = ["GET", "HEAD"]
-#    compress        = true
-    query_string = true
-    headers      = ["Origin"]
-    cookies_forward = "none"
-    min_ttl     = 1
-    default_ttl = 604800
-    max_ttl     = 2592000
-    lambda_function_association = {
+  lambda_role = module.ses_lambda_execution_role.role_arn
+  
+   function_name          = "ses-lambda1"
+   runtime              = "ruby3.2"
+   compatible_runtimes  = ["ruby3.2"]
+   handler              = "lambda_function.lambda_handler"
+   memory_size =          "128"
 
-      # Valid keys: viewer-request, origin-request, viewer-response, origin-response
-      viewer-request = {
-        lambda_arn   = "${module.qaLamdaAdge-viewer-request.lambda_function_qualified_arn}" 
-#        include_body = false
-      }
+  layers = 	[module.lambda_layer_s3.lambda_layer_arn]
 
-      origin-request = {
-        lambda_arn = "${module.qaLamdaAdge-viewer-response.lambda_function_qualified_arn}"
-#        include_body = false      
-      }
-      viewer-response = {
-        lambda_arn = "${module.qaLamdaAdge-origin-request.lambda_function_qualified_arn}"
-#        include_body = false
-      }
+  publish = true
+
+  environment_variables = {
+    AWS_INCOMING_BUCKET = "hub-mangoapps-test-terraform-com"   
+    AWSREGION = "us-west-2"
+    hub_mangoapps_test_terraform_com = "https://sqs.eu-west-1.amazonaws.com/760042596542/hub-mangoapps-test-terraform-com"
+  }
+
+ allowed_triggers = {
+    SES = {
+      principal  = "ses.amazonaws.com"
+      source_arn = "arn:aws:ses:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:receipt-rule-set/*"
     }
   }
+ }
 
-#   ordered_cache_behavior = [
-#     {
-#       path_pattern           = "/static/*"
-#       target_origin_id       = "s3_one"
-#       viewer_protocol_policy = "redirect-to-https"
 
-#       allowed_methods = ["GET", "HEAD", "OPTIONS"]
-#       cached_methods  = ["GET", "HEAD"]
-#       compress        = true
-#       query_string    = true
-#     }
-#   ]
+module "lambda_layer_s3" {
 
-  viewer_certificate = {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:730335460835:certificate/78aa3dce-d0f1-4532-982d-14ce22d88361"
-    ssl_support_method  = "sni-only"
-  }
+  source = "../../../../modules/lambda"
+
+  create_layer = true
+
+  # create_role = false
+  # lambda_role = module.lambda_edge_cloudfront.role_arn
+
+  create_package         = false  
+  layer_name          = "testsample"
+  description         = "My amazing lambda layer (deployed from S3)"
+  compatible_runtimes = ["ruby3.2"]
+
+  s3_existing_package = {
+     bucket = "cloudify-lambda-code"
+     key = "layer.zip"
+   } 
+
+  store_on_s3 = false
 }
 
-module "Static_Content_endpoint" {
-  source = "../../../../modules/cloudfront"
 
- # aliases = ["cdn.example.com"]
+################## Lambda for delete_custom_images #################
 
-#  comment             = "My awesome CloudFront"
-  enabled             = true
-  is_ipv6_enabled     = true
-  price_class         = "PriceClass_All"
-  retain_on_delete    = false
-  wait_for_deployment = false
+ module "delete_custom_images_lambda_module" {
 
-#   create_origin_access_identity = true
-#   origin_access_identities = {
-#     s3_bucket_one = "My awesome CloudFront can access"
-#   }
+  source = "../../../../modules/lambda"
 
-#   logging_config = {
-#     bucket = "logs-my-cdn.s3.amazonaws.com"
-#   }
+  create_package         = false   
 
-  origin = {
-    Static_Content_endpoint = {
-      domain_name = "hub.mangoapps-test-terraform.com"
-      custom_origin_config = {
-        http_port              = 80
-        https_port             = 443
-        origin_protocol_policy = "match-viewer"
-        origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
-      }
+  s3_existing_package = {
+     bucket = "cloudify-lambda-code"
+     key = "delete_custom_images.zip"
+  }
+
+  lambda_role = module.lambda_execution_role_ssm.role_arn
+  
+   function_name          = "lambda-delete-custom-image"
+   runtime              = "python3.12"
+  #  compatible_runtimes  = ["ruby3.2"]
+   handler              = "lambda_function.lambda_handler"
+   memory_size =          "128"
+
+  publish = true
+
+ }
+
+
+#####Lambda @ edge##################
+
+module "qaLamdaAdge-viewer-request" {
+
+  # providers = {
+  #   aws = aws.us-east-1
+  # }
+  source = "../../../../modules/lambda"
+
+  lambda_at_edge = true
+  create_package = false
+  publish = true
+
+  function_name = "qaLamdaAdge-viewer-request02"
+  description   = "My awesome lambda@edge function"
+  handler       = "lambda_function.lambda_handler"
+  runtime       = "nodejs18.x"
+  memory_size =          "128"
+  ephemeral_storage_size = "512"
+
+  lambda_role = module.lambda_edge_cloudfront.role_arn
+
+  s3_existing_package = {
+     bucket = "cloudifyops-lambda-code-us-east-1"
+     key = "qaLamdaAdge-viewer-request.zip"
+  } 
+
+  allowed_triggers = {
+    Cloudfront = {
+      principal  = "cloudfront.amazonaws.com"
+      source_arn = module.cdn_post_endpoint.cloudfront_distribution_arn
     }
-
-    # s3_one = {
-    #   domain_name = "my-s3-bycket.s3.amazonaws.com"
-    #   s3_origin_config = {
-    #     origin_access_identity = "s3_bucket_one"
-    #   }
-    # }
-  }
-
-  default_cache_behavior = {
-    target_origin_id           = "Static_Content_endpoint"
-    viewer_protocol_policy     = "allow-all"
-
-    allowed_methods = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
-    cached_methods  = ["GET", "HEAD"]
-    cache_policy_name           = "Managed-CachingOptimized"
-    compress        = true
-    use_forwarded_values       = false
-    # query_string = true
-    # headers      = ["Origin"]
-    # cookies_forward = "none"
-    min_ttl     = 1
-    default_ttl = 604800
-    max_ttl     = 2592000
-#     lambda_function_association = {
-
-#       # Valid keys: viewer-request, origin-request, viewer-response, origin-response
-#       viewer-request = {
-#         lambda_arn   = module.qaLamdaAdge-viewer-request.lambda_function_qualified_arn
-# #        include_body = false
-#       }
-
-#       origin-request = {
-#         lambda_arn = module.qaLamdaAdge-origin-request.lambda_function_qualified_arn
-# #        include_body = false      
-#       }
-#       viewer-response = {
-#         lambda_arn = module.qaLamdaAdge-viewer-response.lambda_function_qualified_arn
-# #        include_body = false
-#       }
-#     }
-  }
-
-#   ordered_cache_behavior = [
-#     {
-#       path_pattern           = "/static/*"
-#       target_origin_id       = "s3_one"
-#       viewer_protocol_policy = "redirect-to-https"
-
-#       allowed_methods = ["GET", "HEAD", "OPTIONS"]
-#       cached_methods  = ["GET", "HEAD"]
-#       compress        = true
-#       query_string    = true
-#     }
-#   ]
-
-  viewer_certificate = {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:730335460835:certificate/78aa3dce-d0f1-4532-982d-14ce22d88361"
-    ssl_support_method  = "sni-only"
-  }
+  }  
 }
 
-locals {
-  domain_name = "mangoapps-test-terraform.com" # trimsuffix(data.aws_route53_zone.this.name, ".")
-  subdomain   = "awscloudfront"
+#####Lambda @ edge viewer-response##################
+
+module "qaLamdaAdge-viewer-response" {
+
+  # providers = {
+  #   aws = aws.us-east-1
+  # }
+  source = "../../../../modules/lambda"
+
+  lambda_at_edge = true
+  create_package = false
+  publish = true
+
+  function_name = "qaLamdaAdge-viewer-response02"
+  description   = "My awesome lambda@edge function"
+  handler       = "lambda_function.lambda_handler"
+  runtime       = "nodejs18.x"
+  memory_size =          "128"
+  ephemeral_storage_size = "512"
+
+  lambda_role = module.lambda_edge_cloudfront.role_arn
+
+  s3_existing_package = {
+     bucket = "cloudifyops-lambda-code-us-east-1"
+     key = "qaLamdaAdge-viewer-response.zip"
+  } 
+
+  allowed_triggers = {
+    Cloudfront = {
+      principal  = "cloudfront.amazonaws.com"
+      source_arn = module.cdn_post_endpoint.cloudfront_distribution_arn
+    }
+  }  
 }
 
-module "Mango_Media_endpoint" {
-  source = "../../../../modules/cloudfront"
-#  depends_on          = [module.Mango_Media_endpoint_s3_bucket]
 
-  aliases = ["${local.subdomain}.${local.domain_name}"]
+#####Lambda @ edge origin-request##################
 
-#  comment             = "My awesome CloudFront"
-  enabled             = true
-  is_ipv6_enabled     = true
-  price_class         = "PriceClass_All"
-  retain_on_delete    = false
-  wait_for_deployment = false
+module "qaLamdaAdge-origin-request" {
 
-  create_origin_access_identity = true
-  origin_access_identities = {
-    s3_bucket_mango_media_endpoint = "s3_bucket_mango_media_endpoint-cloudfront-origin"
-  }
+  # providers = {
+  #   aws = aws.us-east-1
+  # }
+  source = "../../../../modules/lambda"
 
-#   logging_config = {
-#     bucket = "logs-my-cdn.s3.amazonaws.com"
-#   }
+  lambda_at_edge = true
+  create_package = false
+  publish = true
 
-  origin = {
-    Mango_Media_endpoint = {
-      domain_name = "${module.Mango_Media_endpoint_s3_bucket.s3_bucket_bucket_regional_domain_name}"
-      s3_origin_config = {
-        origin_access_identity = "s3_bucket_mango_media_endpoint"
-      }
-      # custom_origin_config = {
-      #   http_port              = 80
-      #   https_port             = 443
-      #   origin_protocol_policy = "https-only"
-      #   origin_ssl_protocols   = ["TLSv1.2"]
-      # }
+  function_name = "qaLamdaAdge-origin-request02"
+  description   = "My awesome lambda@edge function"
+  handler       = "lambda_function.lambda_handler"
+  runtime       = "nodejs18.x"
+  memory_size =          "128"
+  ephemeral_storage_size = "512"
+
+  lambda_role = module.lambda_edge_cloudfront.role_arn
+
+  s3_existing_package = {
+     bucket = "cloudifyops-lambda-code-us-east-1"
+     key = "qaLamdaAdge-origin-request.zip"
+  } 
+
+  allowed_triggers = {
+    Cloudfront = {
+      principal  = "cloudfront.amazonaws.com"
+      source_arn = module.cdn_post_endpoint.cloudfront_distribution_arn
     }
+  }  
+}
 
-    # s3_one = {
-    #   domain_name = "s3_bucket_bucket_regional_domain_name" #module.s3_one.s3_bucket_bucket_regional_domain_name
+module "ma-media-auth-service" {
 
-    # }
-  }
+  # providers = {
+  #   aws = aws.us-east-1
+  # }
+  source = "../../../../modules/lambda"
 
-  default_cache_behavior = {
-    target_origin_id           = "Mango_Media_endpoint"
-    viewer_protocol_policy     = "allow-all"
+ # skip_destroy   = true
+  lambda_at_edge = true
+  create_package = false
+  publish = true
 
-    allowed_methods = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
-    cached_methods  = ["GET", "HEAD"]
-#    cache_policy_name           = "Managed-CachingOptimized"
-#    compress        = true
-    use_forwarded_values       = true
-    query_string = true
-    query_string_cache_keys = ["bucket_name"]
-#    headers      = ["Origin"]
-    cookies_forward = "none"
-    min_ttl     = 2592000
-    default_ttl = 2592000
-    max_ttl     = 31536000
-    lambda_function_association = {
+  function_name = "ma-media-auth-service02"
+  description   = "ma-media-auth-service"
+  handler       = "lambda_function.lambda_handler"
+  runtime       = "nodejs18.x"
+  memory_size =          "128"
+  ephemeral_storage_size = "512"
+  timeout = 3
 
-      # Valid keys: viewer-request, origin-request, viewer-response, origin-response
-      viewer-request = {
-        lambda_arn   = "${module.ma-media-auth-service.lambda_function_qualified_arn}"
-#        include_body = false
-      }
+  lambda_role = module.lambda_edge_cloudfront.role_arn
 
-      origin-request = {
-        lambda_arn = "${module.add-origin-cache-control-lambda-funtion.lambda_function_qualified_arn}"
-#        include_body = false      
-      }
-      viewer-response = {
-        lambda_arn = "${module.multi-s3-origin-request-lambda-function.lambda_function_qualified_arn}"
-#        include_body = false
-      }
+  s3_existing_package = {
+     bucket = "cloudifyops-lambda-code-us-east-1"
+     key = "ma_media_auth_service-bf.zip"
+  } 
+
+  allowed_triggers = {
+    Cloudfront = {
+      principal  = "cloudfront.amazonaws.com"
+      source_arn = module.Mango_Media_endpoint.cloudfront_distribution_arn
     }
   }
+  
+}
 
-  # ordered_cache_behavior = [
-  #   {
-  #     path_pattern           = "/static/*"
-  #     target_origin_id       = "s3_one"
-  #     viewer_protocol_policy = "redirect-to-https"
+module "add-origin-cache-control-lambda-funtion" {
 
-  #     allowed_methods = ["GET", "HEAD", "OPTIONS"]
-  #     cached_methods  = ["GET", "HEAD"]
-  #     compress        = true
-  #     query_string    = true
-  #   }
-  #]
+  # providers = {
+  #   aws = aws.us-east-1
+  # }
+  source = "../../../../modules/lambda"
 
-  viewer_certificate = {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:730335460835:certificate/78aa3dce-d0f1-4532-982d-14ce22d88361"
-    ssl_support_method  = "sni-only"
+ # skip_destroy   = true
+  lambda_at_edge = true
+  create_package = false
+  publish = true
+
+  function_name = "add-origin-cache-control-lambda-funtion02"
+  description   = "add-origin-cache-control-lambda-funtion"
+  handler       = "lambda_function.lambda_handler"
+  runtime       = "nodejs18.x"
+  memory_size =          "128"
+  ephemeral_storage_size = "512"
+  timeout = 3
+
+  lambda_role = module.lambda_edge_cloudfront.role_arn
+
+  s3_existing_package = {
+     bucket = "cloudifyops-lambda-code-us-east-1"
+     key = "add-origin-cache-control-lambda-funtion.zip"
+  } 
+
+  allowed_triggers = {
+    Cloudfront = {
+      principal  = "cloudfront.amazonaws.com"
+      source_arn = module.Mango_Media_endpoint.cloudfront_distribution_arn
+    }
   }
+  
+}
+
+module "multi-s3-origin-request-lambda-function" {
+
+  # providers = {
+  #   aws = aws.us-east-1
+  # }
+  source = "../../../../modules/lambda"
+
+ # skip_destroy   = true
+  lambda_at_edge = true
+  create_package = false
+  publish = true
+
+  function_name = "multi-s3-origin-request-lambda-function02"
+  description   = "multi-s3-origin-request-lambda-function"
+  handler       = "lambda_function.lambda_handler"
+  runtime       = "nodejs18.x"
+  memory_size =          "128"
+  ephemeral_storage_size = "512"
+  timeout = 3
+
+  lambda_role = module.lambda_edge_cloudfront.role_arn
+
+  s3_existing_package = {
+     bucket = "cloudifyops-lambda-code-us-east-1"
+     key = "multi-s3-origin-request-lambda-function.zip"
+  } 
+
+  allowed_triggers = {
+    Cloudfront = {
+      principal  = "cloudfront.amazonaws.com"
+      source_arn = module.Mango_Media_endpoint.cloudfront_distribution_arn
+    }
+  }
+  
 }

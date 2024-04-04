@@ -209,7 +209,7 @@ variable "target_group_attachments" {
 variable "create_security_group" {
   description = "Determines if a security group is created"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "security_group_name" {

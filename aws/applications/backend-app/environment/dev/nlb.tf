@@ -3,13 +3,20 @@ module "nlb" {
 
   name               = "${var.client_name}-${var.environment}-nlb"
   vpc_id             = module.vpc.vpc_id
-  subnets            = [module.vpc.public_subnets[0]]
+  # subnets            = [module.vpc.public_subnets[0]]
   security_groups    = [module.nlb_security_group.security_group_id]
   internal           = var.nlb_internal
   ip_address_type    = var.nlb_ip_address_type 
   load_balancer_type = var.nlb_load_balancer_type
   enable_deletion_protection       = var.nlb_enable_deletion_protection
   enable_cross_zone_load_balancing = var.nlb_enable_cross_zone_load_balancing
+
+  subnet_mapping = [for i, eip in aws_eip.this :
+    {
+      allocation_id = eip.id
+      subnet_id     = "${module.vpc.public_subnets[i]}"
+    }
+  ]
 
   listeners = {
 
@@ -133,4 +140,16 @@ module "nlb" {
 
   depends_on = [ module.alb ]
   
+}
+
+###################################################################
+## EIP #####################
+
+resource "aws_eip" "this" {
+  count = 1
+  domain = "vpc"
+
+  tags = {
+    Name = "${var.client_name}-${var.environment}-Nlb-Eip"
+  }
 }

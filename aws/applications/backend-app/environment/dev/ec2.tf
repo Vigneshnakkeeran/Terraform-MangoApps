@@ -16,12 +16,7 @@ module "ec2_bastion" {
   vpc_security_group_ids      = [module.bastion_security_group.security_group_id]
   associate_public_ip_address = true
   key_name        = var.bastion_key_name
-  create_iam_instance_profile = true
-  #iam_role_use_name_prefix = false
-  iam_role_description        = "IAM role for EC2 instance"
-  iam_role_policies = {
-    AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-  }
+  create_iam_instance_profile = false
 
   # only one of these can be enabled at a time
   hibernation = false
@@ -60,12 +55,12 @@ module "ec2_frontendserver" {
   ami                         = "ami-04377a4b42b31e8e5"  # custom ami id
   instance_type               = "r6a.2xlarge" # used to set core count below
   subnet_id                   = module.vpc.private_subnets[0]
-  vpc_security_group_ids      = [module.asg_security_group.security_group_id]
+  vpc_security_group_ids      = [module.backend_security_group.security_group_id]
   associate_public_ip_address = false
   key_name        = var.frontend_key_name
   create_iam_instance_profile = true
-  #iam_role_use_name_prefix = false
-  iam_role_description        = "IAM role for EC2 instance"
+  iam_role_use_name_prefix = false
+  iam_role_name = "ma-ec2-instace-role"
   iam_role_policies = {
     AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
   }
@@ -119,12 +114,8 @@ module "ec2_backendserver" {
   vpc_security_group_ids      = [module.backend_security_group.security_group_id]
   associate_public_ip_address = false
   key_name        = var.backend_key_name
-  create_iam_instance_profile = true
-  #iam_role_use_name_prefix = false
-  iam_role_description        = "IAM role for EC2 instance"
-  iam_role_policies = {
-    AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-  }
+  create_iam_instance_profile = false
+  iam_instance_profile = "ma-ec2-instace-role"
 
   # only one of these can be enabled at a time
   hibernation = false
@@ -164,15 +155,11 @@ module "ec2_frontendserver_02" {
   ami                         = "ami-04377a4b42b31e8e5"  # custom ami id
   instance_type               = "r6a.2xlarge" # used to set core count below
   subnet_id                   = module.vpc.private_subnets[0]
-  vpc_security_group_ids      = [module.asg_security_group.security_group_id]
+  vpc_security_group_ids      = [module.backend_security_group.security_group_id]
   associate_public_ip_address = false
   key_name        = var.frontend_key_name
-  create_iam_instance_profile = true
-  #iam_role_use_name_prefix = false
-  iam_role_description        = "IAM role for EC2 instance"
-  iam_role_policies = {
-    AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-  }
+  create_iam_instance_profile = false
+  iam_instance_profile = "ma-ec2-instace-role"
 
   # only one of these can be enabled at a time
   hibernation = false

@@ -20,7 +20,7 @@ module "backend_security_group" {
   create_sg                = var.create_backend_sg
   description              = var.backend_sg_description
   vpc_id                   = module.vpc.vpc_id
-  name                     = "${var.client_name}-${var.environment}-private-sg"
+  name                     = "MaInternal-sg"
   ingress_with_source_security_group_id = [
   {
     from_port   = 22
@@ -35,7 +35,23 @@ module "backend_security_group" {
     protocol    = -1
     description = "ALB to Backend server"
     source_security_group_id = module.alb_security_group.security_group_id
-  }
+  },
+  ]
+  ingress_with_cidr_blocks = [
+    {
+    from_port   = 5223
+    to_port     = 5223
+    protocol    = "tcp"
+    cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+  ingress_with_self = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = -1
+      self        = true
+    }
   ]
   egress_with_cidr_blocks = var.asg_egress_with_cidr_blocks
   
@@ -63,10 +79,18 @@ module "asg_security_group" {
   {
     from_port   = 0
     to_port     = 0
-    protocol    = "tcp"
+    protocol    = -1
     description = "alb Access to instances"
     source_security_group_id = module.alb_security_group.security_group_id
   }
+  ]
+  ingress_with_self = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = -1
+      self        = true
+    }
   ]
   egress_with_cidr_blocks = var.asg_egress_with_cidr_blocks
   
@@ -122,27 +146,35 @@ module "alb_security_group" {
   description              = var.alb_sg_description
   vpc_id                   = module.vpc.vpc_id
   name                     = "${var.client_name}-${var.environment}-alb-sg"
-  ingress_with_source_security_group_id = [
+  ingress_with_cidr_blocks = [
     {
       from_port   = 443
       to_port     = 443
       protocol    = "tcp"
       description = "nlb sg access"
-      source_security_group_id = module.nlb_security_group.security_group_id
+      cidr_blocks = "0.0.0.0/0"
     },
   {
     from_port   = 5223
     to_port     = 5223
     protocol    = "tcp"
-    source_security_group_id = module.nlb_security_group.security_group_id
+    cidr_blocks = "0.0.0.0/0"
   },
   {
     from_port   = 80
     to_port     = 80
-    protocol    = "tcp"
-    source_security_group_id = module.nlb_security_group.security_group_id
+    protocol    = "tcp" 
+    cidr_blocks = "0.0.0.0/0"
+   }
+ ]
+ingress_with_self = [
+  {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    self        = true
   }
-]
+  ]
   # ingress_with_source_security_group_id = var.rds_ingress_with_source_security_group_id
   egress_with_cidr_blocks = var.alb_egress_with_cidr_blocks
   tags = {
@@ -153,38 +185,38 @@ module "alb_security_group" {
 }
 
 # Network LoadBalancer Security group
-module "nlb_security_group" {
-  source                   = "../../../../modules/security-group"
-  create_sg                = var.create_nlb_sg
-  description              = var.nlb_sg_description
-  vpc_id                   = module.vpc.vpc_id
-  name                     = "${var.client_name}-${var.environment}-nlb-sg"
-  ingress_with_cidr_blocks = [
-  {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    description = "nlb sg access"
-    cidr_blocks = "0.0.0.0/0"
-  },
-  {
-    from_port   = 5223
-    to_port     = 5223
-    protocol    = "tcp"
-    cidr_blocks = "0.0.0.0/0"
-  },
-  {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = "0.0.0.0/0"
-  }
-]
-  # ingress_with_source_security_group_id = var.rds_ingress_with_source_security_group_id
-  egress_with_cidr_blocks = var.alb_egress_with_cidr_blocks
-  tags = {
-    Created_by = "Terraform"
-    Client     = var.client_name
-    Env        = var.environment
-  }
-}
+# module "nlb_security_group" {
+#   source                   = "../../../../modules/security-group"
+#   create_sg                = var.create_nlb_sg
+#   description              = var.nlb_sg_description
+#   vpc_id                   = module.vpc.vpc_id
+#   name                     = "${var.client_name}-${var.environment}-nlb-sg"
+#   ingress_with_cidr_blocks = [
+#   {
+#     from_port   = 443
+#     to_port     = 443
+#     protocol    = "tcp"
+#     description = "nlb sg access"
+#     cidr_blocks = "0.0.0.0/0"
+#   },
+#   {
+#     from_port   = 5223
+#     to_port     = 5223
+#     protocol    = "tcp"
+#     cidr_blocks = "0.0.0.0/0"
+#   },
+#   {
+#     from_port   = 80
+#     to_port     = 80
+#     protocol    = "tcp"
+#     cidr_blocks = "0.0.0.0/0"
+#   }
+# ]
+#   # ingress_with_source_security_group_id = var.rds_ingress_with_source_security_group_id
+#   egress_with_cidr_blocks = var.alb_egress_with_cidr_blocks
+#   tags = {
+#     Created_by = "Terraform"
+#     Client     = var.client_name
+#     Env        = var.environment
+#   }
+# }

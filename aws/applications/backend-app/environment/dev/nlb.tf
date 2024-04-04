@@ -3,8 +3,8 @@ module "nlb" {
 
   name               = "${var.client_name}-${var.environment}-nlb"
   vpc_id             = module.vpc.vpc_id
-  # subnets            = [module.vpc.public_subnets[0]]
-  security_groups    = [module.nlb_security_group.security_group_id]
+
+  create_security_group = false
   internal           = var.nlb_internal
   ip_address_type    = var.nlb_ip_address_type 
   load_balancer_type = var.nlb_load_balancer_type

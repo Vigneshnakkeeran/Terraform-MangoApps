@@ -136,14 +136,14 @@ module "Static_Content_endpoint" {
     allowed_methods = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
     cached_methods  = ["GET", "HEAD"]
     cache_policy_name           = "Managed-CachingOptimized"
-    compress        = true
+    compress        = false
     use_forwarded_values       = false
     # query_string = true
     # headers      = ["Origin"]
     # cookies_forward = "none"
-    min_ttl     = 1
-    default_ttl = 604800
-    max_ttl     = 2592000
+    # min_ttl     = 1
+    # default_ttl = 604800
+    # max_ttl     = 2592000
 #     lambda_function_association = {
 
 #       # Valid keys: viewer-request, origin-request, viewer-response, origin-response

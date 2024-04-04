@@ -87,13 +87,38 @@ module "lambda_layer_s3" {
  }
 
 
+################## Lambda for update_launch_template #################
+
+ module "update_launch_template_lambda_module" {
+
+  source = "../../../../modules/lambda"
+
+  create_package         = false   
+
+  s3_existing_package = {
+     bucket = "cloudify-lambda-code"
+     key = "update_launch_template.zip"
+  }
+
+  lambda_role = module.lambda_execution_role_ssm.role_arn
+  
+   function_name          = "lambda-update_launch_template"
+   runtime              = "python3.12"
+  #  compatible_runtimes  = ["ruby3.2"]
+   handler              = "lambda_function.lambda_handler"
+   memory_size =          "128"
+
+  publish = true
+
+ }
+
 #####Lambda @ edge##################
 
 module "qaLamdaAdge-viewer-request" {
 
-  # providers = {
-  #   aws = aws.us-east-1
-  # }
+  providers = {
+    aws = aws.us-east-1
+  }
   source = "../../../../modules/lambda"
 
   lambda_at_edge = true
@@ -101,12 +126,13 @@ module "qaLamdaAdge-viewer-request" {
   publish = true
   skip_destroy   = true
 
-  function_name = "qaLamdaAdge-viewer-request02"
+  function_name = "qaLamdaAdge-viewer-request"
   description   = "My awesome lambda@edge function"
   handler       = "lambda_function.lambda_handler"
   runtime       = "nodejs18.x"
   memory_size =          "128"
   ephemeral_storage_size = "512"
+  timeout  = 3 
 
   lambda_role = module.lambda_edge_cloudfront.role_arn
 
@@ -127,9 +153,9 @@ module "qaLamdaAdge-viewer-request" {
 
 module "qaLamdaAdge-viewer-response" {
 
-  # providers = {
-  #   aws = aws.us-east-1
-  # }
+  providers = {
+    aws = aws.us-east-1
+  }
   source = "../../../../modules/lambda"
 
   lambda_at_edge = true
@@ -137,12 +163,13 @@ module "qaLamdaAdge-viewer-response" {
   publish = true
   skip_destroy   = true
 
-  function_name = "qaLamdaAdge-viewer-response02"
+  function_name = "qaLamdaAdge-viewer-response"
   description   = "My awesome lambda@edge function"
   handler       = "lambda_function.lambda_handler"
   runtime       = "nodejs18.x"
   memory_size =          "128"
   ephemeral_storage_size = "512"
+  timeout  = 3 
 
   lambda_role = module.lambda_edge_cloudfront.role_arn
 
@@ -164,9 +191,9 @@ module "qaLamdaAdge-viewer-response" {
 
 module "qaLamdaAdge-origin-request" {
 
-  # providers = {
-  #   aws = aws.us-east-1
-  # }
+  providers = {
+    aws = aws.us-east-1
+  }
   source = "../../../../modules/lambda"
 
   lambda_at_edge = true
@@ -174,12 +201,13 @@ module "qaLamdaAdge-origin-request" {
   publish = true
   skip_destroy   = true
 
-  function_name = "qaLamdaAdge-origin-request02"
+  function_name = "qaLamdaAdge-origin-request"
   description   = "My awesome lambda@edge function"
   handler       = "lambda_function.lambda_handler"
   runtime       = "nodejs18.x"
   memory_size =          "128"
   ephemeral_storage_size = "512"
+  timeout  = 3   
 
   lambda_role = module.lambda_edge_cloudfront.role_arn
 
@@ -198,9 +226,9 @@ module "qaLamdaAdge-origin-request" {
 
 module "ma-media-auth-service" {
 
-  # providers = {
-  #   aws = aws.us-east-1
-  # }
+  providers = {
+    aws = aws.us-east-1
+  }
   source = "../../../../modules/lambda"
 
   skip_destroy   = true
@@ -208,7 +236,7 @@ module "ma-media-auth-service" {
   create_package = false
   publish = true
 
-  function_name = "ma-media-auth-service02"
+  function_name = "ma-media-auth-service"
   description   = "ma-media-auth-service"
   handler       = "lambda_function.lambda_handler"
   runtime       = "nodejs18.x"
@@ -234,9 +262,9 @@ module "ma-media-auth-service" {
 
 module "add-origin-cache-control-lambda-funtion" {
 
-  # providers = {
-  #   aws = aws.us-east-1
-  # }
+  providers = {
+    aws = aws.us-east-1
+  }
   source = "../../../../modules/lambda"
 
   skip_destroy   = true
@@ -244,7 +272,7 @@ module "add-origin-cache-control-lambda-funtion" {
   create_package = false
   publish = true
 
-  function_name = "add-origin-cache-control-lambda-funtion02"
+  function_name = "add-origin-cache-control-lambda-funtion"
   description   = "add-origin-cache-control-lambda-funtion"
   handler       = "lambda_function.lambda_handler"
   runtime       = "nodejs18.x"
@@ -270,9 +298,9 @@ module "add-origin-cache-control-lambda-funtion" {
 
 module "multi-s3-origin-request-lambda-function" {
 
-  # providers = {
-  #   aws = aws.us-east-1
-  # }
+  providers = {
+    aws = aws.us-east-1
+  }
   source = "../../../../modules/lambda"
 
   skip_destroy   = true
@@ -280,7 +308,7 @@ module "multi-s3-origin-request-lambda-function" {
   create_package = false
   publish = true
 
-  function_name = "multi-s3-origin-request-lambda-function02"
+  function_name = "multi-s3-origin-request-lambda-function"
   description   = "multi-s3-origin-request-lambda-function"
   handler       = "lambda_function.lambda_handler"
   runtime       = "nodejs18.x"

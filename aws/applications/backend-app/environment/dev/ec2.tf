@@ -117,6 +117,13 @@ module "ec2_backendserver" {
   create_iam_instance_profile = false
   iam_instance_profile = "ma-ec2-instace-role"
 
+  metadata_options = {
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 8
+    instance_metadata_tags      = "enabled"
+  }  
+
   # only one of these can be enabled at a time
   hibernation = false
   # enclave_options_enabled = true
@@ -160,6 +167,13 @@ module "ec2_frontendserver_02" {
   key_name        = var.frontend_key_name
   create_iam_instance_profile = false
   iam_instance_profile = "ma-ec2-instace-role"
+
+  metadata_options = {
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 8
+    instance_metadata_tags      = "enabled"
+  }  
 
   # only one of these can be enabled at a time
   hibernation = false

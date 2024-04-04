@@ -143,18 +143,23 @@ data "aws_iam_policy_document" "Mango_Media_endpoint_policy" {
   version         = "2012-10-17"
   statement {
     actions       = ["s3:GetObject"]
-    resources     = ["arn:aws:s3:::mango_media_cloudfront_bucket/*"]
+    resources     =  ["arn:aws:s3:::${module.Mango_Media_endpoint_s3_bucket.s3_bucket_id}/*"]
     principals {
-      type        = "AWS"
-      identifiers = module.Mango_Media_endpoint.cloudfront_origin_access_identity_iam_arns
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
+    }
+    condition {
+      values = ["${module.Mango_Media_endpoint.cloudfront_distribution_arn}"]
+      test = "StringEquals"
+      variable = "AWS:SourceArn"
     }
   }
 }
-module "Mango_Media_endpoint_s3_bucket_policy_attachment" {
-  source = "../../../../modules/s3"
+
+
+resource "aws_s3_bucket_policy" "Mango_Media_endpoint_s3_bucket_policy" {
   bucket = module.Mango_Media_endpoint_s3_bucket.s3_bucket_id
   policy = data.aws_iam_policy_document.Mango_Media_endpoint_policy.json
-
 }
 
-
+################################################

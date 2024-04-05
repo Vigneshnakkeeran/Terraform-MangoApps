@@ -124,6 +124,8 @@ module "ec2_backendserver" {
     instance_metadata_tags      = "enabled"
   }  
 
+  disable_api_termination = true  
+
   # only one of these can be enabled at a time
   hibernation = false
   # enclave_options_enabled = true
@@ -174,6 +176,8 @@ module "ec2_frontendserver_02" {
     http_put_response_hop_limit = 8
     instance_metadata_tags      = "enabled"
   }  
+
+  disable_api_termination = true
 
   # only one of these can be enabled at a time
   hibernation = false

@@ -18,7 +18,6 @@ module "ses_email" {
   ##Enable Feedback notifications
   sns_topic_arn = module.sns.topic_arn
   notification_type = var.notification_type
-
   recipients = var.recipients
   
   #provide vale to create configuration set

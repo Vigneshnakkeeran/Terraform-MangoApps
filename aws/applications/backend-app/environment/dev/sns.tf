@@ -15,12 +15,10 @@ module "sns" {
       actions = [
         "SNS:Publish"
       ]
-
       principals = [{
         type        = "Service"
         identifiers = ["ses.amazonaws.com"]
       }]
-
       conditions = [{
         test     = "StringEquals"
         variable = "AWS:SourceAccount"

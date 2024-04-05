@@ -11,7 +11,7 @@ module "ec2_bastion" {
 
   name =  "${var.client_name}bastion-host"
   ami                         = "ami-08116b9957a259459"
-  instance_type               = "t3a.medium" # used to set core count below
+  instance_type               = "t3a.medium"
   subnet_id                   = module.vpc.public_subnets[0]
   vpc_security_group_ids      = [module.bastion_security_group.security_group_id]
   associate_public_ip_address = true
@@ -52,8 +52,8 @@ module "ec2_frontendserver" {
   source = "../../../../modules/ec2"
 
   name =   "${var.client_name}01"
-  ami                         = "ami-04377a4b42b31e8e5"  # custom ami id
-  instance_type               = "r6a.2xlarge" # used to set core count below
+  ami                         = "ami-04377a4b42b31e8e5"
+  instance_type               = "r6a.2xlarge"
   subnet_id                   = module.vpc.private_subnets[0]
   vpc_security_group_ids      = [module.backend_security_group.security_group_id]
   associate_public_ip_address = false
@@ -109,7 +109,7 @@ module "ec2_backendserver" {
 
   name = "${var.client_name}11"
   ami                         = "ami-04377a4b42b31e8e5"
-  instance_type               = "r6a.2xlarge" # used to set core count below
+  instance_type               = "r6a.2xlarge"
   subnet_id                   = module.vpc.private_subnets[0]
   vpc_security_group_ids      = [module.backend_security_group.security_group_id]
   associate_public_ip_address = false
@@ -159,8 +159,8 @@ module "ec2_frontendserver_02" {
   source = "../../../../modules/ec2"
 
   name =   "${var.client_name}21"
-  ami                         = "ami-04377a4b42b31e8e5"  # custom ami id
-  instance_type               = "r6a.2xlarge" # used to set core count below
+  ami                         = "ami-04377a4b42b31e8e5"
+  instance_type               = "r6a.2xlarge"
   subnet_id                   = module.vpc.private_subnets[0]
   vpc_security_group_ids      = [module.backend_security_group.security_group_id]
   associate_public_ip_address = false

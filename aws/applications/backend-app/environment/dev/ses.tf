@@ -2,8 +2,8 @@ module "ses_email" {
   source = "../../../../modules/ses"
 
  # emails = var.emails
- domain = var.domain
- zone_id = var.zone_id
+  domain = var.domain
+  zone_id = var.zone_id
 
   ## Email receiving Rule set.
   create_receipt_rule_set  = var.create_receipt_rule_set
@@ -29,7 +29,6 @@ module "ses_email" {
   #to create dedicated ip pool
   create_dedicated_ip_pool = var.create_dedicated_ip_pool
   dedicated_ip_pool_name  = var.dedicated_ip_pool_name
-
 }
 
 

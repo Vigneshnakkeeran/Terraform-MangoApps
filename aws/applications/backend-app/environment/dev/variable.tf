@@ -10,6 +10,11 @@ variable "environment" {
   type        = string
 }
 
+variable "zone_id" {
+  description = "Provide the Zone ID of the Route53 Domain. If Route 53 and SES Present in the same account."
+  type = string
+}
+
 ################## Network variables ##########################
 
 variable "vpc_cidr" {
@@ -1402,10 +1407,7 @@ variable "tls_policy" {
   description = "Whether messages that use the configuration set are required to use Transport Layer Security. The possible values are REQUIRE or OPTIONAL"
 }
 
-variable "zone_id" {
-  description = "Provide the Zone ID of the Route53 Domain. If Route 53 and SES Present in the same account."
-  type = string
-}
+
 
 ###########################################################################################
 

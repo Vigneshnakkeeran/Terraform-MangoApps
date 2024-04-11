@@ -2,6 +2,7 @@
 
 client_name = "cloudifyops"
 environment = "dev"
+zone_id                  = "Z07995521YXG7AO6A1BLM"
 
 ################################ Network ####################################
 
@@ -544,5 +545,4 @@ receipt_rule_name        = "rule_1"
 recipients               = ["hub.mangoapps-test-terraform.com"]
 # s3_store_bucket_name     = "testbucketforsesmango"
 tls_policy               = "OPTIONAL"
-zone_id                  = "Z07995521YXG7AO6A1BLM"
 

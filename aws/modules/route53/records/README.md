@@ -1,4 +1,10 @@
 <!-- BEGIN_TF_DOCS -->
+## Route53_record on AWS using Terraform Template
+
+- This Terraform template is designed for creating and managing Route 53 records on Amazon Web Services (AWS). AWS Route 53 is a scalable and highly available Domain Name System (DNS) web service that allows you to route traffic to various AWS resources based on DNS records.
+- The main.tf, variable.tf, provider.tf, and backend.tf files are typically used in a Terraform project to organize and configure your infrastructure code. 
+
+
 ## Requirements
 
 | Name | Version |
@@ -9,13 +15,13 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.44.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.20 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_records"></a> [records](#module\_records) | ./modules/route53/records | n/a |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | mango-terraform/aws/modules/network | n/a |
 
 ## Resources
 

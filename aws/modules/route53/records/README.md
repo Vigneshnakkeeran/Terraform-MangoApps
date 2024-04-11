@@ -21,7 +21,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | mango-terraform/aws/modules/network | n/a |
+| <a name="module_route53"></a> [route53](#module\_route53) | mango-terraform/aws/modules/route53/records | n/a |
 
 ## Resources
 

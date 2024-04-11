@@ -480,3 +480,95 @@ variable "service_bus_queues" {
   description = "List of queues in the service bus namespace"
 }
 
+###################### Azure Mysql #################################
+variable "enable_mysql" {
+  type    = bool
+  default = true
+}
+variable "mysql_managed_identity_name" {
+  type        = string
+  description = "Managed Identity name for Mysql server."
+  default     = "mi-mysql"
+}
+variable "mysql_server_name" {
+  type        = string
+  description = "The name which should be used for this MySQL Flexible Server. Changing this forces a new MySQL Flexible Server to be created."
+  default     = "mysql"
+}
+variable "create_mode" {
+  type        = string
+  description = "The creation mode which can be used to restore or replicate existing servers. Possible values are `Default`, `PointInTimeRestore`, `GeoRestore`, and `Replica`. Changing this forces a new MySQL Flexible Server to be created."
+  default     = "Default"
+}
+variable "backup_retention_days" {
+  type        = string
+  description = "The backup retention days for the MySQL Flexible Server. Possible values are between 1 and 35 days. Defaults to 7."
+  default     = "7"
+}
+variable "mysql_sku_name" {
+  type        = string
+  description = "The SKU Name for the MySQL Flexible Server. ///`sku_name` should start with SKU tier B (Burstable), GP (General Purpose), MO (Memory Optimized) like `B_Standard_B1s`./// "
+  default     = "GP_Standard_D2ads_v5"
+}
+variable "mysql_admin_user" {
+  type        = string
+  description = "admin username of mysql flexible server"
+  default     = "coverselfint"
+}
+variable "mysql_version" {
+  type        = any
+  description = "Specifies the version of MySQL to use. Valid values are 5.7, and 8.0.21. Changing this forces a new resource to be created."
+  default     = "8.0.21"  
+}
+variable "mysql_db_name" {
+  type        = string
+  description = "Specifies the name of the MySQL Database, which needs to be a valid MySQL identifier. Changing this forces a new resource to be created."
+  default     = "tools"
+}
+variable "charset" {
+  type        = string
+  description = "Specifies the Charset for the MySQL Database, which needs to be a valid MySQL Charset 'https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html'. Changing this forces a new resource to be created."
+  default     = "utf8mb3"
+}
+variable "collation" {
+  type        = string
+  description = "Specifies the Collation for the MySQL Database, which needs to be a valid MySQL Collation 'https://dev.mysql.com/doc/refman/5.7/en/charset-mysql.html'. Changing this forces a new resource to be created."
+  default     = "utf8mb3_unicode_ci"
+}
+variable "zone" {
+  type        = string
+  description = "Specifies the Availability Zone in which this MySQL Flexible Server should be located. Possible values are 1, 2 and 3."
+  default     = "2"
+}
+variable "size_gb" {
+  type        = string
+  description = "The max storage allowed for the MySQL Flexible Server. Possible values are between 20 and 16384"
+  default     = "100"
+}
+variable "mysql_keyvault_secret_name" {
+  type        = string
+  description = "mysql database secret name"
+  default     = "mysql-cs-secretkey"
+}
+#################### mysqldb replica 01 #######################
+variable "mysql_replica_01_server_name" {
+  type        = string
+  description = "The name which should be used for Replica MySQL Flexible Server."
+  default     = "mysql-replica1"
+}
+variable "mysql_replica_01_zone" {
+  type        = string
+  description = "Specifies the Availability Zone in which this MySQL Flexible Server should be located. Possible values are 1, 2 and 3."
+  default     = "2"
+}
+#################### mysqldb replica 02 #######################
+variable "mysql_replica_02_server_name" {
+  type        = string
+  description = "The name which should be used for Replica MySQL Flexible Server. "
+  default     = "mysql-replica2"
+}
+variable "mysql_replica_02_zone" {
+  type        = string
+  description = "Specifies the Availability Zone in which this MySQL Flexible Server should be located. Possible values are 1, 2 and 3."
+  default     = "2"
+}

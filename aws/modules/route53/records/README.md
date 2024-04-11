@@ -27,6 +27,7 @@
 
 | Name | Type |
 |------|------|
+| [aws_route53_record.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_eip.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
 
 ## Inputs

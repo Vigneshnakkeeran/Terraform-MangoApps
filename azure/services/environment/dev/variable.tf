@@ -513,7 +513,7 @@ variable "mysql_sku_name" {
 variable "mysql_admin_user" {
   type        = string
   description = "admin username of mysql flexible server"
-  default     = "coverselfint"
+  default     = ""
 }
 variable "mysql_version" {
   type        = any
@@ -548,7 +548,7 @@ variable "size_gb" {
 variable "mysql_keyvault_secret_name" {
   type        = string
   description = "mysql database secret name"
-  default     = "mysql-cs-secretkey"
+  default     = "mysql-secretkey"
 }
 #################### mysqldb replica 01 #######################
 variable "mysql_replica_01_server_name" {

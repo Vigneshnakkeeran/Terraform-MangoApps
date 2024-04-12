@@ -1,12 +1,6 @@
 # AWS Backup Module
 
-## Usage
-
-You can use this module to create a simple plan using the module's `rule_*` variables. You can also  use the `rules` and `selections` list of maps variables to build a more complete plan by defining several rules and selections at once.
-
-Check the [examples](examples/) for the **simple plan**, **complete plan**, **simple plan using variables** and the **selection by tags plan** snippets.
-
-### Example (complete plan)
+### Example 
 
 This example creates a plan with two rules and two selections at once. It also defines a vault key which is used by the first rule because no `target_vault_name` was given (null). Whereas the second rule is using the "Default" vault key.
 

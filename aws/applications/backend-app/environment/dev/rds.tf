@@ -33,4 +33,10 @@ module "rds" {
   vpc_security_group_ids          = [module.rds_security_group.security_group_id]
   create_security_group           = false
   skip_final_snapshot             = true
+  tags = {
+    Created_by = "Terraform"
+    Client     = var.client_name
+    Env        = var.environment
+    Backup     = True
+  }
 }

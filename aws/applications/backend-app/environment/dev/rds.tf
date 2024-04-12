@@ -37,6 +37,6 @@ module "rds" {
     Created_by = "Terraform"
     Client     = var.client_name
     Env        = var.environment
-    Backup     = True
+    Backup     = "True"
   }
 }

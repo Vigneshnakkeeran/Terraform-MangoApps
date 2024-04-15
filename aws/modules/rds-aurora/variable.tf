@@ -337,7 +337,7 @@ variable "instances" {
 variable "auto_minor_version_upgrade" {
   description = "Indicates that minor engine upgrades will be applied automatically to the DB instance during the maintenance window. Default `true`"
   type        = bool
-  default     = null
+  default     = false
 }
 
 variable "ca_cert_identifier" {

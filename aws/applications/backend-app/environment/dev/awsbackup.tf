@@ -11,7 +11,7 @@
 #  }
 
 resource "aws_backup_vault" "destination_vault" {
-  provider = aws.useast1
+  provider = aws.us-east-1
   name     = "destination-vault"
 }
 

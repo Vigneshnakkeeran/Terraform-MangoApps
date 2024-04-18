@@ -12,8 +12,8 @@ client_name     = "ma"
 use_for_each       = false
 vnet_name          = "vnet"
 address_spaces     = ["172.16.0.0/16"]
-subnet_prefixes    = ["172.16.0.0/24", "172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24", "172.16.4.0/24" ]
-subnet_names       = ["private-subnet-01", "private-subnet-02", "private-subnet-03", "public-subnet-01", "public-subnet-02"]
+subnet_prefixes    = ["172.16.0.0/24", "172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24"]
+subnet_names       = ["private-subnet-01", "private-subnet-02", "public-subnet-01", "public-subnet-02"]
 
 ############################## SECURITY GROUP ####################################
 
@@ -31,13 +31,24 @@ custom_rules = [
       description            = "description-myssh"
     },
     {
-      name                   = "app"
+      name                   = "app-1"
       priority               = 201
       direction              = "Inbound"
       access                 = "Allow"
       protocol               = "Tcp"
       source_port_range      = "*"
       destination_port_range = "80"
+      source_address_prefix  = "172.16.0.0/16"
+      description            = "app-port"
+    },
+    {
+      name                   = "app-2"
+      priority               = 201
+      direction              = "Inbound"
+      access                 = "Allow"
+      protocol               = "Tcp"
+      source_port_range      = "*"
+      destination_port_range = "443"
       source_address_prefix  = "172.16.0.0/16"
       description            = "app-port"
     }

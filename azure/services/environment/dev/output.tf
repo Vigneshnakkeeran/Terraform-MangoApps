@@ -50,3 +50,9 @@
 #   description = "Service Bus Queues"
 #   value = module.service_bus.service_bus_queues
 # }
+
+# ########################## DDoS Protection ############################
+# output "ddos_protection_plan_id" {
+#   description = "Service Bus Topics"
+#   value = module.ddos_protection.ddos_protection_plan_id
+# }

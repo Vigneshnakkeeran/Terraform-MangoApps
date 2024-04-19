@@ -263,3 +263,7 @@ service_bus_queues = [
     ]
   }
 ]
+
+################### DDoS Protection #######################
+ddos_protection_plan_name   = "mangoapps_ddos_plan"
+create_ddos_protection_plan = true

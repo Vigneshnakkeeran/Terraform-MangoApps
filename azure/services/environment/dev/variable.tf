@@ -572,3 +572,20 @@ variable "mysql_replica_02_zone" {
   description = "Specifies the Availability Zone in which this MySQL Flexible Server should be located. Possible values are 1, 2 and 3."
   default     = "2"
 }
+
+#################### DDoS Protection ############################
+variable "create_ddos_protection_plan" {
+  description = "Should be true if you want to enable DDoS Protection"
+  type = bool
+}
+
+variable "ddos_protection_plan_name" {
+  description = "Provide the name for DDoS Protection"
+  type        = string
+}
+
+variable "ddos_resource_group_name" {
+  description = "A container that holds related resources for an Azure solution"
+  default = null
+  type        = string
+}

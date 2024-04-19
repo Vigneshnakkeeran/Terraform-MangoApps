@@ -97,7 +97,7 @@ resource "azurerm_linux_virtual_machine" "vm_linux" {
   admin_username                                         = var.admin_username
   location                                               = var.location
   name                                                   = var.name
-  network_interface_ids                                  = var.network_interface_ids
+  network_interface_ids                                  = local.network_interface_ids
   resource_group_name                                    = var.resource_group_name
   size                                                   = var.size
   admin_password                                         = var.admin_password
@@ -277,10 +277,10 @@ resource "azurerm_linux_virtual_machine" "vm_linux" {
       error_message = "Either `new_network_interface` or `network_interface_ids` must be provided."
     }
     #Public keys can only be added to authorized_keys file for 'admin_username' due to a known issue in Linux provisioning agent.
-    # precondition {
-    #   condition     = alltrue([for value in var.admin_ssh_keys : value.username == var.admin_username || value.username == null])
-    #   error_message = "`username` in var.admin_ssh_keys should be the same as `admin_username` or `null`."
-    # }
+    precondition {
+      condition     = alltrue([for value in var.admin_ssh_keys : value.username == var.admin_username || value.username == null])
+      error_message = "`username` in var.admin_ssh_keys should be the same as `admin_username` or `null`."
+    }
     precondition {
       condition     = !var.bypass_platform_safety_checks_on_user_schedule_enabled || local.patch_mode == "AutomaticByPlatform"
       error_message = "`bypass_platform_safety_checks_on_user_schedule_enabled` can only be set when patch_mode is `AutomaticByPlatform`"

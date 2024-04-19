@@ -54,24 +54,27 @@ custom_rules = [
     }
   ]
 
-############################# VMSS #############################################
+# ############################# VMSS #############################################
 
-vmscaleset_name = "ma-dev-vmss-01"
-linux_distribution_name = "ubuntu1804"
-os_flavor = "linux"
-virtual_machine_size = "Standard_D2s_v3"
-instances_count = 2
-enable_autoscale_for_vmss = true
-minimum_instances_count = 2
-maximum_instances_count = 5
-scale_out_cpu_percentage_threshold = 70
-scaling_action_instances_number = 1
-scale_in_cpu_percentage_threshold = 20
-generate_admin_ssh_key =true
-admin_username = "azureadmin"
-admin_password = "Test@123$"
-os_disk_storage_account_type = "Premium_LRS"
-assign_public_ip_to_each_vm_in_vmss = true
+# vmscaleset_name = "ma-dev-vmss-01"
+# linux_distribution_name = "ubuntu1804"
+# os_flavor = "linux"
+# virtual_machine_size = "Standard_D2s_v3"
+# instances_count = 2
+# enable_autoscale_for_vmss = true
+# minimum_instances_count = 2
+# maximum_instances_count = 5
+# scale_out_cpu_percentage_threshold = 70
+# scaling_action_instances_number = 1
+# scale_in_cpu_percentage_threshold = 20
+# generate_admin_ssh_key =true
+# admin_username = "azureadmin"
+# admin_password = "Test@123$"
+# os_disk_storage_account_type = "Premium_LRS"
+# assign_public_ip_to_each_vm_in_vmss = true
+
+##############################   VM      ######################################
+size = "Standard_D2s_v3"
 
 ############################# STORAGE ACCOUNT #################################
 

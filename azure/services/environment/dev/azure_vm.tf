@@ -12,7 +12,7 @@ module "linux" {
     EOF
   )
   data_disks = [
-    for i in range(2) : {
+    for i in range(1) : {
       name                 = "linuxdisk01"
       storage_account_type = "Standard_LRS"
       create_option        = "Empty"
@@ -30,16 +30,18 @@ module "linux" {
 #       user_assigned_identity_id = azurerm_user_assigned_identity.storage_account_key_vault.id
 #     }
 #   }
-  new_network_interface = {
-    ip_forwarding_enabled = false
-    ip_configurations = [
-      {
-        public_ip_address_id = try(azurerm_public_ip.pip.id, null)
-        primary              = true
-      }
-    ]
-  }
+#   new_network_interface = {
+#     ip_forwarding_enabled = false
+#     ip_configurations = [
+#       {
+#         public_ip_address_id = try(azurerm_public_ip.pip.id, null)
+#         primary              = true
+#       }
+#     ]
+#   }
+  disable_password_authentication = false
   admin_username = "azureuser"
+  admin_password =  "Mango@43vm"
 #   admin_ssh_keys = [
 #     {
 #       public_key = tls_private_key.ssh.public_key_openssh
@@ -52,7 +54,7 @@ module "linux" {
   }
   os_simple = "UbuntuServer"
   size      = var.size
-  subnet_id = module.network.vnet_subnets[0]
+  subnet_id = module.network.vnet_subnets[2]
 
   # depends_on = [azurerm_key_vault_access_policy.des]
 }

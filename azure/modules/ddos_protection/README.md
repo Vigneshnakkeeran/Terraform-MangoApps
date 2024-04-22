@@ -1,4 +1,8 @@
 <!-- BEGIN_TF_DOCS -->
+## Azure Network DDoS Protection Terraform Module
+
+Terraform Module for provisioning a Azure Network DDoS Protection.
+
 ## Requirements
 
 | Name | Version |
@@ -6,18 +10,19 @@
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | 3.93.0 |
 
 ## Providers
-
-No providers.
+|------|---------|
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | 3.93.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ddos_protection"></a> [ddos\_protection](#module\_ddos\_protection) | ./modules | n/a |
+| <a name="module_ddos_protection"></a> [ddos\_protection](#module\_ddos\_protection) | mangoapps/azure/modules/ddos_protection | n/a |
 
 ## Resources
-
-No resources.
+| Name | Type |
+|------|------|
+| [azurerm_network_ddos_protection_plan.example](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_ddos_protection_plan) | resource |
 
 ## Inputs
 

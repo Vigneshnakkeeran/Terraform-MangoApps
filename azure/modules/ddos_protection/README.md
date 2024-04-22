@@ -10,6 +10,7 @@ Terraform Module for provisioning a Azure Network DDoS Protection.
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | 3.93.0 |
 
 ## Providers
+| Name | Version |
 |------|---------|
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | 3.93.0 |
 

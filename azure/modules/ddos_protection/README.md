@@ -35,6 +35,7 @@ Terraform Module for provisioning a Azure Network DDoS Protection.
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | A container that holds related resources for an Azure solution | `string` | n/a | yes |
 
 ## Outputs
-
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_ddos_protection_plan_id"></a> [ddos\_protection\_plan\_id](#output\_ddos\_protection\_plan\_id) | n/a |
 <!-- END_TF_DOCS -->

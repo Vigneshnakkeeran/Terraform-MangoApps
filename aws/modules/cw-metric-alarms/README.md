@@ -1,4 +1,4 @@
-# metric-alarms-by-multiple-dimensions
+# metric-alarms-by-dimensions
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements

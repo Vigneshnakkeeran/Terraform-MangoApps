@@ -24,8 +24,8 @@ This readme file is going to help to get the readme file of all the AWS Terrafor
 | [AWS backup](https://github.com/MangoAppsInc/mango-terraform/tree/feature_main/aws/modules/backup#readme) |
 | [IAM_Role](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/IAM-Role/README.md) |
 | [Auto Scaling Group](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/asg/README.md) |
-| [AWS SES](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/ses/README.md) |
+| [AWS Simple Email Service ](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/ses/README.md) |
 | [AWS Shield](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/shield/README.md) | 
-| [AWS SNS](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/sns/README.md) | 
-| [AWS SQS](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/sqs/README.md) | 
+| [AWS Simple Notification Service](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/sns/README.md) | 
+| [AWS Simple Queue Service](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/sqs/README.md) | 
 | [AWS WAF](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/waf/README.md) | 

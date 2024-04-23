@@ -1,20 +1,18 @@
 module "ec2_metric_alarms" {
-  source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
-  version = "~> 3.0"
+  source  = "../../../../modules/cw-metric-alarms"
 
   alarm_name          = "instance-cpu-alarm"
   alarm_description   = "ec2 cpuutilization"
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = 60
+  evaluation_periods  = 6
   threshold           = 30
-  period              = 30
-  unit                = "Count"
+  unit                = "Percent"
   datapoints_to_alarm = 1
  
-
-  namespace   = "AWS/EC2"
-  metric_name = "CPUUtilization"
-  statistic   = "Average"
+  metric_name    = "CPUUtilization"
+  namespace      = "AWS/EC2"
+  period         = 300
+  statistic      = "Average"
 
   dimensions = {
     "Instance1" = {
@@ -25,32 +23,34 @@ module "ec2_metric_alarms" {
   alarm_actions = [module.cw_sns_topic.topic_arn]
 }
 
+module "demo_ec2_metric_alarms" {
+  source  =  source  = "../../../../modules/cw-metric-alarms"
 
-#cloudifyops-dev-aurora01-one
+  create_metric_alarm = true
+  alarm_name          = "EC2 CPU Utilization"
+  alarm_name_delimiter = "-"
+  alarm_description   = "Alarm when CPU exceeds threshold"
+  actions_enabled     = true
 
-module "rds_metric_alarms" {
-  source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
-  version = "~> 3.0"
+  alarm_actions             = [module.cw_sns_topic.topic_arn]
 
-  alarm_name          = "rds-cpu-alarm"
-  alarm_description   = "rds cpuutilization"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = 60
-  threshold           = 90
-  period              = 30
-  unit                = "Count"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 6
+  threshold           = 85
+  unit                = "Percent"
   datapoints_to_alarm = 1
- 
-
-  namespace   = "AWS/RDS"
-  metric_name = "CPUUtilization"
-  statistic   = "Average"
 
   dimensions = {
-    "DBInstanceIdentifier" = {
-      DBInstanceIdentifier  = "cloudifyops-dev-aurora01-one"
+    "DBClusterIdentifier" = {
+      DBClusterIdentifier  = "cloudifyops-dev-aurora01"
     }
   }
+  metric_name    = "CPUUtilization"
+  namespace      = "AWS/RDS"
+  period         = 300
+  statistic      = "Average"
 
-  alarm_actions = [module.cw_sns_topic.topic_arn]
+  tags = {
+    Environment = "dev"
+  }
 }

@@ -11,18 +11,21 @@ This readme file is going to help to get the readme file of all the AWS Terrafor
 
 | Name |
 |------|
-| [AWS-backup](https://github.com/MangoAppsInc/mango-terraform/tree/feature_main/aws/modules/backup#readme) |
+| [AWS Cloudfront](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/cloudfront/README.md) |
+| [AWS Cloudtrail](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/cloudtrail/README.md) |
+| [AWS Cloudwatch Alarm](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/cw-metric-alarms/README.md) |
+| [AWS EC2 Instance](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/ec2/README.md) |
+| [AWS Loadbalancer](https://github.com/MangoAppsInc/mango-terraform/tree/feature_main/aws/modules/elb) |
+| [AWS Networking](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/network/README.md) |
+| [AWS Aurora Cluster](https://github.com/MangoAppsInc/mango-terraform/tree/feature_main/aws/modules/rds-aurora/README.md) |
+| [AWS Route53 Record](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/route53/records/README.md) |
+| [AWS S3](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/s3/README.md) |
+| [AWS Lambda Functioin](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/lambda/README.md) |
+| [AWS backup](https://github.com/MangoAppsInc/mango-terraform/tree/feature_main/aws/modules/backup#readme) |
 | [IAM_Role](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/IAM-Role/README.md) |
 | [Auto Scaling Group](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/asg/README.md) |
-| [aws_backup_vault.ab_vault](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_vault) |
-| [aws_backup_vault_lock_configuration.ab_vault_lock_configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_vault_lock_configuration) |
-| [aws_backup_vault_notifications.backup_events](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_vault_notifications) |
-| [aws_iam_policy.ab_tag_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) |
-| [aws_iam_role.ab_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) |
-| [aws_iam_role_policy_attachment.ab_backup_s3_policy_attach](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) |
-| [aws_iam_role_policy_attachment.ab_policy_attach](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) |
-| [aws_iam_role_policy_attachment.ab_restores_policy_attach](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) |
-| [aws_iam_role_policy_attachment.ab_restores_s3_policy_attach](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) |
-| [aws_iam_role_policy_attachment.ab_tag_policy_attach](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) |
-| [aws_sns_topic_policy.backup_events](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_policy) |
-| [aws_iam_policy_document.ab_role_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | 
+| [AWS SES](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/ses/README.md) |
+| [AWS Shield](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/shield/README.md) | 
+| [AWS SNS](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/sns/README.md) | 
+| [AWS SQS](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/sqs/README.md) | 
+| [AWS WAF](https://github.com/MangoAppsInc/mango-terraform/blob/feature_main/aws/modules/waf/README.md) | 

@@ -55,3 +55,20 @@ module "sns_email_subscription" {
 	subscriptions = var.sns_email_subscriptions
 	sns_topic_arn = module.sns.topic_arn
 }
+
+module "cw_sns_topic" {
+  source  = "../../../../modules/sns"
+
+  name  = "cw-alarm"
+  subscriptions = {
+    email = {
+      protocol = "email"
+      endpoint = "abhayjit.k@cloudifyops.com"
+    }
+  }
+
+  tags = {
+    Environment = "dev"
+    Terraform   = "true"
+  }
+}

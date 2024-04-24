@@ -15,6 +15,42 @@ module "application_gateway" {
     ip_addresses = [ local.vm_ip_addresses ] #["172.174.226.251", "172.174.246.106"]
   }
 ]
+frontend_ports = [
+  {
+   name = "appgw-${var.app_gateway_name}-feport-80"
+   port = 80
+  },
+  {
+   name = "appgw-${var.app_gateway_name}-feport-443"
+   port = 443
+  },
+  {
+   name = "appgw-${var.app_gateway_name}-feport-5223"
+   port = 5223
+  }
+]
+http_listeners = [
+  {
+    name          = "listener-for-frontend"
+    host_name     = null
+    protocol      = "Http"
+    frontend_port_name   = "appgw-${var.app_gateway_name}-feport-80"
+  },
+  {
+    name                 = "listener-for-frontend-ssl"
+    ssl_certificate_name = "certification-ssl"
+    host_name            = null
+    protocol             = "Https"
+    frontend_port_name   = "appgw-${var.app_gateway_name}-feport-443"
+  },
+  {
+    name                 = "listener-new"
+    ssl_certificate_name = "certification-ssl"
+    host_name              = null
+    protocol             = "Https"
+    frontend_port_name   = "appgw-${var.app_gateway_name}-feport-5223"
+  }
+]
 
 backend_http_settings = [
   {
@@ -39,31 +75,31 @@ backend_http_settings = [
       drain_timeout_sec          = 1
     }
   }
+  # {
+  #   name                  = "backend-https-5223"
+  #   cookie_based_affinity = "Disabled"
+  #   enable_https          = true
+  #   port                  = 5223
+  #   request_timeout       = 30
+  #   connection_draining = {
+  #     enable_connection_draining = false
+  #     drain_timeout_sec          = 1
+  #   }
+  # }
 ]
 
-http_listeners = [
-  {
-    name      = "listener-for-frontend"
-    host_name = null
-    protocol                       = "Http"
-  },
-  {
-    name                 = "listener-for-frontend-ssl"
-    ssl_certificate_name = "certification-ssl"
-    host_name            = null
-    protocol                       = "Https"
-  }
-]
+
 
 request_routing_rules = [
   {
     name                       = "routing-rules-list"
     rule_type                  = "Basic"
     priority                   = 1
+    redirect_configuration_name = "rediredt-http-to-https"
     http_listener_name         = "listener-for-frontend"
     backend_address_pool_name  = "backend-pool-target-instances"
     backend_http_settings_name = "backend-http"
-  },
+   },
   {
     name                       = "routing-rules-list-ssl"
     rule_type                  = "Basic"
@@ -72,6 +108,14 @@ request_routing_rules = [
     backend_address_pool_name  = "backend-pool-target-instances"
     backend_http_settings_name = "backend-https"
   }
+]
+redirect_configuration = [
+{
+      name     = "rediredt-http-to-https"
+      rule_type = "Basic"
+      target_listener_name = "listener-for-frontend-ssl"
+      redirect_type              = "Permanent"
+}
 ]
 
 ssl_certificates = [

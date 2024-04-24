@@ -98,16 +98,24 @@ resource "azurerm_application_gateway" "main" {
     private_ip_address_allocation = var.private_ip_address != null ? "Static" : null
     subnet_id                     = var.private_ip_address != null ? data.azurerm_subnet.snet.id : null
   }
+  dynamic "frontend_port" {
+    for_each = var.frontend_ports
+    content {
+      name = frontend_port.value.name
+      port = frontend_port.value.port 
+    }
 
-  frontend_port {
-    name = "${local.frontend_port_name}-80"
-    port = 80
   }
 
-  frontend_port {
-    name = "${local.frontend_port_name}-443"
-    port = 443
-  }
+  # frontend_port {
+  #   name = "${local.frontend_port_name}-80"
+  #   port = 80
+  # }
+
+  # frontend_port {
+  #   name = "${local.frontend_port_name}-443"
+  #   port = 443
+  # }
 
   #----------------------------------------------------------
   # Backend Address Pool Configuration (Required)
@@ -165,7 +173,8 @@ resource "azurerm_application_gateway" "main" {
     content {
       name                           = http_listener.value.name
       frontend_ip_configuration_name = local.frontend_ip_configuration_name
-      frontend_port_name             = http_listener.value.ssl_certificate_name == null ? "${local.frontend_port_name}-80" : "${local.frontend_port_name}-443"
+      frontend_port_name             = http_listener.value.frontend_port_name
+      #frontend_port_name            = http_listener.value.ssl_certificate_name == null ? "${local.frontend_port_name}-80" : "${local.frontend_port_name}-443"
       host_name                      = lookup(http_listener.value, "host_name", null)
       host_names                     = lookup(http_listener.value, "host_names", null)
       protocol                       = http_listener.value.ssl_certificate_name == null ? "Http" : "Https"

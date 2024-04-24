@@ -127,6 +127,7 @@ variable "http_listeners" {
     host_names           = optional(list(string))
     require_sni          = optional(bool)
     ssl_certificate_name = optional(string)
+    frontend_port_name   = optional(string)
     firewall_policy_id   = optional(string)
     ssl_profile_name     = optional(string)
     custom_error_configuration = optional(list(object({
@@ -292,4 +293,12 @@ variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
   default     = {}
+}
+
+variable "frontend_ports" {
+  description = "List of HTTP/HTTPS listeners. SSL Certificate name is required"
+  type = list(object({
+    name = string
+    port = number
+  }))
 }

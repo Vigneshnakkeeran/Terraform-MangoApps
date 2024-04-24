@@ -103,6 +103,7 @@ variable "backend_http_settings" {
     cookie_based_affinity               = string
     affinity_cookie_name                = optional(string)
     path                                = optional(string)
+    port                                = number
     enable_https                        = bool
     probe_name                          = optional(string)
     request_timeout                     = number

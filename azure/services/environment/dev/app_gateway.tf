@@ -13,6 +13,10 @@ module "application_gateway" {
   {
     name         = "backend-pool-target-instances"
     ip_addresses = [ local.vm_ip_addresses ] #["172.174.226.251", "172.174.246.106"]
+  },
+    {
+    name         = "backend-pool-target-instances01"
+    ip_addresses = [ local.vm_ip_addresses ] #["172.174.226.251", "172.174.246.106"]
   }
 ]
 frontend_ports = [
@@ -39,14 +43,14 @@ http_listeners = [
   {
     name                 = "listener-for-frontend-ssl"
     ssl_certificate_name = "certification-ssl"
-    host_name            = null
+    host_name            = "hub.mangoapps-test-terraform.com"
     protocol             = "Https"
     frontend_port_name   = "appgw-${var.app_gateway_name}-feport-443"
   },
   {
     name                 = "listener-new"
     ssl_certificate_name = "certification-ssl"
-    host_name              = null
+    host_name              = "hub.mangoapps-test-terraform.com"
     protocol             = "Https"
     frontend_port_name   = "appgw-${var.app_gateway_name}-feport-5223"
   }
@@ -74,18 +78,62 @@ backend_http_settings = [
       enable_connection_draining = false
       drain_timeout_sec          = 1
     }
+  },
+  {
+    name                  = "backend-https-5223"
+    cookie_based_affinity = "Disabled"
+    enable_https          = true
+    port                  = 5223
+    request_timeout       = 30
+    connection_draining = {
+      enable_connection_draining = false
+      drain_timeout_sec          = 1
+    }
+  },
+    {
+    name                  = "backend-https-9001"
+    cookie_based_affinity = "Disabled"
+    enable_https          = true
+    port                  = 9001
+    request_timeout       = 30
+    connection_draining = {
+      enable_connection_draining = false
+      drain_timeout_sec          = 1
+    }
+  },
+    {
+    name                  = "backend-https-8008"
+    cookie_based_affinity = "Disabled"
+    enable_https          = true
+    port                  = 8008
+    request_timeout       = 30
+    connection_draining = {
+      enable_connection_draining = false
+      drain_timeout_sec          = 1
+    }
+  },
+  {
+    name                  = "backend-https-8080"
+    cookie_based_affinity = "Disabled"
+    enable_https          = true
+    port                  = 8080
+    request_timeout       = 30
+    connection_draining = {
+      enable_connection_draining = false
+      drain_timeout_sec          = 1
+    }
+  },
+  {
+    name                  = "backend-https-9000"
+    cookie_based_affinity = "Disabled"
+    enable_https          = true
+    port                  = 9000
+    request_timeout       = 30
+    connection_draining = {
+      enable_connection_draining = false
+      drain_timeout_sec          = 1
+    }
   }
-  # {
-  #   name                  = "backend-https-5223"
-  #   cookie_based_affinity = "Disabled"
-  #   enable_https          = true
-  #   port                  = 5223
-  #   request_timeout       = 30
-  #   connection_draining = {
-  #     enable_connection_draining = false
-  #     drain_timeout_sec          = 1
-  #   }
-  # }
 ]
 
 
@@ -97,16 +145,25 @@ request_routing_rules = [
     priority                   = 1
     redirect_configuration_name = "rediredt-http-to-https"
     http_listener_name         = "listener-for-frontend"
-    backend_address_pool_name  = "backend-pool-target-instances"
-    backend_http_settings_name = "backend-http"
+    # backend_address_pool_name  = "backend-pool-target-instances"
+    # backend_http_settings_name = "backend-http"
    },
   {
     name                       = "routing-rules-list-ssl"
-    rule_type                  = "Basic"
+    rule_type                  = "PathBasedRouting"
     priority                   = 2
     http_listener_name         = "listener-for-frontend-ssl"
     backend_address_pool_name  = "backend-pool-target-instances"
     backend_http_settings_name = "backend-https"
+    url_path_map_name          = "path-mapping"
+  },
+    {
+    name                       = "routing-rules-list-ssl02"
+    rule_type                  = "Basic"
+    priority                   = 3
+    http_listener_name         = "listener-new"
+    backend_address_pool_name  = "backend-pool-target-instances01"
+    backend_http_settings_name = "backend-https-5223"
   }
 ]
 redirect_configuration = [
@@ -117,6 +174,53 @@ redirect_configuration = [
       redirect_type              = "Permanent"
 }
 ]
+
+## Path Rules
+
+ url_path_maps = [
+    {
+      name = "path-mapping"
+      default_backend_http_settings_name = "backend-https"
+      default_backend_address_pool_name = "backend-pool-target-instances"
+      path_rules = [
+        {
+          name                     = "server9001"
+          backend_address_pool_name   = "backend-pool-target-instances01"
+          backend_http_settings_name  = "backend-https-9001"
+          paths                    = ["/mangoappssync*", "/folderSyncList*", "/fpu*", "/fileAccess*"]
+          redirect_configuration_name = null 
+        },
+        {
+          name                     = "server8008"
+          backend_address_pool_name   = "backend-pool-target-instances01"
+          backend_http_settings_name  = "backend-https-8008"
+          paths                    = ["/mjanus*", "/zip*", "/dl*", "/media*"]
+          redirect_configuration_name = null 
+        },
+        {
+          name                     = "server8008-v2media"
+          backend_address_pool_name   = "backend-pool-target-instances01"
+          backend_http_settings_name  = "backend-https-8008"
+          paths                    = ["/v2/media*"]
+          redirect_configuration_name = null 
+        },
+        {
+          name                     = "server8080"
+          backend_address_pool_name   = "backend-pool-target-instances01"
+          backend_http_settings_name  = "backend-https-8080"
+          paths                    = ["/api/solr*"]
+          redirect_configuration_name = null 
+        },
+        {
+          name                     = "9000"
+          backend_address_pool_name   = "backend-pool-target-instances01"
+          backend_http_settings_name  = "backend-https-9000"
+          paths                    =  ["/cjs*"]
+          redirect_configuration_name = null 
+        }
+      ]
+    }
+ ]
 
 ssl_certificates = [
   {

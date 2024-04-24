@@ -30,15 +30,15 @@ module "linux" {
 #       user_assigned_identity_id = azurerm_user_assigned_identity.storage_account_key_vault.id
 #     }
 #   }
-#   new_network_interface = {
-#     ip_forwarding_enabled = false
-#     ip_configurations = [
-#       {
-#         public_ip_address_id = try(azurerm_public_ip.pip.id, null)
-#         primary              = true
-#       }
-#     ]
-#   }
+  new_network_interface = {
+    ip_forwarding_enabled = false
+    ip_configurations = [
+      {
+        public_ip_address_id = try(azurerm_public_ip.pip.id, null)
+        primary              = true
+      }
+    ]
+  }
   disable_password_authentication = false
   admin_username = "azureuser"
   admin_password =  "Mango@43vm"

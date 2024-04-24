@@ -97,75 +97,75 @@ sku = {
   capacity = 1
 }
 
-backend_address_pools = [
-  {
-    name         = "backend-pool-target-name"
-    ip_addresses = ["172.174.226.251", "172.174.246.106"]
-  }
-]
-
-backend_http_settings = [
-  {
-    name                  = "backend-http"
-    cookie_based_affinity = "Disabled"
-    enable_https          = false
-    request_timeout       = 30
-    connection_draining = {
-      enable_connection_draining = false
-      drain_timeout_sec          = 1
-    }
-  }
-  # {
-  #   name                  = "backend-https"
-  #   cookie_based_affinity = "Disabled"
-  #   enable_https          = true
-  #   request_timeout       = 30
-  #   connection_draining = {
-  #     enable_connection_draining = false
-  #     drain_timeout_sec          = 1
-  #   }
-  # }
-]
-
-http_listeners = [
-  {
-    name      = "listener-for-frontend"
-    host_name = null
-  }
-  # {
-  #   name                 = "listener-for-frontend-ssl"
-  #   ssl_certificate_name = "certification-ssl"
-  #   host_name            = null
-
-  # }
-]
-
-request_routing_rules = [
-  {
-    name                       = "routing-rules-list"
-    rule_type                  = "Basic"
-    priority                   = 1
-    http_listener_name         = "listener-for-frontend"
-    backend_address_pool_name  = "backend-pool-target-name"
-    backend_http_settings_name = "backend-http"
-  }
-  # {
-  #   name                       = "routing-rules-list-ssl"
-  #   rule_type                  = "Basic"
-  #   priority                   = 2
-  #   http_listener_name         = "listener-for-frontend-ssl"
-  #   backend_address_pool_name  = "backend-pool-target-name"
-  #   backend_http_settings_name = "backend-http"
-  # }
-]
-
-# ssl_certificates = [
+# backend_address_pools = [
 #   {
-#     name     = "certification-ssl"
-#     data     = "./learningazuretech.pfx"
-#     password = "Praveen@1234$"
+#     name         = "backend-pool-target-instances"
+#     ip_addresses = ["172.174.226.251", "172.174.246.106"]
 #   }
 # ]
+
+# backend_http_settings = [
+#   {
+#     name                  = "backend-http"
+#     cookie_based_affinity = "Disabled"
+#     enable_https          = false
+#     request_timeout       = 30
+#     connection_draining = {
+#       enable_connection_draining = false
+#       drain_timeout_sec          = 1
+#     }
+#   }
+#   # {
+#   #   name                  = "backend-https"
+#   #   cookie_based_affinity = "Disabled"
+#   #   enable_https          = true
+#   #   request_timeout       = 30
+#   #   connection_draining = {
+#   #     enable_connection_draining = false
+#   #     drain_timeout_sec          = 1
+#   #   }
+#   # }
+# ]
+
+# http_listeners = [
+#   {
+#     name      = "listener-for-frontend"
+#     host_name = null
+#   }
+#   # {
+#   #   name                 = "listener-for-frontend-ssl"
+#   #   ssl_certificate_name = "certification-ssl"
+#   #   host_name            = null
+
+#   # }
+# ]
+
+# request_routing_rules = [
+#   {
+#     name                       = "routing-rules-list"
+#     rule_type                  = "Basic"
+#     priority                   = 1
+#     http_listener_name         = "listener-for-frontend"
+#     backend_address_pool_name  = "backend-pool-target-name"
+#     backend_http_settings_name = "backend-http"
+#   }
+#   # {
+#   #   name                       = "routing-rules-list-ssl"
+#   #   rule_type                  = "Basic"
+#   #   priority                   = 2
+#   #   http_listener_name         = "listener-for-frontend-ssl"
+#   #   backend_address_pool_name  = "backend-pool-target-name"
+#   #   backend_http_settings_name = "backend-http"
+#   # }
+# ]
+
+# # ssl_certificates = [
+# #   {
+# #     name     = "certification-ssl"
+# #     data     = "./learningazuretech.pfx"
+# #     password = "Praveen@1234$"
+# #   }
+# # ]
 
 ############################# WAF #################################
 

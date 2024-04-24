@@ -74,6 +74,7 @@ backend_http_settings = [
     enable_https          = true
     port                  = 443
     request_timeout       = 30
+    probe_name            = "health-probe"
     connection_draining = {
       enable_connection_draining = false
       drain_timeout_sec          = 1
@@ -85,6 +86,7 @@ backend_http_settings = [
     enable_https          = true
     port                  = 5223
     request_timeout       = 30
+    probe_name            = "health-probe"
     connection_draining = {
       enable_connection_draining = false
       drain_timeout_sec          = 1
@@ -96,6 +98,7 @@ backend_http_settings = [
     enable_https          = true
     port                  = 9001
     request_timeout       = 30
+    probe_name            = "health-probe"
     connection_draining = {
       enable_connection_draining = false
       drain_timeout_sec          = 1
@@ -107,6 +110,7 @@ backend_http_settings = [
     enable_https          = true
     port                  = 8008
     request_timeout       = 30
+    probe_name            = "health-probe"
     connection_draining = {
       enable_connection_draining = false
       drain_timeout_sec          = 1
@@ -118,6 +122,7 @@ backend_http_settings = [
     enable_https          = true
     port                  = 8080
     request_timeout       = 30
+    probe_name            = "health-probe"
     connection_draining = {
       enable_connection_draining = false
       drain_timeout_sec          = 1
@@ -129,6 +134,7 @@ backend_http_settings = [
     enable_https          = true
     port                  = 9000
     request_timeout       = 30
+    probe_name            = "health-probe"
     connection_draining = {
       enable_connection_draining = false
       drain_timeout_sec          = 1
@@ -222,6 +228,7 @@ redirect_configuration = [
     }
  ]
 
+# SSL Certificate Configuration
 ssl_certificates = [
   {
     name     = "certification-ssl"
@@ -229,6 +236,25 @@ ssl_certificates = [
     password = "Praveen@1234$"
   }
 ]
+# Health Checks
+
+health_probes = [
+  {
+  name                                      = "health-probe"
+  host                                      = "hub.mangoapps-test-terraform.com"
+  interval                                  = 30
+  protocol                                  = "Https"
+  path                                      = "/healthcheck"
+  timeout                                   = 30
+  unhealthy_threshold                       = 3
+  port                                      = 443
+  pick_host_name_from_backend_http_settings = false
+  minimum_servers                           = 0
+  }
+]
+
+
+
  depends_on = [ module.network ]
   tags = {
     ProjectName = "demo-internal"

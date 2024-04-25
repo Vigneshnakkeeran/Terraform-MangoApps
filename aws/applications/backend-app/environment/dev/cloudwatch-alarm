@@ -1,5 +1,5 @@
 module "ec2_metric_alarms" {
-  source  = "../../../../modules/cw-metric-alarms"
+  source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
 
   alarm_name          = "instance-cpu-alarm"
   alarm_description   = "ec2 cpuutilization"
@@ -24,10 +24,10 @@ module "ec2_metric_alarms" {
 }
 
 module "demo_ec2_metric_alarms" {
-  source  =  source  = "../../../../modules/cw-metric-alarms"
+  source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
 
   create_metric_alarm = true
-  alarm_name          = "EC2 CPU Utilization"
+  alarm_name          = "RDS CPU Utilization"
   alarm_name_delimiter = "-"
   alarm_description   = "Alarm when CPU exceeds threshold"
   actions_enabled     = true
@@ -35,8 +35,8 @@ module "demo_ec2_metric_alarms" {
   alarm_actions             = [module.cw_sns_topic.topic_arn]
 
   comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 6
-  threshold           = 85
+  evaluation_periods  = 1
+  threshold           = 95
   unit                = "Percent"
   datapoints_to_alarm = 1
 

@@ -11,7 +11,7 @@ resource "azurerm_monitor_metric_alert" "example" {
     metric_name      = "Percentage CPU"
     aggregation      = "Average"
     operator         = "GreaterThan"
-    threshold        = 50
+    threshold        = 50   
   }
  action {
     action_group_id = azurerm_monitor_action_group.main.id

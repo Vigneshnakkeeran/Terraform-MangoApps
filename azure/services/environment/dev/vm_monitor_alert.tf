@@ -1,46 +1,67 @@
-# Azure Monitoring Code for Virtual Machines.
-resource "azurerm_monitor_metric_alert" "example" {
-  name                = "example-metricalert"
+# # Azure Monitoring Code for Virtual Machines.
+# resource "azurerm_monitor_metric_alert" "example" {
+#   name                = "example-metricalert"
+#   resource_group_name = data.terraform_remote_state.dev_resource_group.outputs.dev_rg
+#   scopes              = [module.linux.vm_id]
+#   description         = "Action will be triggered when cpu utilizationb is greater than 50."
+#   target_resource_type = "Microsoft.Compute/virtualMachines"
+
+#   criteria {
+#     metric_namespace = "Microsoft.Compute/virtualMachines"
+#     metric_name      = "Percentage CPU"
+#     aggregation      = "Average"
+#     operator         = "GreaterThan"
+#     threshold        = 75  
+#   }
+#  action {
+#     action_group_id = azurerm_monitor_action_group.main.id
+#   }
+#   depends_on = [ module.linux ]
+# }
+
+# # # Azure monitoring for Mysql
+# # resource "azurerm_monitor_metric_alert" "mysql" {
+# #   name                = "example-mysql-metricalert"
+# #   resource_group_name = data.terraform_remote_state.dev_resource_group.outputs.dev_rg
+# #   scopes              = [module.mysql_server_primary.server_id]
+# #   description         = "Action will be triggered when CPU utilization is greater than 50%."
+# #   target_resource_type = "Microsoft.DBforMySQL/servers"  # Adjusted for Azure MySQL database
+
+# #   criteria {
+# #     metric_namespace = "Microsoft.DBforMySQL/servers"  # Adjusted for Azure MySQL database
+# #     metric_name      = "cpu_percent"  # Adjusted for MySQL CPU metric
+# #     aggregation      = "Average"
+# #     operator         = "GreaterThan"
+# #     threshold        = 50
+# #   }
+
+# #   action {
+# #     action_group_id = azurerm_monitor_action_group.main.id
+# #   }
+
+# #   depends_on = [module.mysql_server_primary]
+# # }
+
+# Azure Monitoring Code for Application Gateways.
+resource "azurerm_monitor_metric_alert" "agw" {
+  name                = "agw-metricalert"
   resource_group_name = data.terraform_remote_state.dev_resource_group.outputs.dev_rg
-  scopes              = [module.linux.vm_id]
+  scopes              = [module.application_gateway.application_gateway_id]
   description         = "Action will be triggered when cpu utilizationb is greater than 50."
-  target_resource_type = "Microsoft.Compute/virtualMachines"
+  target_resource_type = "Microsoft.Network/applicationGateways"
 
   criteria {
-    metric_namespace = "Microsoft.Compute/virtualMachines"
-    metric_name      = "Percentage CPU"
+    metric_namespace = "Microsoft.Network/applicationGateways"
+    metric_name      = "UnhealthyHostCount"
     aggregation      = "Average"
     operator         = "GreaterThan"
-    threshold        = 50   
+    threshold        = 1 
   }
  action {
     action_group_id = azurerm_monitor_action_group.main.id
   }
-  depends_on = [ module.linux ]
+  depends_on = [ module.application_gateway ]
 }
-
-# # Azure monitoring for Mysql
-# resource "azurerm_monitor_metric_alert" "mysql" {
-#   name                = "example-mysql-metricalert"
-#   resource_group_name = data.terraform_remote_state.dev_resource_group.outputs.dev_rg
-#   scopes              = [module.mysql_server_primary.server_id]
-#   description         = "Action will be triggered when CPU utilization is greater than 50%."
-#   target_resource_type = "Microsoft.DBforMySQL/servers"  # Adjusted for Azure MySQL database
-
-#   criteria {
-#     metric_namespace = "Microsoft.DBforMySQL/servers"  # Adjusted for Azure MySQL database
-#     metric_name      = "cpu_percent"  # Adjusted for MySQL CPU metric
-#     aggregation      = "Average"
-#     operator         = "GreaterThan"
-#     threshold        = 50
-#   }
-
-#   action {
-#     action_group_id = azurerm_monitor_action_group.main.id
-#   }
-
-#   depends_on = [module.mysql_server_primary]
-# }
 
 # Define the action group with email receiver
 resource "azurerm_monitor_action_group" "main" {

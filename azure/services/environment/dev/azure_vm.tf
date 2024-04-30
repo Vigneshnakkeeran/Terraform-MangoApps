@@ -4,7 +4,7 @@ module "linux" {
   location                   = var.location
   image_os                   = "linux"
   resource_group_name        = data.terraform_remote_state.dev_resource_group.outputs.dev_rg
-  allow_extension_operations = false
+  allow_extension_operations = true
   custom_data =  base64encode(<<-EOF
     #!/bin/bash
     hostnamectl set-hostname "${var.client_name}01"

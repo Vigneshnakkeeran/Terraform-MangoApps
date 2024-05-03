@@ -49,7 +49,7 @@ resource "azurerm_monitor_action_group" "log_analytics" {
 #===================================================================
 # Set Monitoring and Log Analytics Workspace
 #===================================================================
-resource "azurerm_virtual_machine_extension" "oms_mma02" {
+resource "azurerm_virtual_machine_extension" "vm01" {
   name                       = "test-OMSExtension"
   virtual_machine_id         =  module.linux.vm_id
   publisher                  = "Microsoft.EnterpriseCloud.Monitoring"

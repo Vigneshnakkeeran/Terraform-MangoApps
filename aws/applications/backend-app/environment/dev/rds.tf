@@ -11,7 +11,7 @@ module "rds" {
   subnets              = module.vpc.private_subnets
   #delete_automated_backups = false
   #deletion_protection = false
-  vpc_id         = module.vpc.vpc_id
+  #vpc_id         = module.vpc.vpc_id
   instance_class = var.rds_aurora_instance_class
   instances = {
     one   = {}

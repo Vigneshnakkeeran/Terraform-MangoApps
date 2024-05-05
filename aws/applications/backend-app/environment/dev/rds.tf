@@ -26,7 +26,6 @@ module "rds" {
   enabled_cloudwatch_logs_exports = var.rds_aurora_enabled_cloudwatch_logs_exports
   publicly_accessible             = var.rds_aurora_publicly_accessible
   vpc_security_group_ids          = [module.rds_security_group.security_group_id]
-  create_security_group           = false
   skip_final_snapshot             = true
   tags = {
     Created_by = "Terraform"

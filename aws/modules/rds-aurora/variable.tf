@@ -549,7 +549,7 @@ variable "autoscaling_target_connections" {
 variable "create_security_group" {
   description = "Determines whether to create security group for RDS cluster"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "security_group_name" {

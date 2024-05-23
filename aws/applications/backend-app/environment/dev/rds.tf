@@ -19,7 +19,6 @@ module "rds" {
   engine                      = var.rds_aurora_engine
   engine_mode                 = var.rds_aurora_engine_mode
   engine_version              = var.rds_aurora_engine_version
-  manage_master_user_password = var.rds_aurora_manage_master_user_password #Set to true to allow RDS to manage the master user password in Secrets Manager
   master_password             = data.aws_ssm_parameter.rds_aurora_parameter_password.value
   master_username             = var.rds_aurora_master_username
   storage_encrypted               = var.rds_aurora_storage_encrypted

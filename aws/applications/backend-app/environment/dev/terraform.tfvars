@@ -482,7 +482,6 @@ rds_aurora_instance_class              = "db.r6g.large"
 rds_aurora_engine                      = "aurora-mysql"
 rds_aurora_engine_mode                 = "provisioned"
 rds_aurora_engine_version              =  "5.7" #"8.0"
-rds_aurora_manage_master_user_password = false#true
 rds_aurora_master_username                 = "testing"
 rds_aurora_storage_encrypted               = true
 rds_aurora_enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]

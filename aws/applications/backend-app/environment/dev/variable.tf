@@ -325,12 +325,6 @@ variable "rds_aurora_engine_version" {
   default     = null
 }
 
-variable "rds_aurora_manage_master_user_password" {
-  description = "Set to true to allow RDS to manage the master user password in Secrets Manager. Cannot be set if `master_password` is provided"
-  type        = bool
-  default     = true
-}
-
 variable "create_db_subnet_group" {
   description = "Determines whether to create the database subnet group or use existing"
   type        = bool

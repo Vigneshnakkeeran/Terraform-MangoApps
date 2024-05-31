@@ -59,6 +59,8 @@
 | <a name="input_asg_volume_mapping"></a> [asg\_volume\_mapping](#input\_asg\_volume\_mapping) | EBS Volume mappings for ASG | `list(any)` | n/a | yes |
 | <a name="input_create_asg_iam_instance_profile"></a> [create\_asg\_iam\_instance\_profile](#input\_create\_asg\_iam\_instance\_profile) | If enabled, creates instance profiles for the instances launched by the ASG | `bool` | n/a | yes |
 | <a name="input_enable_asg_monitoring"></a> [enable\_asg\_monitoring](#input\_enable\_asg\_monitoring) | Enables monitoring for the ASG | `bool` | n/a | yes |
+| <a name="input_warm_pool"></a> [warm\_pool](#input\_warm\_pool) | If this block is configured, add a Warm Pool to the specified Auto Scaling group | `any` | `{}` | no |
+| <a name="input_scaling_policies"></a> [scaling\_policies](#input\_scaling\_policies) | Map of target scaling policy schedule to create | `any` | `{}` | no |
 
 ## Outputs
 

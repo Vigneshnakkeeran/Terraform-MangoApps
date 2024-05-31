@@ -81,7 +81,7 @@ variable "datapoints_to_alarm" {
 variable "dimensions" {
   description = "The dimensions for the alarm's associated metric."
   type        = any
-  default     = {}
+  default     = null
 }
 
 variable "alarm_actions" {

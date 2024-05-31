@@ -60,6 +60,7 @@ module "cw_sns_topic" {
   source  = "../../../../modules/sns"
 
   name  = "cw-alarm"
+  enable_default_topic_policy = true
   subscriptions = {
     email = {
       protocol = "email"

@@ -201,3 +201,19 @@ output "lambda_function_arn" {
   description = "The ARN of the Lambda Function"
   value       = module.ses_lambda_module.lambda_function_arn
 }
+
+###################### EC2 ##################################
+output "ec2_frontendserver_id" {
+  description = "The id of the EC2 Instance"
+  value       = module.ec2_frontendserver.id
+}
+
+output "ec2_backendserver_id" {
+  description = "The id of the EC2 Instance"
+  value       = module.ec2_backendserver.id
+}
+
+output "ec2_frontendserver_02" {
+  description = "The id of the EC2 Instance"
+  value       = module.ec2_frontendserver_02.id
+}

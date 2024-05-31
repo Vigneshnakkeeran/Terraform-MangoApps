@@ -46,6 +46,34 @@ module "asg" {
     http_put_response_hop_limit = 1
   }
 
+  warm_pool = {
+    pool_state                  = "Stopped"
+    min_size                    = 1
+    max_group_prepared_capacity = 2
+
+    instance_reuse_policy = {
+      reuse_on_scale_in = false
+    }
+  }
+
+  # Target scaling policy schedule based on average CPU load
+  scaling_policies = {
+    scale_down = {
+      name                      = "oregon_dc_avg_cpu_30_scale_down"
+      adjustment_type           = "ChangeInCapacity"
+      policy_type               = "SimpleScaling"
+      scaling_adjustment     = -1
+      cooldown               = 300
+    },
+    scale_up = {
+      name                      = "oregon_dc_cpu_60_scale_up"
+      adjustment_type           = "ChangeInCapacity"
+      policy_type               = "SimpleScaling"
+      scaling_adjustment     = 2
+      cooldown               = 120
+    }
+  }
+
   tags = {
     Created_by  = "Terraform"
     Client      = var.client_name

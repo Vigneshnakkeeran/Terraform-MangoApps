@@ -1,5 +1,5 @@
 module "ssm_maintenance" {
-  source = "./ssm_maintenance"
+  source = "../../../../modules/ssm"
 
   parameter_name        = "my-parameter"
   parameter_type        = "SecureString"

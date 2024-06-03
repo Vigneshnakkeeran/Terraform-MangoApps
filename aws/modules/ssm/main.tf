@@ -1,42 +1,41 @@
 resource "aws_ssm_parameter" "this" {
-  for_each = var.ssm_parameters
-
-  name        = each.value["name"]
-  description = each.value["description"]
-  type        = each.value["type"]
-  value       = each.value["value"]
+  name        = var.parameter_name
+  type        = var.parameter_type
+  value       = var.parameter_value
+  description = var.parameter_description
+  tags = {
+    environment = var.environment
+  }
 }
 
 resource "aws_ssm_document" "this" {
-  for_each = var.ssm_documents
-
-  name          = each.value["name"]
-  document_type = each.value["document_type"]
-  document_format = each.value["document_format"]
-  content       = each.value["content"]
+  name          = var.document_name
+  document_type = "Automation"
+  content       = var.document_content
+  document_format        = "YAML"
 }
 
 resource "aws_ssm_maintenance_window" "this" {
-  for_each = var.ssm_maintenance_windows
-
-  name               = each.value["name"]
-  schedule           = each.value["schedule"]
-  duration           = each.value["duration"]
-  cutoff             = each.value["cutoff"]
-  allow_unassociated_targets = each.value["allow_unassociated_targets"]
+  name                 = var.window_name
+  schedule             = var.window_schedule
+  duration             = var.window_duration
+  cutoff               = var.window_cutoff
+  allow_unassociated_targets = var.allow_unassociated_targets
+  description          = var.window_description
 }
 
 resource "aws_ssm_maintenance_window_task" "this" {
-  for_each = var.ssm_maintenance_window_tasks
-
-  window_id       = aws_ssm_maintenance_window.this[each.value["window_id"]].id
-  service_role_arn = aws_iam_role.example.arn
-  task_arn           = aws_ssm_document.this[each.value["task_arn"]].arn
-  task_type          = each.value["task_type"]
-
+  window_id            = aws_ssm_maintenance_window.this.id
+  task_arn             = aws_ssm_document.this.arn
+  service_role_arn     = aws_iam_role.example.arn
+  task_type            = var.task_type
+  priority             = var.task_priority
+  max_concurrency      = var.max_concurrency
+  max_errors           = var.max_errors
+  description          = var.task_description
   task_invocation_parameters {
     automation_parameters {
-      document_version = each.value["document_version"]
+      document_version = var.document_version
     }
   }
 }

@@ -4,7 +4,6 @@ This Terraform configuration manages various AWS Systems Manager resources inclu
 
 ## Prerequisites
 
-- **AWS Account:** You need to have an AWS account. Sign up [here](https://aws.amazon.com/) if you don't have one.
 - **Terraform:** Install Terraform. You can download it from [here](https://www.terraform.io/downloads.html).
 - **AWS CLI:** Install and configure the AWS CLI. Instructions can be found [here](https://aws.amazon.com/cli/).
 

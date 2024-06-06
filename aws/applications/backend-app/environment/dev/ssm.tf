@@ -83,9 +83,9 @@ EOF
   window_cutoff               = 1
   window_description          = "My Maintenance Window"
   task_type            = "AUTOMATION"
-  task_priority        = 1
-  max_concurrency      = "1"
-  max_errors           = "1"
+  # task_priority        = 1
+  # max_concurrency      = "1"
+  # max_errors           = "1"
   task_description     = "My Maintenance Window Task"
   document_version = "1"
 }

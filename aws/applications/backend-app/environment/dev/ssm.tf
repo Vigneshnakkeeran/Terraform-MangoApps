@@ -1,21 +1,14 @@
-module "ssm" {
-  source = "./complete"
+module "ssm_maintenance" {
+  source = "../../../../modules/ssm"
+  
+  parameter_name        = "my-parameter"
+  parameter_type        = "SecureString"
+  parameter_value       = "ami-02f0f3474e47134b3"
+  parameter_description = "My SSM Parameter"
 
-  ssm_parameters = {
-    param1 = {
-      name        = "ami_id"
-      description = "Example parameter 1"
-      type        = "SecureString"
-      value       = "ami-02f0f3474e47134b3"
-    }
-  }
-
-  ssm_documents = {
-    doc1 = {
-      name          = "test_document"
-      document_type = "Automation"
-      document_format = "YAML"
-      content       = <<DOC
+  document_name         = "my-automation-document"
+  document_content      = <<EOF
+---
 description: Creates a new Amazon Machine Image (AMI) from an Amazon EC2 instance.
 schemaVersion: '0.3'
 assumeRole: '{{ AutomationAssumeRole }}'
@@ -82,25 +75,17 @@ mainSteps:
     onFailure: Abort
     inputs:
       FunctionName: '{{LambdaUpdateLT}}' 
+EOF
 
-DOC
-    }
-  }
-
-  ssm_maintenance_windows = {
-    window1 = {
-      name                      = "ExampleMaintenanceWindow"
-      schedule                  = "cron(0 2 ? * 5 *)"
-      duration                  = 3
-      cutoff                    = 1
-      allow_unassociated_targets = false
-    }
-  }
-
-  ssm_maintenance_window_tasks = {
-    task1 = {
-      task_type        = "AUTOMATION"
-      document_version = "1"
-    }
-  }
+  window_name                 = "my-maintenance-window"
+  window_schedule             = "cron(0 2 ? * 5 *)"
+  window_duration             = 3
+  window_cutoff               = 1
+  window_description          = "My Maintenance Window"
+  task_type            = "AUTOMATION"
+  # task_priority        = 1
+  # max_concurrency      = "1"
+  # max_errors           = "1"
+  task_description     = "My Maintenance Window Task"
+  document_version = "1"
 }

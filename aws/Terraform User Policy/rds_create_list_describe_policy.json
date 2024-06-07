@@ -1,0 +1,23 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": [
+                "rds:CreateDBCluster",
+                "rds:CreateDBInstance",
+                "rds:CreateDBSubnetGroup",
+                "rds:DescribeDBClusters",
+                "rds:DescribeDBInstances",
+                "rds:DescribeDBSubnetGroups",
+                "rds:DescribeGlobalClusters",
+                "rds:ListTagsForResource",
+                "rds:AddTagsToResource"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

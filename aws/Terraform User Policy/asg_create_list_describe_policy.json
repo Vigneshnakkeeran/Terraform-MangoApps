@@ -1,0 +1,22 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:DeleteAutoScalingGroup",
+                "autoscaling:DescribeAutoScalingGroups",
+                "autoscaling:PutScalingPolicy",
+                "autoscaling:PutWarmPool",
+                "autoscaling:UpdateAutoScalingGroup",
+                "autoscaling:DescribeScalingActivities",
+                "autoscaling:CreateAutoScalingGroup",
+                "autoscaling:DescribeWarmPool",
+                "autoscaling:DeletePolicy",
+                "autoscaling:DescribePolicies",
+                "autoscaling:DeleteWarmPool"
+            ],
+            "Resource": "*"
+        }
+    ]
+}

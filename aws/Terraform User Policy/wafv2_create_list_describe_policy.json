@@ -1,0 +1,21 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": [
+                "wafv2:AssociateWebACL",
+                "wafv2:CreateWebACL",
+                "wafv2:DisassociateWebACL",
+                "wafv2:GetWebACL",
+                "wafv2:GetWebACLForResource",
+                "wafv2:ListTagsForResource",
+                "wafv2:TagResource"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": [
+                "sns:CreateTopic",
+                "sns:GetSubscriptionAttributes",
+                "sns:GetTopicAttributes",
+                "sns:ListTagsForResource",
+                "sns:TagResource"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": [
+                "kms:GenerateDataKey*",
+                "kms:DescribeKey",
+                "kms:GenerateDataKey*",
+                "kms:DescribeKey",
+                "kms:ListAliases",
+                "kms:ListGrants",
+                "kms:ListKeyPolicies",
+                "kms:ListKeys",
+                "kms:ListResourceTags",
+                "kms:DescribeCustomKeyStores",
+                "kms:GetPublicKey",
+                "kms:GetKeyPolicy",
+                "kms:CreateKey",
+                "kms:PutKeyPolicy",
+                "kms:TagResource",
+                "kms:ListRetirableGrants",
+                "kms:CreateAlias",
+                "kms:CreateGrant"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

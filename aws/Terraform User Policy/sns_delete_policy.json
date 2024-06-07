@@ -5,10 +5,8 @@
             "Sid": "Statement1",
             "Effect": "Allow",
             "Action": [
-                "acm:DescribeCertificate",
-                "acm:GetCertificate",
-                "acm:ListCertificates",
-                "acm:ListTagsForCertificate"
+                "sns:DeleteTopic",
+                "sns:Unsubscribe"
             ],
             "Resource": [
                 "*"

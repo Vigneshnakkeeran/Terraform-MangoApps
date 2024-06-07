@@ -1,0 +1,26 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": [
+                "lambda:CreateFunction",
+                "lambda:EnableReplication",
+                "lambda:GetFunction",
+                "lambda:GetFunctionCodeSigningConfig",
+                "lambda:GetLayerVersion",
+                "lambda:GetPolicy",
+                "lambda:ListVersionsByFunction",
+                "lambda:PublishLayerVersion",
+                "lambda:AddPermission",
+                "lambda:RemovePermission",
+                "lambda:UpdateFunctionConfiguration",
+                "lambda:PublishVersion"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

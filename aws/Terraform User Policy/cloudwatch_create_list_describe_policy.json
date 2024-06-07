@@ -1,0 +1,20 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": [
+                "cloudwatch:PutMetricAlarm",
+                "cloudwatch:DescribeAlarms",
+                "cloudwatch:ListTagsForResource",
+                "logs:CreateLogGroup",
+                "logs:DescribeLogGroups",
+                "logs:ListTagsLogGroup"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

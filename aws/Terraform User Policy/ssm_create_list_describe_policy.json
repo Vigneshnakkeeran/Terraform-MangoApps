@@ -1,0 +1,35 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:GetParameter",
+                "ssm:GetParameters",
+                "ssm:GetParameterHistory",
+                "ssm:CreateDocument",
+                "ssm:DescribeDocument",
+                "ssm:UpdateDocument",
+                "ssm:PutParameter",
+                "ssm:DescribeParameters",
+                "ssm:CreateMaintenanceWindow",
+                "ssm:RegisterTaskWithMaintenanceWindow",
+                "ssm:DeregisterTaskFromMaintenanceWindow",
+                "ssm:DescribeMaintenanceWindows",
+                "ssm:UpdateMaintenanceWindow",
+                "ssm:DescribeMaintenanceWindowExecutions",
+                "ssm:GetDocument",
+                "ssm:PutParameter",
+                "ssm:GetMaintenanceWindow",
+                "ssm:DescribeDocumentPermission",
+                "ssm:GetMaintenanceWindowTask",
+                "ssm:AddTagsToResource",
+                "ssm:ListTagsForResource" 
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

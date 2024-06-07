@@ -1,0 +1,20 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "deletebackup",
+            "Effect": "Allow",
+            "Action": [
+				"backup:DeleteBackupPlan",
+				"backup:DeleteBackupSelection",
+				"backup:DeleteBackupVault",
+				"backup:DeleteBackupVaultLockConfiguration",
+				"backup:DeleteBackupVaultAccessPolicy",
+				"backup-storage:DeleteObjects",
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

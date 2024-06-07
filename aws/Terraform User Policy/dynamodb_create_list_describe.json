@@ -5,10 +5,11 @@
             "Sid": "Statement1",
             "Effect": "Allow",
             "Action": [
-                "acm:DescribeCertificate",
-                "acm:GetCertificate",
-                "acm:ListCertificates",
-                "acm:ListTagsForCertificate"
+                "dynamodb:ListTables",
+                "dynamodb:DescribeTable",
+                "dynamodb:GetItem",
+                "dynamodb:TagResource",
+                "dynamodb:PutItem"
             ],
             "Resource": [
                 "*"

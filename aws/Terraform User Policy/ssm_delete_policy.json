@@ -6,9 +6,10 @@
 			"Effect": "Allow",
 			"Action": [
 			    "ssm:DeleteDocument",
-			     "ssm:DeleteParameter",
-			     "ssm:DeleteParameters",
-			      "ssm:DeleteMaintenanceWindow"
+			    "ssm:DeleteParameter",
+			    "ssm:DeleteParameters",
+			    "ssm:DeleteMaintenanceWindow",
+				"ssm:DeregisterTaskFromMaintenanceWindow"
 			    ],
 			"Resource": ["*"]
 		}

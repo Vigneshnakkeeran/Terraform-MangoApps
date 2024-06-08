@@ -5,6 +5,7 @@
             "Sid": "Statement1",
             "Effect": "Allow",
             "Action": [
+                "elasticloadbalancing:DeregisterTargets",
                 "elasticloadbalancing:DeleteLoadBalancer",
                 "elasticloadbalancing:DeleteListener",
                 "elasticloadbalancing:DeleteTargetGroup",

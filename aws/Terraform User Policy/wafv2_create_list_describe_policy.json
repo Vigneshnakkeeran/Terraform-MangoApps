@@ -7,7 +7,6 @@
             "Action": [
                 "wafv2:AssociateWebACL",
                 "wafv2:CreateWebACL",
-                "wafv2:DisassociateWebACL",
                 "wafv2:GetWebACL",
                 "wafv2:GetWebACLForResource",
                 "wafv2:ListTagsForResource",

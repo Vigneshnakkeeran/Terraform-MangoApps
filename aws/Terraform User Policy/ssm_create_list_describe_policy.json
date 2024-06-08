@@ -15,7 +15,6 @@
                 "ssm:DescribeParameters",
                 "ssm:CreateMaintenanceWindow",
                 "ssm:RegisterTaskWithMaintenanceWindow",
-                "ssm:DeregisterTaskFromMaintenanceWindow",
                 "ssm:DescribeMaintenanceWindows",
                 "ssm:UpdateMaintenanceWindow",
                 "ssm:DescribeMaintenanceWindowExecutions",

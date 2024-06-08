@@ -10,7 +10,7 @@
                 "sns:GetTopicAttributes",
                 "sns:ListTagsForResource",
                 "sns:TagResource",
-                "sns:SetTopicAttributes"
+                "sns:SetTopicAttributes",
                 "sns:Subscribe"
             ],
             "Resource": [

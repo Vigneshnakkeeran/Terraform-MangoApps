@@ -5,12 +5,13 @@
             "Sid": "deletebackup",
             "Effect": "Allow",
             "Action": [
+                "backup:StopBackupJob",
 				"backup:DeleteBackupPlan",
 				"backup:DeleteBackupSelection",
 				"backup:DeleteBackupVault",
 				"backup:DeleteBackupVaultLockConfiguration",
 				"backup:DeleteBackupVaultAccessPolicy",
-				"backup-storage:DeleteObjects",
+				"backup-storage:DeleteObjects"
             ],
             "Resource": [
                 "*"

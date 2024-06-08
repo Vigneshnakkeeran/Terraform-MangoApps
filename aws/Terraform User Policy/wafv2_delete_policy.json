@@ -5,7 +5,8 @@
             "Sid": "Statement1",
             "Effect": "Allow",
             "Action": [
-                "wafv2:DeleteWebACL"
+                "wafv2:DeleteWebACL",
+                "wafv2:DisassociateWebACL"
             ],
             "Resource": [
                 "*"

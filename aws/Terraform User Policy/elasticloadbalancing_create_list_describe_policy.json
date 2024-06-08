@@ -9,7 +9,6 @@
                 "elasticloadbalancing:CreateLoadBalancer",
                 "elasticloadbalancing:CreateRule",
                 "elasticloadbalancing:CreateTargetGroup",
-                "elasticloadbalancing:DeregisterTargets",
                 "elasticloadbalancing:DescribeListeners",
                 "elasticloadbalancing:DescribeLoadBalancerAttributes",
                 "elasticloadbalancing:DescribeLoadBalancers",

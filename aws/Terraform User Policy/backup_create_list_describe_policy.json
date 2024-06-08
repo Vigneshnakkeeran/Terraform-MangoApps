@@ -23,13 +23,10 @@
 				"backup:CreateBackupVault",
 				"backup:CreateBackupSelection",
 				"backup:CreateBackupPlan",
-
 				"backup:PutBackupVaultLockConfiguration",
 				"backup:StartBackupJob",
 				"backup:StartRestoreJob",
-				"backup:StopBackupJob",
 				"backup:UpdateBackupPlan",
-
 				"backup:TagResource",
 				"backup:ListTags",
 				"backup:GetBackupPlan",
@@ -75,7 +72,6 @@
 			"Effect": "Allow",
 			"Action": [
 				"backup-storage:CommitBackupJob",
-
 				"backup-storage:DescribeBackupJob",
 				"backup-storage:GetBaseBackup",
 				"backup-storage:GetChunk",

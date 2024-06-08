@@ -5,6 +5,7 @@
             "Sid": "Statement1",
             "Effect": "Allow",
             "Action": [
+                "cloudtrail:StopLogging",
                 "cloudtrail:DeleteTrail"
             ],
             "Resource": [

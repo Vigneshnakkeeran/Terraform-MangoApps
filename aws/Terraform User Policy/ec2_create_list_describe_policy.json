@@ -39,8 +39,6 @@
                 "ec2:DescribeVolumes",
                 "ec2:DescribeVpcAttribute",
                 "ec2:DescribeVpcs",
-                "ec2:DisassociateAddress",
-                "ec2:DisassociateRouteTable",
                 "ec2:ModifyInstanceAttribute",
                 "ec2:ModifyVpcAttribute",
                 "ec2:RunInstances",

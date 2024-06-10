@@ -1,0 +1,28 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "dynamodb",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:DeleteTable",
+                "dynamodb:DeleteItem"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "rds",
+            "Effect": "Allow",
+            "Action": [
+                "rds:DeleteDBCluster",
+                "rds:DeleteDBInstance",
+                "rds:DeleteDBSubnetGroup"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

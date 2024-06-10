@@ -1,0 +1,42 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "iam",
+            "Effect": "Allow",
+            "Action": [
+                "iam:DeleteInstanceProfile",
+                "iam:DeletePolicy",
+                "iam:DeleteRole",
+                "iam:DetachRolePolicy",
+                "iam:RemoveRoleFromInstanceProfile",
+                "iam:DeleteRolePolicy"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "kms",
+            "Effect": "Allow",
+            "Action": [
+                "kms:DeleteAlias",
+                "kms:RevokeGrant"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "wafv2",
+            "Effect": "Allow",
+            "Action": [
+                "wafv2:DeleteWebACL",
+                "wafv2:DisassociateWebACL"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

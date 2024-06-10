@@ -1,0 +1,83 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "iam",
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:AddRoleToInstanceProfile",
+                "iam:CreateInstanceProfile",
+                "iam:CreatePolicy",
+                "iam:CreateRole",
+                "iam:GetInstanceProfile",
+                "iam:PassRole",
+                "iam:GetPolicy",
+                "iam:GetPolicyVersion",
+                "iam:GetRole",
+                "iam:TagRole",
+                "iam:ListAttachedRolePolicies",
+                "iam:ListInstanceProfilesForRole",
+                "iam:ListPolicyVersions",
+                "iam:ListRolePolicies",
+                "iam:TagInstanceProfile",
+                "iam:PutRolePolicy",
+                "iam:GetRolePolicy"
+                  
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "sts",
+            "Effect": "Allow",
+            "Action": [
+                "sts:GetCallerIdentity"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "KmsPermissions",
+            "Effect": "Allow",
+            "Action": [
+                "kms:GenerateDataKey*",
+                "kms:DescribeKey",
+                "kms:ListAliases",
+                "kms:ListGrants",
+                "kms:ListKeyPolicies",
+                "kms:ListKeys",
+                "kms:ListResourceTags",
+                "kms:DescribeCustomKeyStores",
+                "kms:GetPublicKey",
+                "kms:GetKeyPolicy",
+                "kms:CreateKey",
+                "kms:PutKeyPolicy",
+                "kms:TagResource",
+                "kms:ListRetirableGrants",
+                "kms:CreateAlias",
+                "kms:CreateGrant"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "wafv2",
+            "Effect": "Allow",
+            "Action": [
+                "wafv2:AssociateWebACL",
+                "wafv2:CreateWebACL",
+                "wafv2:GetWebACL",
+                "wafv2:GetWebACLForResource",
+                "wafv2:ListTagsForResource",
+                "wafv2:TagResource"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

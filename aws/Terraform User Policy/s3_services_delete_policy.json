@@ -1,0 +1,39 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "s3delete",
+            "Effect": "Allow",
+            "Action": [
+                "s3:DeleteBucket",
+                "s3:DeleteBucketPolicy"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+		{
+			"Sid": "s3del2",
+			"Effect": "Allow",
+			"Action": ["s3:DeleteObjectVersion"],
+			"Resource": ["arn:aws:s3:::mangoapps-tfbackend-bucket",
+                         "arn:aws:s3:::mangoapps-tfbackend-bucket/*"]
+		},
+        {
+            "Sid": "deletebackup",
+            "Effect": "Allow",
+            "Action": [
+                "backup:StopBackupJob",
+				"backup:DeleteBackupPlan",
+				"backup:DeleteBackupSelection",
+				"backup:DeleteBackupVault",
+				"backup:DeleteBackupVaultLockConfiguration",
+				"backup:DeleteBackupVaultAccessPolicy",
+				"backup-storage:DeleteObjects"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

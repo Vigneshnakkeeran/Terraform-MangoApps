@@ -2,7 +2,7 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "Statement1",
+            "Sid": "ses",
             "Effect": "Allow",
             "Action": [
                 "ses:CreateConfigurationSet",
@@ -27,6 +27,38 @@
                 "ses:SetIdentityNotificationTopic",
                 "ses:UpdateReceiptRule",
                 "ses:PutConfigurationSetDeliveryOptions"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "sns",
+            "Effect": "Allow",
+            "Action": [
+                "sns:CreateTopic",
+                "sns:GetSubscriptionAttributes",
+                "sns:GetTopicAttributes",
+                "sns:ListTagsForResource",
+                "sns:TagResource",
+                "sns:SetTopicAttributes",
+                "sns:Subscribe"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "sqs",
+            "Effect": "Allow",
+            "Action": [
+                "sqs:CreateQueue",
+                "sqs:tagqueue",
+                "sqs:GetQueueAttributes",
+                "sqs:ListQueues",
+                "sqs:GetQueueUrl",
+                "sqs:listqueuetags",
+                "sqs:setqueueattributes"
             ],
             "Resource": [
                 "*"

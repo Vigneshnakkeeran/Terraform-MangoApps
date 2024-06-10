@@ -1,0 +1,41 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ses",
+            "Effect": "Allow",
+            "Action": [
+                "ses:DeleteConfigurationSet",
+                "ses:DeleteConfigurationSetEventDestination",
+                "ses:DeleteDedicatedIpPool",
+                "ses:DeleteIdentity",
+                "ses:DeleteReceiptRule",
+                "ses:DeleteReceiptRuleSet"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "sqs",
+            "Effect": "Allow",
+            "Action": [
+                "sqs:DeleteQueue"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "sns",
+            "Effect": "Allow",
+            "Action": [
+                "sns:DeleteTopic",
+                "sns:Unsubscribe"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

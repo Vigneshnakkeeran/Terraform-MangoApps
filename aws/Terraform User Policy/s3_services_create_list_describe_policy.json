@@ -1,0 +1,123 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "s3create",
+            "Effect": "Allow",
+            "Action": [
+                "s3:CreateBucket",
+                "s3:GetAccelerateConfiguration",
+                "s3:GetBucketAcl",
+                "s3:GetBucketCors",
+                "s3:GetBucketLogging",
+                "s3:GetReplicationConfiguration",
+                "s3:GetBucketObjectLockConfiguration",
+                "s3:GetBucketOwnershipControls",
+                "s3:GetBucketPolicy",
+                "s3:GetBucketPublicAccessBlock",
+                "s3:PutBucketPublicAccessBlock",
+                "s3:GetBucketRequestPayment",
+                "s3:GetBucketTagging",
+                "s3:GetBucketVersioning",
+                "s3:PutBucketVersioning",
+                "s3:GetBucketWebsite",
+                "s3:ListBucket",
+                "s3:ListAllMyBuckets",
+                "s3:PutBucketAcl",
+                "s3:PutBucketOwnershipControls",
+                "s3:PutBucketPolicy",
+                "s3:PutBucketPublicAccessBlock",
+                "s3:PutBucketTagging",
+                "s3:PutObject",
+                "s3:PutBucketVersioning",
+                "s3:GetLifecycleConfiguration",
+                "s3:GetReplicationConfiguration",
+                "s3:GetObject",
+                "s3:GetObjectAttributes",
+                "s3:GetObjectAcl",
+                "s3:PutEncryptionConfiguration",
+                "s3:GetObjectTagging",
+				"s3:ListBucketVersions",
+                "s3:GetEncryptionConfiguration"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+			"Sid": "backup",
+			"Effect": "Allow",
+			"Action": [
+				"backup:ListBackupJobs",
+				"backup:ListBackupJobSummaries",
+				"backup:ListBackupPlans",
+				"backup:ListBackupPlanTemplates",
+				"backup:ListBackupPlanVersions",
+				"backup:ListBackupSelections",
+				"backup:ListBackupVaults",
+				"backup:ListRecoveryPointsByBackupVault",
+				"backup:DescribeBackupJob",
+				"backup:DescribeBackupVault",
+				"backup:DescribeCopyJob",
+				"backup:ExportBackupPlanTemplate",
+				"backup:GetBackupPlanFromJSON",
+				"backup:GetBackupPlanFromTemplate",
+				"backup:GetBackupVaultAccessPolicy",
+				"backup:CreateBackupVault",
+				"backup:CreateBackupSelection",
+				"backup:CreateBackupPlan",
+				"backup:PutBackupVaultLockConfiguration",
+				"backup:StartBackupJob",
+				"backup:StartRestoreJob",
+				"backup:UpdateBackupPlan",
+				"backup:TagResource",
+				"backup:ListTags",
+				"backup:GetBackupPlan",
+				"backup:GetBackupSelection",
+				"backup:GetBackupSelection"
+			],
+			"Resource": [
+				"*"
+			]
+		},
+		{
+			"Sid": "KmsCreateGrantPermissions",
+			"Effect": "Allow",
+			"Action": [
+				"kms:CreateGrant"
+			],
+			"Resource": "*",
+			"Condition": {
+				"ForAnyValue:StringEquals": {
+					"kms:EncryptionContextKeys": "aws:backup:backup-vault"
+				},
+				"Bool": {
+					"kms:GrantIsForAWSResource": true
+				},
+				"StringLike": {
+					"kms:ViaService": "backup.*.amazonaws.com"
+				}
+			}
+		},
+		{
+			"Sid": "backupstorage",
+			"Effect": "Allow",
+			"Action": [
+				"backup-storage:CommitBackupJob",
+				"backup-storage:DescribeBackupJob",
+				"backup-storage:GetBaseBackup",
+				"backup-storage:GetChunk",
+				"backup-storage:GetObjectMetadata",
+				"backup-storage:ListChunks",
+				"backup-storage:ListObjects",
+				"backup-storage:MountCapsule",
+				"backup-storage:PutChunk",
+				"backup-storage:PutObject",
+				"backup-storage:StartObject"
+			],
+			"Resource": [
+				"*"
+			]
+		}
+    ]
+}

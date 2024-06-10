@@ -2,7 +2,21 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "Statement1",
+            "Sid": "dynamodb",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:ListTables",
+                "dynamodb:DescribeTable",
+                "dynamodb:GetItem",
+                "dynamodb:TagResource",
+                "dynamodb:PutItem"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "rds",
             "Effect": "Allow",
             "Action": [
                 "rds:CreateDBCluster",

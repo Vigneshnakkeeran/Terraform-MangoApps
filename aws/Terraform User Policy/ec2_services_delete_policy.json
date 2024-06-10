@@ -2,7 +2,7 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "Statement1",
+            "Sid": "ec2",
             "Effect": "Allow",
             "Action": [
                 "ec2:DisassociateAddress",
@@ -22,6 +22,30 @@
                 "ec2:RevokeSecurityGroupIngress",
                 "ec2:TerminateInstances",
                 "ec2:DeleteLaunchTemplate"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "autoscaling",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:DeleteAutoScalingGroup",
+                "autoscaling:DeletePolicy",
+                "autoscaling:DeleteWarmPool"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "elasticloadbalancing",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:DeregisterTargets",
+                "elasticloadbalancing:DeleteLoadBalancer",
+                "elasticloadbalancing:DeleteListener",
+                "elasticloadbalancing:DeleteTargetGroup",
+                "elasticloadbalancing:DeleteRule"
             ],
             "Resource": [
                 "*"

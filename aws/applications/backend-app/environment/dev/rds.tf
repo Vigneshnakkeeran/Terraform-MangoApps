@@ -10,6 +10,7 @@ module "rds" {
   subnets              = module.vpc.private_subnets
   #delete_automated_backups = false
   #deletion_protection = false
+  performance_insights_enabled = true
   instance_class = var.rds_aurora_instance_class
   instances = {
     one   = {}

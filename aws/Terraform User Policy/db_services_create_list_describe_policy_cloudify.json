@@ -9,7 +9,8 @@
                 "dynamodb:DescribeTable",
                 "dynamodb:GetItem",
                 "dynamodb:TagResource",
-                "dynamodb:PutItem"
+                "dynamodb:PutItem",
+                "dynamodb:DeleteItem"
             ],
             "Resource": [
                 "*"

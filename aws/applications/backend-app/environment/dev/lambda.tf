@@ -83,6 +83,9 @@ module "lambda_layer_s3" {
    memory_size =          "128"
 
   publish = true
+  environment_variables = {
+    AWS_INSTANCE_ID = "${module.ec2_frontendserver.id}"  
+  }
 
  }
 

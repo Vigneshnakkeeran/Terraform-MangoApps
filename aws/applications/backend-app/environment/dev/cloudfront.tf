@@ -189,7 +189,7 @@ locals {
 
 module "Mango_Media_endpoint" {
   source = "../../../../modules/cloudfront"
-#  depends_on          = [module.MangoMedia_s3_bucket]
+#  depends_on          = [module.Mango_Media_endpoint_s3_bucket]
 
   aliases = ["${local.subdomain}.${local.domain_name}"]
 
@@ -211,7 +211,7 @@ module "Mango_Media_endpoint" {
 
   origin = {
     Mango_Media_endpoint = {
-      domain_name = "${module.MangoMedia_s3_bucket.s3_bucket_bucket_regional_domain_name}"
+      domain_name = "${module.Mango_Media_endpoint_s3_bucket.s3_bucket_bucket_regional_domain_name}"
       s3_origin_config = {
         origin_access_identity = "s3_bucket_mango_media_endpoint"
       }

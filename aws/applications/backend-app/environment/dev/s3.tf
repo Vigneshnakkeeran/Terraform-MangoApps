@@ -121,7 +121,7 @@ module "ses_s3" {
 
 ############## Mango_Media_endpoint ##################
 
-module "Mango_Media_endpoint_s3_bucket" {
+module "MangoMedia_s3_bucket" {    ##name lenght should now exceed more than 25 characters
   source                  = "../../../../modules/s3"
   bucket                  = "mango-media-cloudfront-bucket"
   block_public_acls       = true
@@ -144,7 +144,7 @@ data "aws_iam_policy_document" "Mango_Media_endpoint_policy" {
   version         = "2012-10-17"
   statement {
     actions       = ["s3:GetObject"]
-    resources     =  ["arn:aws:s3:::${module.Mango_Media_endpoint_s3_bucket.s3_bucket_id}/*"]
+    resources     =  ["arn:aws:s3:::${module.MangoMedia_s3_bucket.s3_bucket_id}/*"]
     principals {
       type        = "Service"
       identifiers = ["cloudfront.amazonaws.com"]
@@ -158,8 +158,8 @@ data "aws_iam_policy_document" "Mango_Media_endpoint_policy" {
 }
 
 
-resource "aws_s3_bucket_policy" "Mango_Media_endpoint_s3_bucket_policy" {
-  bucket = module.Mango_Media_endpoint_s3_bucket.s3_bucket_id
+resource "aws_s3_bucket_policy" "MangoMedia_s3_bucket_policy" {
+  bucket = module.MangoMedia_s3_bucket.s3_bucket_id
   policy = data.aws_iam_policy_document.Mango_Media_endpoint_policy.json
 }
 

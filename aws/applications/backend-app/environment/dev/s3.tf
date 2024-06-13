@@ -121,9 +121,10 @@ module "ses_s3" {
 
 ############## Mango_Media_endpoint ##################
 
-module "Mango_Media_endpoint_s3_bucket" {
+#name lenght should not now exceed more than 25 characters
+module "Mango_Media_endpoint_s3_bucket" { ##name lenght should now exceed more than 25 characters
   source                  = "../../../../modules/s3"
-  bucket                  = "mango-media-cloudfront-bucket"
+  bucket                  = "mangomedia-cf-bucket"
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true

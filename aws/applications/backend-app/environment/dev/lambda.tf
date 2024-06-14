@@ -26,7 +26,7 @@ data "aws_partition" "current" {}
   environment_variables = {
     AWS_INCOMING_BUCKET = "hub-mangoapps-test-terraform-com"   
     AWSREGION = "us-west-2"
-    hub_mangoapps_test_terraform_com = "https://sqs.eu-west-1.amazonaws.com/760042596542/hub-mangoapps-test-terraform-com"
+    hub_mangoapps_test_terraform_com = "https://sqs.us-west-2.amazonaws.com/730335460835/hub-mangoapps-test-terraform-com"
   }
 
  allowed_triggers = {

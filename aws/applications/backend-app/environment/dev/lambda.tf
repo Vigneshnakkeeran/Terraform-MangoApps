@@ -14,8 +14,8 @@ data "aws_partition" "current" {}
   lambda_role = module.ses_lambda_execution_role.role_arn
   
    function_name          = "ses-lambda1"
-   runtime              = "ruby3.2"
-   compatible_runtimes  = ["ruby3.2"]
+   runtime              = "ruby2.7"
+   compatible_runtimes  = ["ruby2.7"]
    handler              = "lambda_function.lambda_handler"
    memory_size =          "128"
 
@@ -24,9 +24,9 @@ data "aws_partition" "current" {}
   publish = true
 
   environment_variables = {
-    AWS_INCOMING_BUCKET = "hub-mangoapps-test-terraform-com"   
+    AWS_INCOMING_BUCKET = "cloudifyops-dev-ses-bucket"   
     AWSREGION = "us-west-2"
-    hub_mangoapps_test_terraform_com = "https://sqs.us-west-2.amazonaws.com/730335460835/hub-mangoapps-test-terraform-com"
+    hub_mangoapps_test_terraform_com = "https://sqs.us-west-2.amazonaws.com/730335460835/mail-cloudifyops-income"
   }
 
  allowed_triggers = {

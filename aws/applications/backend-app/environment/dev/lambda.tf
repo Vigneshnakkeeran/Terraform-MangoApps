@@ -24,8 +24,8 @@ data "aws_partition" "current" {}
   publish = true
 
   environment_variables = {
-    AWS_INCOMING_BUCKET = "cloudifyops-dev-ses-bucket"   
-    AWSREGION = "us-west-2"
+    MA_BUCKET = "cloudifyops-dev-ses-bucket"   
+    MA_REGION = "us-west-2"
     hub_mangoapps_test_terraform_com = "https://sqs.us-west-2.amazonaws.com/730335460835/mail-cloudifyops-income"
   }
 

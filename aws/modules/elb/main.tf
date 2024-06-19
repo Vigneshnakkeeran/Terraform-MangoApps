@@ -217,7 +217,7 @@ resource "aws_lb_listener" "this" {
   load_balancer_arn = aws_lb.this[0].arn
   port              = try(each.value.port, var.default_port)
   protocol          = try(each.value.protocol, var.default_protocol)
-  ssl_policy        = contains(["HTTPS", "TLS"], try(each.value.protocol, var.default_protocol)) ? try(each.value.ssl_policy, "ELBSecurityPolicy-TLS13-1-2-Res-2021-06") : try(each.value.ssl_policy, null)
+  ssl_policy        = contains(["HTTPS", "TLS"], try(each.value.protocol, var.default_protocol)) ? try(each.value.ssl_policy, "ELBSecurityPolicy-FS-1-2-Res-2020-10") : try(each.value.ssl_policy, null)
   tags              = merge(local.tags, try(each.value.tags, {}))
 }
 

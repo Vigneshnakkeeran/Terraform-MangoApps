@@ -103,7 +103,7 @@
     ######### Target group for "TGBgServer8008" ###########  
      server8008 = {
        name                              = "TGBgServer8008"
-       protocol                          = "HTTPS"
+       protocol                          = "HTTP"
        protocol_version                  = "HTTP1"
        port                              = 8008
        target_type                       = "instance"
@@ -127,7 +127,7 @@
     ######### Target group for "TGBgServer8080" ###########  
      server8080 = {
        name                              = "TGBgServer8080"
-       protocol                          = "HTTPS"
+       protocol                          = "HTTP"
        protocol_version                  = "HTTP1"
        port                              = 8080
        target_type                       = "instance"
@@ -151,7 +151,7 @@
     ######### Target group for "TGBgServer9001" ###########  
      server9001 = {
        name                              = "TGBgServer9001"
-       protocol                          = "HTTPS"
+       protocol                          = "HTTP"
        protocol_version                  = "HTTP1"
        port                              = 9001
        target_type                       = "instance"
@@ -175,7 +175,7 @@
     ######### Target group for "TGBgServer9000" ###########  
      server9000 = {
        name                              = "TGBgServer9000"
-       protocol                          = "HTTPS"
+       protocol                          = "HTTP"
        protocol_version                  = "HTTP1"
        port                              = 9000
        target_type                       = "instance"

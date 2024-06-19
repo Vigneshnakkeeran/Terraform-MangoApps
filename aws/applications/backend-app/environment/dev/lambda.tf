@@ -81,6 +81,7 @@ module "lambda_layer_s3" {
   #  compatible_runtimes  = ["ruby3.2"]
    handler              = "lambda_function.lambda_handler"
    memory_size =          "128"
+   timeout = "900"
 
   publish = true
   environment_variables = {
@@ -110,6 +111,7 @@ module "lambda_layer_s3" {
   #  compatible_runtimes  = ["ruby3.2"]
    handler              = "lambda_function.lambda_handler"
    memory_size =          "128"
+   timeout = "900"
 
   publish = true
 

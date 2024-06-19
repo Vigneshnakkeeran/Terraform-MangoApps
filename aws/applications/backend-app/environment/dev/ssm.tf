@@ -18,7 +18,7 @@ parameters:
   InstanceId:
     type: String
     description: '(Required) The ID of the Amazon EC2 instance.'
-    default: "${module.ec2_frontendserver.id}"
+    default: ${module.ec2_frontendserver.id}
   NoReboot:
     type: Boolean
     description: '(Optional) Do not reboot the instance before creating the image.'

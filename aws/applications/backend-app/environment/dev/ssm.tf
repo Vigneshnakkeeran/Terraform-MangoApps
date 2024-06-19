@@ -2,7 +2,7 @@ module "ssm_maintenance" {
   source = "../../../../modules/ssm"
   
   parameter_name        = "my-parameter"
-  parameter_type        = "SecureString"
+  parameter_type        = "String"
   parameter_value       = "ami-02f0f3474e47134b3"
   parameter_description = "My SSM Parameter"
 

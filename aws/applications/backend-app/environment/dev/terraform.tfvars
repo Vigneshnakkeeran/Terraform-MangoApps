@@ -215,7 +215,7 @@ cloudtrail_bucket_server_side_encryption_configuration = {
 
 ses_bucket_acl              = "private"
 ses_bucket_versioning = {
-  "status" = "enabled"
+  "status" = "disabled"
 }
 ses_bucket_block_public_acls        = true
 ses_bucket_block_public_policy      = true
@@ -541,6 +541,7 @@ notification_type        = ["Bounce", "Complaint"]
 receipt_rule_set_name    = "mangoapps-rule-set"
 receipt_rule_name        = "rule_1"
 recipients               = ["hub.mangoapps-test-terraform.com"]
+object_key_prefix        = "raw"
 # s3_store_bucket_name     = "testbucketforsesmango"
 tls_policy               = "OPTIONAL"
 

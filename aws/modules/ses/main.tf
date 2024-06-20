@@ -133,6 +133,7 @@ resource "aws_ses_receipt_rule" "store" {
   s3_action {
     bucket_name = var.s3_store_bucket_name
     position    = 1
+    object_key_prefix = var.object_key_prefix
   }
 
   lambda_action {

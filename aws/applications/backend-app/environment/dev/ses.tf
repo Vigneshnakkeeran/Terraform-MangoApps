@@ -11,6 +11,7 @@ module "ses_email" {
   receipt_rule_set_name = var.receipt_rule_set_name
   receipt_rule_name = var.receipt_rule_name
   s3_store_bucket_name = module.ses_s3.s3_bucket_id
+  object_key_prefix    = var.object_key_prefix
 
   ses_lambda_function_arn = module.ses_lambda_module.lambda_function_arn
   lambda_invocation_type = var.lambda_invocation_type

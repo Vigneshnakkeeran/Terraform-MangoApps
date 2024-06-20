@@ -1380,6 +1380,11 @@ variable "recipients" {
   type        = list(string)
 }
 
+variable "object_key_prefix" {
+  description = "The key prefix of the S3 bucket"
+  type        = string
+}
+
 # variable "s3_store_bucket_name" {
 #   description = "Provide the nsme of s3 bucket where you want to store emails."
 #   type = string

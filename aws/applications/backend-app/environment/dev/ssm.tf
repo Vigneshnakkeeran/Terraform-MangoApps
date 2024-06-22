@@ -1,12 +1,12 @@
 module "ssm_maintenance" {
   source = "../../../../modules/ssm"
   
-  parameter_name        = "my-parameter"
+  parameter_name        = "cloudifyops_image_id"
   parameter_type        = "String"
   parameter_value       = "ami-02f0f3474e47134b3"
   parameter_description = "My SSM Parameter"
 
-  document_name         = "my-automation-document"
+  document_name         = "cloudifops_amicreation_document"
   document_content      = <<EOF
 ---
 description: Creates a new Amazon Machine Image (AMI) from an Amazon EC2 instance.
@@ -30,7 +30,7 @@ parameters:
   ParameterName:
     type: String
     description: '(Required) The name of the SSM parameter store value to update.'
-    default: oregon_image_id
+    default: cloudifyops_image_id
   ParameterValue:
     type: String
     description: '(Required) The new value to set for the SSM parameter store value.'

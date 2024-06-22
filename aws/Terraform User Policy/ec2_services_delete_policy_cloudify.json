@@ -33,7 +33,8 @@
             "Action": [
                 "autoscaling:DeleteAutoScalingGroup",
                 "autoscaling:DeletePolicy",
-                "autoscaling:DeleteWarmPool"
+                "autoscaling:DeleteWarmPool",
+                "autoscaling:DescribeWarmPool"
             ],
             "Resource": "*"
         },

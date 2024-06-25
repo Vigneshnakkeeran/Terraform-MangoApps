@@ -47,6 +47,7 @@ module "aws_backup_selection" {
   ]
 
   # Multiple selections
+  selection_resources  = ["*"]
   #  - Selection-1: By tags: Environment = prod, Owner = devops
   selections = [
     {

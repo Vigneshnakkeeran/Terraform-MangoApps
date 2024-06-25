@@ -215,7 +215,7 @@ cloudtrail_bucket_server_side_encryption_configuration = {
 
 ses_bucket_acl              = "private"
 ses_bucket_versioning = {
-  "status" = "disabled"
+  "status" = "Enabled"
 }
 ses_bucket_block_public_acls        = true
 ses_bucket_block_public_policy      = true

@@ -54,7 +54,7 @@ module "aws_backup_selection" {
       selection_tags = [
         {
           type  = "STRINGEQUALS"
-          key   = "Backup"
+          key   = "aws:ResourceTag/Backup"
           value = "True"
         }
       ]

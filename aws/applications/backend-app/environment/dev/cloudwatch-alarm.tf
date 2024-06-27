@@ -1,5 +1,5 @@
 module "ec2_metric_alarms" {
-  source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
+  source  = "../../../../modules/cloudwatch/metric-alarms-by-multiple-dimensions"
 
   alarm_name          = "instance-cpu-alarm"
   alarm_description   = "ec2 cpuutilization"
@@ -24,7 +24,7 @@ module "ec2_metric_alarms" {
 }
 
 module "demo_ec2_metric_alarms" {
-  source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarms-by-multiple-dimensions"
+  source  = "../../../../modules/cloudwatch/metric-alarms-by-multiple-dimensions"
 
   create_metric_alarm = true
   alarm_name          = "RDS CPU Utilization"

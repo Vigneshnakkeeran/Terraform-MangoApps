@@ -3,7 +3,7 @@
 ################### LAMBDA FUNCTION EXECUTION ROLE ####################
 
 module "ses_lambda_execution_role" {
-   source = "../../../../modules/IAM-Role"
+   source = "../../../../modules/IAM/IAM-Role"
    role_name           = "ses_lambda_execution_role_01"
    assume_role_policy = jsonencode({
      Version = "2012-10-17"
@@ -58,7 +58,7 @@ module "ses_lambda_execution_role" {
 ############## LAMBDA EXECUTION ROLE FOR SSM IAMGE UPDATE AND DELETE ########################
 
 module "lambda_execution_role_ssm" {
-   source = "../../../../modules/IAM-Role"
+   source = "../../../../modules/IAM/IAM-Role"
    role_name           = "lambda_execution_role_ssm_image_update_delete"
    assume_role_policy = jsonencode({
      Version = "2012-10-17"
@@ -131,7 +131,7 @@ module "lambda_execution_role_ssm" {
 ################ LAMBDA EXECUTION ROLE FOR CLOUDFRONT ###################################
 
 module "lambda_edge_cloudfront" {
-   source = "../../../../modules/IAM-Role"
+   source = "../../../../modules/IAM/IAM-Role"
    role_name           = "lambda_edge_cloudfront_role_01"
    assume_role_policy = jsonencode({
      Version = "2012-10-17"
@@ -158,6 +158,56 @@ module "lambda_edge_cloudfront" {
                 "logs:CreateLogGroup",
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+ EOF
+}
+
+
+############################ SSM Automation Role ############################
+
+module "ssm_document_execution_role" {
+   source = "../../../../modules/IAM/IAM-Role"
+   role_name           = "ssm_automation_ami_creation"
+   assume_role_policy = jsonencode({
+     Version = "2012-10-17"
+     Statement = [
+       {
+         Action = "sts:AssumeRole"
+         Effect = "Allow"
+         Principal = {
+           Service = [ 
+                    "ec2.amazonaws.com",
+                    "ssm.amazonaws.com"            
+           ]
+         }
+       },
+     ]
+   })
+   managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonSSMMaintenanceWindowRole"]
+   custom_policy_name  = "lambda_invoke"
+   custom_policy       = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:PutParameter",               
+				        "iam:PassRole",                
+			        	"ssm:DeleteParameter",                
+			        	"ssm:DescribeParameters",                
+			        	"lambda:InvokeFunction",                
+			        	"ssm:DescribeDocumentParameters",                
+			        	"ec2:CreateImage",                
+			        	"ssm:GetParameters",                
+			        	"ssm:GetParameter",                
+			        	"ssm:DeleteParameters",                
+			        	"ec2:DescribeImages"
             ],
             "Resource": "*"
         }

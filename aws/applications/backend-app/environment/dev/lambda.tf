@@ -13,7 +13,7 @@ data "aws_partition" "current" {}
 
   lambda_role = module.ses_lambda_execution_role.role_arn
   
-   function_name          = "ses-lambda1"
+   function_name        = "ses-lambda1"
    runtime              = "ruby2.7"
    compatible_runtimes  = ["ruby2.7"]
    handler              = "lambda_function.lambda_handler"
@@ -67,21 +67,20 @@ module "lambda_layer_s3" {
 
   source = "../../../../modules/lambda"
 
-  create_package         = false   
+  create_package  = false   
 
   s3_existing_package = {
      bucket = "cloudify-lambda-code"
-     key = "delete_custom_images.zip"
+     key    = "delete_custom_images.zip"
   }
 
   lambda_role = module.lambda_execution_role_ssm.role_arn
   
-   function_name          = "lambda-delete-custom-image"
-   runtime              = "python3.12"
-  #  compatible_runtimes  = ["ruby3.2"]
-   handler              = "lambda_function.lambda_handler"
-   memory_size =          "128"
-   timeout = "900"
+   function_name          = "delete_custom_images"
+   runtime                = "python3.9"
+   handler                = "lambda_function.lambda_handler"
+   memory_size            = "128"
+   timeout                = "300"
 
   publish = true
   environment_variables = {
@@ -101,17 +100,16 @@ module "lambda_layer_s3" {
 
   s3_existing_package = {
      bucket = "cloudify-lambda-code"
-     key = "update_launch_template.zip"
+     key    = "update_launch_template.zip"
   }
 
   lambda_role = module.lambda_execution_role_ssm.role_arn
   
-   function_name          = "lambda-update_launch_template"
-   runtime              = "python3.12"
-  #  compatible_runtimes  = ["ruby3.2"]
+   function_name        = "update_launch_template"
+   runtime              = "python3.9"
    handler              = "lambda_function.lambda_handler"
-   memory_size =          "128"
-   timeout = "900"
+   memory_size          = "128"
+   timeout              = "300"
 
   publish = true
 

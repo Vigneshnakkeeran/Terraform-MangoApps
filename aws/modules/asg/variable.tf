@@ -40,7 +40,7 @@ variable "launch_template_id" {
 variable "launch_template_version" {
   description = "Launch template version. Can be version number, `$Latest`, or `$Default`"
   type        = string
-  default     = null
+  default     = "$Default"#null
 }
 
 variable "availability_zones" {

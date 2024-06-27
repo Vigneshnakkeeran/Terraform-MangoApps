@@ -58,6 +58,11 @@ variable "window_schedule" {
   type        = string
 }
 
+variable "schedule_timezone" {
+  description = "Timezone for schedule in Internet Assigned Numbers Authority (IANA) Time Zone Database format. Allowed values are America/Los_Angeles, etc/UTC, or Asia/Seoul"
+  type = string
+}
+
 variable "window_duration" {
   description = "The duration of the maintenance window in hours."
   type        = number
@@ -122,4 +127,9 @@ variable "task_description" {
   description = "The description of the maintenance window task."
   type        = string
   default     = ""
+}
+
+variable "ssm_maintenance_window_service_role_arn" {
+  description = ""
+  type = string
 }

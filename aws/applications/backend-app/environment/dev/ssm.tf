@@ -5,6 +5,7 @@ module "ssm_maintenance" {
   parameter_type        = "String"
   parameter_value       = "ami-02f0f3474e47134b3"
   parameter_description = "My SSM Parameter"
+  schedule_timezone     =  "Asia/Seoul"
 
   document_name         = "cloudifops_amicreation_document"
   document_content      = <<EOF
@@ -26,7 +27,7 @@ parameters:
   AutomationAssumeRole:
     type: String
     description: '(Optional) The ARN of the role that allows Automation to perform the actions on your behalf.'
-    default: 'arn:aws:iam::aws-account-id:role/ssm_automation_ami_creation'
+    default: '${module.ssm_document_execution_role.role_arn}'
   ParameterName:
     type: String
     description: '(Required) The name of the SSM parameter store value to update.'
@@ -78,14 +79,15 @@ mainSteps:
 EOF
 
   window_name                 = "my-maintenance-window"
-  window_schedule             = "cron(0 2 ? * 5 *)"
-  window_duration             = 3
-  window_cutoff               = 1
+  window_schedule             = "cron(0 30 13 ? * THU *)"
+  window_duration             = 1
+  window_cutoff               = 0
   window_description          = "My Maintenance Window"
-  task_type            = "AUTOMATION"
+  task_type                   = "AUTOMATION"
+  ssm_maintenance_window_service_role_arn     = module.ssm_document_execution_role.role_arn
   # task_priority        = 1
   # max_concurrency      = "1"
   # max_errors           = "1"
   task_description     = "My Maintenance Window Task"
-  document_version = "1"
+  document_version = "$LATEST"#"1"
 }

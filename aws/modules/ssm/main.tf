@@ -33,7 +33,35 @@ resource "aws_ssm_maintenance_window_task" "this" {
   description          = var.task_description
   task_invocation_parameters {
     automation_parameters {
-      document_version = var.document_version
+       # document_version = var.document_version
+      parameter {
+        name   = "InstanceId"
+        values = ["i-08de8a3cadde7e35c"]
+      }
+      parameter {
+        name   = "NoReboot"
+        values = ["true"] 
+      }
+      parameter {
+        name   = "AutomationAssumeRole"
+        values = ["arn:aws:iam::730335460835:role/ssm_automation_ami_creation"]
+      }
+      parameter {
+        name   = "ParameterName"
+        values = ["cloudifyops_image_id"]
+      }      
+      parameter {
+        name   = "ParameterValue"
+        values = ["ami-0dcd9e2f1f1d58966"]
+      }
+      parameter {
+        name   = "LambdaUpdateLT"
+        values = ["update_launch_template"]
+      }      
+      parameter {
+        name   = "LambdaDeleteAMI"
+        values = ["delete_custom_images"]
+      }
     }
   }
 }

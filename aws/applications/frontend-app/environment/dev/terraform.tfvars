@@ -7,7 +7,7 @@ environment = "dev"
 
 asg_min_size                    = 1
 asg_max_size                    = 5
-asg_desired_size                = 2
+asg_desired_size                = 1
 asg_ami_id                      = "ami-02f0f3474e47134b3"
 asg_instance_type               = "r6a.2xlarge"
 asg_key_name                    = "mango-apps-dev-frontend-key"

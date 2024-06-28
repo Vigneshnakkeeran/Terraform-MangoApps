@@ -21,11 +21,11 @@ variable "parameter_type" {
 #   default = true
 # }
 
-variable "document_version" {
-  description = "name of enviroment."
-  type        = string
-  default = "1"
-}
+# variable "document_version" {
+#   description = "name of enviroment."
+#   type        = string
+#   default = "1"
+# }
 
 variable "parameter_value" {
   description = "The value of the SSM parameter."

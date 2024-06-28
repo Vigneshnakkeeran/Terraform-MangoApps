@@ -22,6 +22,11 @@ output "autoscaling_policy_arns" {
   }
 }
 
+output "launch_template_id" {
+  description = "The Launch Template ID"
+  value = module.asg.launch_template_id
+}
+
 ################################ SNS ###############################
 output "sns_cw_topic_arn" {
   description = "The ARN of the SNS topic, as a more obvious property (clone of id)"

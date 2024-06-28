@@ -19,7 +19,7 @@ parameters:
   InstanceId:
     type: String
     description: '(Required) The ID of the Amazon EC2 instance.'
-    default: ${module.ec2_frontendserver.id}
+    default: ${data.terraform_remote_state.Statefile.outputs.ec2_frontendserver_id}
   NoReboot:
     type: Boolean
     description: '(Optional) Do not reboot the instance before creating the image.'
@@ -89,5 +89,5 @@ EOF
   # max_concurrency      = "1"
   # max_errors           = "1"
   task_description     = "My Maintenance Window Task"
-  document_version = "$LATEST"#"1"
+  # document_version = "LATEST"
 }

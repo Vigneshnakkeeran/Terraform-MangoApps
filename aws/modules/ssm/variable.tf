@@ -130,6 +130,15 @@ variable "task_description" {
 }
 
 variable "ssm_maintenance_window_service_role_arn" {
-  description = ""
+  description = "ARN of the service role"
   type = string
+}
+
+variable "task_invocation_parameters" {
+  type = list(object({
+    parameters = list(object({
+      name   = string
+      values = list(string)
+    }))
+  }))
 }

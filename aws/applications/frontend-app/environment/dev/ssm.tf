@@ -90,4 +90,39 @@ EOF
   # max_errors           = "1"
   task_description     = "My Maintenance Window Task"
   # document_version = "LATEST"
+
+task_invocation_parameters = [
+    {
+      parameters = [
+        {
+          name   = "InstanceId"
+          values = ["i-08de8a3cadde7e35c"]
+        },
+        {
+          name   = "NoReboot"
+          values = ["true"]
+        },
+        {
+          name   = "AutomationAssumeRole"
+          values = ["arn:aws:iam::730335460835:role/ssm_automation_ami_creation"]
+        },
+        {
+          name   = "ParameterName"
+          values = ["cloudifyops_image_id"]
+        },
+        {
+          name   = "ParameterValue"
+          values = ["ami-0dcd9e2f1f1d58966"]
+        },
+        {
+          name   = "LambdaUpdateLT"
+          values = ["update_launch_template"]
+        },
+        {
+          name   = "LambdaDeleteAMI"
+          values = ["delete_custom_images"]
+        }
+      ]
+    }
+  ]  
 }

@@ -29,38 +29,23 @@ resource "aws_ssm_maintenance_window_task" "this" {
   task_type            = var.task_type
   # priority             = var.task_priority
   # max_concurrency      = var.max_concurrency
-  # max_errors           = var.max_errors
+  # max_errors           = var.max_errors  
   description          = var.task_description
-  task_invocation_parameters {
-    automation_parameters {
-       # document_version = var.document_version
-      parameter {
-        name   = "InstanceId"
-        values = ["i-08de8a3cadde7e35c"]
-      }
-      parameter {
-        name   = "NoReboot"
-        values = ["true"] 
-      }
-      parameter {
-        name   = "AutomationAssumeRole"
-        values = ["arn:aws:iam::730335460835:role/ssm_automation_ami_creation"]
-      }
-      parameter {
-        name   = "ParameterName"
-        values = ["cloudifyops_image_id"]
-      }      
-      parameter {
-        name   = "ParameterValue"
-        values = ["ami-0dcd9e2f1f1d58966"]
-      }
-      parameter {
-        name   = "LambdaUpdateLT"
-        values = ["update_launch_template"]
-      }      
-      parameter {
-        name   = "LambdaDeleteAMI"
-        values = ["delete_custom_images"]
+
+  dynamic "task_invocation_parameters" {
+    for_each = var.task_invocation_parameters
+
+    content {
+      automation_parameters {
+        # document_version = var.document_version
+        dynamic "parameter" {
+          for_each = task_invocation_parameters.value.parameters
+
+          content {
+            name   = parameter.value.name
+            values = parameter.value.values
+          }
+        }
       }
     }
   }

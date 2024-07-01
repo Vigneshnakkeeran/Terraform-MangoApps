@@ -29,9 +29,9 @@ module "aws_backup_selection" {
   rules = [
     {
       name                = "cross-region"
-      schedule            = "cron(0 0 * * ? *)"
+      schedule            = "cron(0 * * * ? *)"
       target_vault_name   = "source-vault"             #module.destination_vault.vault_id
-      start_window        = 120
+      start_window        = 60
       completion_window   = 360
     #   lifecycle           = {}
       copy_actions        = [
@@ -47,18 +47,21 @@ module "aws_backup_selection" {
   ]
 
   # Multiple selections
-  selection_resources  = ["*"]
+#  selection_resources  = ["*"]
   #  - Selection-1: By tags: Environment = prod, Owner = devops
   selections = [
     {
-      name = "selection-1"
-      selection_tags = [
-        {
-          type  = "STRINGEQUALS"
-          key   = "aws:ResourceTag/Backup"
-          value = "True"
-        }
+      name          = "selection"
+      resources     = ["*"]
+#      not_resources = []
+      conditions = {
+        string_equals = [
+          {
+            key   = "aws:ResourceTag/Backup"
+            value = "True"
+          }
       ]
+    }
     }
   ]
 

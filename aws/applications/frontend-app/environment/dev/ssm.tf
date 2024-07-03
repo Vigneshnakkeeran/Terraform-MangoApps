@@ -96,7 +96,7 @@ task_invocation_parameters = [
       parameters = [
         {
           name   = "InstanceId"
-          values = ["i-08de8a3cadde7e35c"]
+          values = ["${data.terraform_remote_state.Statefile.outputs.ec2_frontendserver_id}"]
         },
         {
           name   = "NoReboot"

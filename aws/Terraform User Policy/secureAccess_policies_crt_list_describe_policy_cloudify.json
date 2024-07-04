@@ -22,8 +22,23 @@
                 "iam:ListRolePolicies",
                 "iam:TagInstanceProfile",
                 "iam:PutRolePolicy",
-                "iam:GetRolePolicy"
-                  
+                "iam:GetRolePolicy",
+                "iam:CreateGroup",
+                "iam:AddUserToGroup",
+                "iam:ListGroupPolicies",
+                "iam:AttachGroupPolicy",
+                "iam:UpdateGroup",
+                "iam:ListGroups",
+                "iam:PutGroupPolicy",
+                "iam:CreateUser",
+                "iam:UpdateUser",
+                "iam:GetUser",
+                "iam:GetGroup",
+                "iam:ListGroupsForUser",
+                "iam:ListAttachedGroupPolicies",
+                "iam:CreateAccessKey",
+                "iam:UpdateAccessKey",
+                "iam:ListAccessKeys"
             ],
             "Resource": [
                 "*"

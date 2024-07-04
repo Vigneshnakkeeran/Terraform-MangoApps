@@ -14,8 +14,8 @@ data "aws_partition" "current" {}
   lambda_role = module.ses_lambda_execution_role.role_arn
   
    function_name        = "ses-lambda1"
-   runtime              = "ruby2.7"
-   compatible_runtimes  = ["ruby2.7"]
+   runtime              = "ruby3.2"
+   compatible_runtimes  = ["ruby3.2"]
    handler              = "lambda_function.lambda_handler"
    memory_size =          "128"
 

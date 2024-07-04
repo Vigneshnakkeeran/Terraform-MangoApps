@@ -47,7 +47,8 @@
                 "ec2:CreateLaunchTemplate",
                 "ec2:CreateLaunchTemplateVersion",
                 "ec2:RevokeSecurityGroupEgress",
-                "ec2:RevokeSecurityGroupIngress"
+                "ec2:RevokeSecurityGroupIngress",
+                "ec2:DeleteNetworkAclEntry"
             ],
             "Resource": [
                 "*"

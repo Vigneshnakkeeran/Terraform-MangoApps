@@ -10,7 +10,14 @@
                 "iam:DeleteRole",
                 "iam:DetachRolePolicy",
                 "iam:RemoveRoleFromInstanceProfile",
-                "iam:DeleteRolePolicy"
+                "iam:DeleteRolePolicy",
+                "iam:RemoveUserFromGroup",
+                "iam:DeleteGroup",				
+                "iam:DetachGroupPolicy",
+                "iam:DeleteGroupPolicy",
+                "iam:DeleteUser",
+                "iam:DeletePolicy",			
+                "iam:DeleteAccessKey"                
             ],
             "Resource": [
                 "*"

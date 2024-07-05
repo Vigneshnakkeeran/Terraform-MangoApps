@@ -38,7 +38,9 @@
                 "iam:ListAttachedGroupPolicies",
                 "iam:CreateAccessKey",
                 "iam:UpdateAccessKey",
-                "iam:ListAccessKeys"
+                "iam:ListAccessKeys",
+                "iam:CreateLoginProfile",
+                "iam:GetLoginProfile"
             ],
             "Resource": [
                 "*"

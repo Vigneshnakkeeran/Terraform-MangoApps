@@ -17,7 +17,9 @@
                 "iam:DeleteGroupPolicy",
                 "iam:DeleteUser",
                 "iam:DeletePolicy",			
-                "iam:DeleteAccessKey"                
+                "iam:DeleteAccessKey",
+                "iam:DeleteLoginProfile",
+                "iam:DeletePolicyVersion"      
             ],
             "Resource": [
                 "*"

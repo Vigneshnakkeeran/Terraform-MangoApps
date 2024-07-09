@@ -18,7 +18,7 @@ Configuration in this directory creates IAM user with a random password, a pair 
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_iam_user"></a> [iam\_user](#module\_iam\_user) | mango-terraform/aws/modules/iam-user | n/a |
+| <a name="module_iam_user"></a> [iam\_user](#module\_iam\_user) | mango-terraform/aws/modules/IAM/iam-user | n/a |
 
 ## Resources
 
